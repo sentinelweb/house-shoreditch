@@ -5,10 +5,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.Button
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
+import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -17,33 +14,69 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
+import com.house_shoreditch.app.theme.components.Action
+import com.house_shoreditch.app.theme.components.CuerMenuItem
+import com.house_shoreditch.app.theme.components.OsricAppBarComposables
 import com.moonsift.app.ui.theme.OsricTheme
+import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import osric.composeapp.generated.resources.Res
+import osric.composeapp.generated.resources.arrow_downward
 import osric.composeapp.generated.resources.compose_multiplatform
 
 @Composable
 @Preview
 fun App() {
     var initialSize by remember { mutableStateOf(IntSize.Zero) }
+    val density = LocalDensity.current.density
+    val verticalScrollState = rememberScrollState()
+    val coroutineScope = rememberCoroutineScope()
     OsricTheme {
-        Scaffold { contentPadding ->
+        Scaffold(
+            topBar = {
+                OsricAppBarComposables.OsricAppBar(
+                    title = "Shoreditch Oasis",
+                    actions = listOf(
+                        Action(CuerMenuItem.Home, {}),
+                        Action(CuerMenuItem.Images, {}),
+                        Action(CuerMenuItem.Facilities, {}),
+                        Action(CuerMenuItem.Reviews, {}),
+                        Action(CuerMenuItem.Booking, {}),
+                        Action(CuerMenuItem.Contact, {}),
+                    ),
+                )
+            },
+            floatingActionButton = {
+                FloatingActionButton(
+                    onClick = {
+                        coroutineScope.launch {
+                            verticalScrollState.animateScrollTo((initialSize.height*density).toInt())
+                        }
+                    },
+                    modifier = Modifier,
+                    containerColor = MaterialTheme.colorScheme.primary,
+                    contentColor = MaterialTheme.colorScheme.onPrimary,
+                ) {
+                    Image(painterResource(Res.drawable.arrow_downward), null)
+                }
+            }
+        ) { contentPadding ->
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally,
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(contentPadding)
+                    .verticalScroll(verticalScrollState)
                     .onGloballyPositioned {
                         if (initialSize == IntSize.Zero) {
-                            initialSize = it.parentCoordinates?.size ?: IntSize.Zero
+                            initialSize = IntSize((it.size.width / density).toInt(), (it.size.height / density).toInt())
                         }
                     }
-                    .verticalScroll(rememberScrollState())
             ) {
-                val height = initialSize.height / LocalDensity.current.density
-                IntroScreen(height = height.dp)
-                IntroScreen(height = height.dp)
+//                val height = initialSize.height / LocalDensity.current.density
+                IntroScreen(height = initialSize.height.dp)
+                IntroScreen(height = initialSize.height.dp)
             }
         }
     }
