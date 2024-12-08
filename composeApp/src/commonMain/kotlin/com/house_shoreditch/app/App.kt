@@ -2,6 +2,7 @@ package com.house_shoreditch.app
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -18,17 +19,21 @@ import com.house_shoreditch.app.theme.components.Action
 import com.house_shoreditch.app.theme.components.CuerMenuItem
 import com.house_shoreditch.app.theme.components.OsricAppBarComposables
 import com.moonsift.app.ui.theme.OsricTheme
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import osric.composeapp.generated.resources.Res
 import osric.composeapp.generated.resources.arrow_downward
 import osric.composeapp.generated.resources.compose_multiplatform
+import kotlin.math.min
 
+private val MAX_PAGES = 6
 @Composable
 @Preview
 fun App() {
     var initialSize by remember { mutableStateOf(IntSize.Zero) }
+    var page by remember { mutableStateOf(0) }
     val density = LocalDensity.current.density
     val verticalScrollState = rememberScrollState()
     val coroutineScope = rememberCoroutineScope()
@@ -38,21 +43,38 @@ fun App() {
                 OsricAppBarComposables.OsricAppBar(
                     title = "Shoreditch Oasis",
                     actions = listOf(
-                        Action(CuerMenuItem.Home, {}),
-                        Action(CuerMenuItem.Images, {}),
-                        Action(CuerMenuItem.Facilities, {}),
-                        Action(CuerMenuItem.Reviews, {}),
-                        Action(CuerMenuItem.Booking, {}),
-                        Action(CuerMenuItem.Contact, {}),
+                        Action(CuerMenuItem.Images, {
+                            page = 1
+                            coroutineScope.scrollToPage(verticalScrollState, initialSize, density, page)
+                        }),
+                        Action(CuerMenuItem.Facilities, {
+                            page = 2
+                            coroutineScope.scrollToPage(verticalScrollState, initialSize, density, page)
+                        }),
+                        Action(CuerMenuItem.Reviews, {
+                            page = 3
+                            coroutineScope.scrollToPage(verticalScrollState, initialSize, density, page)
+                        }),
+                        Action(CuerMenuItem.Booking, {
+                            page = 4
+                            coroutineScope.scrollToPage(verticalScrollState, initialSize, density, page)
+                        }),
+                        Action(CuerMenuItem.Contact, {
+                            page = 5
+                            coroutineScope.scrollToPage(verticalScrollState, initialSize, density, page)
+                        }),
                     ),
+                    onUp = {
+                        page = 0
+                        coroutineScope.scrollToPage(verticalScrollState, initialSize, density, page)
+                    }
                 )
             },
             floatingActionButton = {
                 FloatingActionButton(
                     onClick = {
-                        coroutineScope.launch {
-                            verticalScrollState.animateScrollTo((initialSize.height*density).toInt())
-                        }
+                        page = min(page+1, MAX_PAGES)
+                        coroutineScope.scrollToPage(verticalScrollState, initialSize, density, page)
                     },
                     modifier = Modifier,
                     containerColor = MaterialTheme.colorScheme.primary,
@@ -74,11 +96,25 @@ fun App() {
                         }
                     }
             ) {
-//                val height = initialSize.height / LocalDensity.current.density
                 IntroScreen(height = initialSize.height.dp)
-                IntroScreen(height = initialSize.height.dp)
+                Photos(height = initialSize.height.dp)
+                Facilities(height = initialSize.height.dp)
+                Reviews(height = initialSize.height.dp)
+                Booking(height = initialSize.height.dp)
+                Contact(height = initialSize.height.dp)
             }
         }
+    }
+}
+
+private fun CoroutineScope.scrollToPage(
+    verticalScrollState: ScrollState,
+    initialSize: IntSize,
+    density: Float,
+    page: Int
+) {
+    launch {
+        verticalScrollState.animateScrollTo((initialSize.height * density * page).toInt())
     }
 }
 
@@ -106,6 +142,91 @@ private fun IntroScreen(
             "Welcome to the oasis house in shoreditch, there is lots to see here",
             style = MaterialTheme.typography.bodyMedium,
         )
+    }
+}
+
+@Composable
+private fun Photos(
+    height: Dp
+) {
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
+        modifier = Modifier.fillMaxWidth()
+            .height(height)
+            .padding(16.dp)
+    ) {
+        Text(
+            "Photos",
+            style = MaterialTheme.typography.displayLarge,
+            )
+    }
+}
+
+@Composable
+private fun Facilities(
+    height: Dp
+) {
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
+        modifier = Modifier.fillMaxWidth()
+            .height(height)
+            .padding(16.dp)
+    ) {
+        Text(
+            "Facilities",
+            style = MaterialTheme.typography.displayLarge,
+            )
+    }
+}
+
+@Composable
+private fun Reviews(
+    height: Dp
+) {
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
+        modifier = Modifier.fillMaxWidth()
+            .height(height)
+            .padding(16.dp)
+    ) {
+        Text(
+            "Reviews",
+            style = MaterialTheme.typography.displayLarge,
+            )
+    }
+}
+
+@Composable
+private fun Booking(
+    height: Dp
+) {
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
+        modifier = Modifier.fillMaxWidth()
+            .height(height)
+            .padding(16.dp)
+    ) {
+        Text(
+            "Booking",
+            style = MaterialTheme.typography.displayLarge,
+            )
+    }
+}
+
+@Composable
+private fun Contact(
+    height: Dp
+) {
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
+        modifier = Modifier.fillMaxWidth()
+            .height(height)
+            .padding(16.dp)
+    ) {
+        Text(
+            "Contact",
+            style = MaterialTheme.typography.displayLarge,
+            )
     }
 }
 
