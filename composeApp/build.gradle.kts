@@ -58,11 +58,12 @@ kotlin {
         androidMain.dependencies {
             implementation(compose.preview)
             implementation(libs.androidx.activity.compose)
+            implementation(libs.coil.ktor3.android)
         }
+
         commonMain.dependencies {
             implementation(compose.runtime)
             implementation(compose.foundation)
-//            implementation(compose.material)
             implementation(compose.material3)
             implementation(compose.materialIconsExtended)
             implementation(compose.ui)
@@ -70,10 +71,22 @@ kotlin {
             implementation(compose.components.uiToolingPreview)
             implementation(libs.androidx.lifecycle.viewmodel)
             implementation(libs.androidx.lifecycle.runtime.compose)
+            implementation(libs.coil)
+            implementation(libs.coil.ktor3)
         }
+
+        wasmJsMain.dependencies {
+            implementation(libs.coil.ktor3.wasmjs)
+        }
+
+        iosMain.dependencies {
+            implementation(libs.coil.ktor3.ios)
+        }
+
         desktopMain.dependencies {
             implementation(compose.desktop.currentOs)
             implementation(libs.kotlinx.coroutines.swing)
+            implementation(libs.coil.ktor3.desktop)
         }
     }
 }

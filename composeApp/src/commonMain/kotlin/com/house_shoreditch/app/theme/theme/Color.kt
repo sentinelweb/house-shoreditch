@@ -13,7 +13,14 @@ val BLACK = Color(0xFF000000)
 val DarkColorScheme = darkColorScheme(
     primary = BLACK,
     secondary = BLACK,
-    tertiary = BLACK
+    tertiary = BLACK,
+    background = WHITE,
+    surface = WHITE,
+    onSurface = BLACK,
+    onBackground = BLACK,
+    onPrimary = BLACK,
+    onSecondary = WHITE,
+    onTertiary = BLACK,
 )
 
 val LightColorScheme = lightColorScheme(

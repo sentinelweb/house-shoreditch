@@ -62,7 +62,7 @@ object OsricAppBarComposables {
                 if (onUp != null) {
                     IconButton(onClick = { onUp() }) {
                         Icon(
-                            Icons.AutoMirrored.Filled.ArrowBack,
+                            painter = painterResource(Res.drawable.home),
                             tint = contentColor,
                             contentDescription = stringResource(Res.string.up)
                         )
