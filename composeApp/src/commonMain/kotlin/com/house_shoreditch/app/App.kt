@@ -1,23 +1,18 @@
 package com.house_shoreditch.app
 
-import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
+import androidx.compose.material3.FloatingActionButtonDefaults.elevation
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.ViewModel
-import coil3.compose.AsyncImage
-import coil3.compose.LocalPlatformContext
-import coil3.request.ImageRequest
 import com.house_shoreditch.app.theme.components.Action
 import com.house_shoreditch.app.theme.components.CuerMenuItem
 import com.house_shoreditch.app.theme.components.OsricAppBarComposables
@@ -31,12 +26,11 @@ import osric.composeapp.generated.resources.arrow_downward
 import kotlin.math.min
 
 private val MAX_PAGES = 6
-private val testImageUrl = "https://postandporch.com/cdn/shop/articles/AdobeStock_209124760.jpg?v=1662575433&width=1440"
 
 @Composable
 @Preview
 fun App(viewModel: MainVViewModel = MainVViewModel()) {
-    val model  = viewModel.model.collectAsState()
+    val model = viewModel.model.collectAsState()
     var initialSize by remember { mutableStateOf(IntSize.Zero) }
     var page by remember { mutableStateOf(0) }
     val density = LocalDensity.current.density
@@ -79,14 +73,19 @@ fun App(viewModel: MainVViewModel = MainVViewModel()) {
             floatingActionButton = {
                 FloatingActionButton(
                     onClick = {
-                        page = min(page+1, MAX_PAGES)
+                        page = min(page + 1, MAX_PAGES)
                         coroutineScope.scrollToPage(verticalScrollState, initialSize, density, page)
                     },
                     modifier = Modifier,
-                    containerColor = MaterialTheme.colorScheme.primary,
-                    contentColor = MaterialTheme.colorScheme.onPrimary,
+                    containerColor = MaterialTheme.colorScheme.tertiary,
+                    contentColor = MaterialTheme.colorScheme.onTertiary,
+                    elevation = elevation(4.dp, 2.dp, 0.dp),
                 ) {
-                    Image(painterResource(Res.drawable.arrow_downward), null)
+                    Image(
+                        painterResource(Res.drawable.arrow_downward),
+                        null,
+                        colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onTertiary),
+                    )
                 }
             }
         ) { contentPadding ->
@@ -103,7 +102,7 @@ fun App(viewModel: MainVViewModel = MainVViewModel()) {
                     }
             ) {
                 IntroScreen(height = initialSize.height.dp)
-                Photos(height = initialSize.height.dp, model.value)
+                Photos.PhotosView(size = initialSize, model.value)
                 Facilities(height = initialSize.height.dp)
                 Reviews(height = initialSize.height.dp)
                 Booking(height = initialSize.height.dp)
@@ -137,7 +136,7 @@ private fun IntroScreen(
         Text(
             "WELCOME",
             style = MaterialTheme.typography.displayLarge,
-            )
+        )
 
         Text(
             "! Shoreditch Oasis - 3 Bed house",
@@ -146,31 +145,6 @@ private fun IntroScreen(
         Text(
             "Welcome to the oasis house in shoreditch, there is lots to see here",
             style = MaterialTheme.typography.bodyMedium,
-        )
-    }
-}
-
-@Composable
-private fun Photos(
-    height: Dp,
-    model: MainContract.Model
-) {
-    Column(
-        horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = Modifier.fillMaxWidth()
-            .height(height)
-            .padding(16.dp)
-            .background(Color.Gray)
-    ) {
-        AsyncImage(
-            model = model.images[0],
-//            model = testImageUrl,
-//            model = ImageRequest.Builder(LocalPlatformContext.current)
-//                .data(testImageUrl)
-//                .build(),
-            contentScale = ContentScale.FillWidth,
-            contentDescription = "Description",
-            modifier = Modifier.fillMaxWidth()
         )
     }
 }
@@ -188,7 +162,7 @@ private fun Facilities(
         Text(
             "Facilities",
             style = MaterialTheme.typography.displayLarge,
-            )
+        )
     }
 }
 
@@ -205,7 +179,7 @@ private fun Reviews(
         Text(
             "Reviews",
             style = MaterialTheme.typography.displayLarge,
-            )
+        )
     }
 }
 
@@ -222,7 +196,7 @@ private fun Booking(
         Text(
             "Booking",
             style = MaterialTheme.typography.displayLarge,
-            )
+        )
     }
 }
 
@@ -239,6 +213,6 @@ private fun Contact(
         Text(
             "Contact",
             style = MaterialTheme.typography.displayLarge,
-            )
+        )
     }
 }

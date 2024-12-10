@@ -31,7 +31,7 @@ object OsricAppBarComposables {
         subTitle: String? = null,
         modifier: Modifier = Modifier,
         backgroundColor: Color = MaterialTheme.colorScheme.primary,
-        contentColor: Color = MaterialTheme.colorScheme.onSurface,
+        contentColor: Color = MaterialTheme.colorScheme.onPrimary,
         actions: List<Action> = listOf(),
         overflowActions: List<Action>? = null,
         onUp: (() -> Unit)? = null,
