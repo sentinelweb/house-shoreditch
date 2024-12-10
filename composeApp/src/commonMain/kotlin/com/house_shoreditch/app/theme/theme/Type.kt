@@ -49,17 +49,17 @@ fun initFont() {
         displayLarge = TextStyle(
             fontFamily = serifType,
             fontWeight = FontWeight.ExtraBold,
-            fontSize = 48.sp,
+            fontSize = 64.sp,
         ),
         displayMedium = TextStyle(
             fontFamily = serifType,
             fontWeight = FontWeight.ExtraBold,
-            fontSize = 32.sp,
+            fontSize = 40.sp,
         ),
         displaySmall = TextStyle(
             fontFamily = serifType,
             fontWeight = FontWeight.Bold,
-            fontSize = 24.sp,
+            fontSize = 32.sp,
         ),
 
         headlineLarge = TextStyle(

@@ -12,6 +12,26 @@ class MainVViewModel:ViewModel() {
     init {
         val path = "https://raw.githubusercontent.com/sentinelweb/house-shoreditch/refs/heads/main/media/photos"
         val imageList = listOf(
+            "living_1.png",
+            "living_2.png",
+            "living_2_DSC_0274.JPG",
+            "living_3.png",
+            "living_4.png",
+            "living_5.png",
+            "lounge_1.png",
+            "lounge_6_DSC_0277.JPG",
+            "garden_6_DSC_0292.JPG",
+            "garden_7_DSC_0291.JPG",
+            "garden_8_DSC_0279.JPG",
+            "garden_1.png",
+            "garden_1_DSC_0295.JPG",
+            "garden_2.png",
+            "garden_3.png",
+            "garden_4.png",
+            "garden_5.png",
+            "dining_1.png",
+            "dining_2.png",
+            "dining_3.png",
             "b4_1.png",
             "b4_2.png",
             "b4_3.png",
@@ -30,18 +50,6 @@ class MainVViewModel:ViewModel() {
             "bed_3_2.png",
             "bed_3_3.png",
             "bed_3_4.png",
-            "dining_1.png",
-            "dining_2.png",
-            "dining_3.png",
-            "garden_1.png",
-            "garden_1_DSC_0295.JPG",
-            "garden_2.png",
-            "garden_3.png",
-            "garden_4.png",
-            "garden_5.png",
-            "garden_6_DSC_0292.JPG",
-            "garden_7_DSC_0291.JPG",
-            "garden_8_DSC_0279.JPG",
             "hall_1.png",
             "hall_2.png",
             "hall_3.png",
@@ -50,16 +58,9 @@ class MainVViewModel:ViewModel() {
             "hall_6.png",
             "kitchen_1.png",
             "kitchen_2.png",
-            "living_1.png",
-            "living_2.png",
-            "living_2_DSC_0274.JPG",
-            "living_3.png",
-            "living_4.png",
-            "living_5.png",
-            "lounge_1.png",
-            "lounge_6_DSC_0277.JPG"
         )
         _model.value = MainContract.Model(
+            homeBackground = "$path/garden_7_DSC_0291.JPG",
             images = imageList.map { "$path/$it" }
         )
     }

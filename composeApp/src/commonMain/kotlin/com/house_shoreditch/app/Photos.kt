@@ -1,5 +1,6 @@
 package com.house_shoreditch.app
 
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.Crossfade
 import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.FiniteAnimationSpec
@@ -79,9 +80,9 @@ object Photos {
 
                     val startAutoHideDelay = {
                         showControls = true
-                        job?.cancel() // Cancel any existing job
+                        job?.cancel()
                         job = coroutineScope.launch {
-                            delay(3000) // 3 seconds delay
+                            delay(3000)
                             showControls = false
                         }
                     }
@@ -145,55 +146,25 @@ object Photos {
                             )
                         }
 
-                        androidx.compose.animation.AnimatedVisibility(
-                            visible = showControls, enter = fadeIn(fadeSpec), exit = fadeOut(fadeSpec)
-                        ) {
-                            Box(modifier = Modifier.fillMaxSize()) {
-                                Image(
-                                    Icons.Filled.Close,
-                                    contentDescription = "Close",
-                                    colorFilter = ColorFilter.tint(Color.White),
-                                    modifier = Modifier
-                                        .padding(8.dp)
-                                        .align(Alignment.TopEnd)
-                                        .clickable { closePhoto(); resetTransform(); })
-
-                                if (selectedPhoto < model.images.size - 1) {
-                                    Image(
-                                        Icons.Filled.ArrowCircleRight,
-                                        contentDescription = "Next",
-                                        colorFilter = ColorFilter.tint(Color.White),
-                                        modifier = Modifier
-                                            .padding(16.dp)
-                                            .size(32.dp)
-                                            .align(Alignment.CenterEnd)
-                                            .background(BLACK_TSP, shape = RoundedCornerShape(4.dp))
-                                            .clickable {
-                                                incrementPhoto()
-                                                resetTransform()
-                                                startAutoHideDelay()
-                                            })
-
-                                }
-
-                                if (selectedPhoto > 0) {
-                                    Image(
-                                        Icons.Filled.ArrowCircleLeft,
-                                        contentDescription = "Previous",
-                                        colorFilter = ColorFilter.tint(Color.White),
-                                        modifier = Modifier
-                                            .padding(16.dp)
-                                            .size(32.dp)
-                                            .align(Alignment.CenterStart)
-                                            .background(BLACK_TSP, shape = RoundedCornerShape(4.dp))
-                                            .clickable {
-                                                decrementPhoto()
-                                                resetTransform()
-                                                startAutoHideDelay()
-                                            })
-                                }
+                        Controls(
+                            showControls = showControls,
+                            selectedPhoto = selectedPhoto,
+                            model = model,
+                            onNextPhoto = {
+                                incrementPhoto()
+                                resetTransform()
+                                startAutoHideDelay()
+                            },
+                            onPrevPhoto = {
+                                decrementPhoto()
+                                resetTransform()
+                                startAutoHideDelay()
+                            },
+                            onClosePhoto = {
+                                closePhoto()
+                                resetTransform();
                             }
-                        }
+                        )
 
                         if (showLoading) {
                             CircularProgressIndicator(
@@ -210,18 +181,63 @@ object Photos {
             }
         }
     }
-//
-//    @Composable
-//    private fun BoxScope.ControlsOverlay(
-//        selectedPhoto: Int,
-//        model: MainContract.Model,
-//        incrementPhoto: () -> Unit,
-//        resetTransform: () -> Unit,
-//        decrementPhoto: () -> Unit,
-//        closePhoto: () -> Unit,
-//    ) {
-//
-//    }
+
+    @Composable
+    private fun Controls(
+        selectedPhoto: Int,
+        showControls: Boolean,
+        model: MainContract.Model,
+        onNextPhoto: () -> Unit,
+        onPrevPhoto: () -> Unit,
+        onClosePhoto: () -> Unit,
+    ) {
+        val fadeSpec: FiniteAnimationSpec<Float> = tween(durationMillis = 500, easing = FastOutSlowInEasing)
+        AnimatedVisibility(
+            visible = showControls, enter = fadeIn(fadeSpec), exit = fadeOut(fadeSpec)
+        ) {
+            Box(
+                modifier = Modifier.fillMaxSize()
+                    .padding(bottom = 84.dp)
+            ) {
+                Image(
+                    Icons.Filled.Close,
+                    contentDescription = "Close",
+                    colorFilter = ColorFilter.tint(Color.White),
+                    modifier = Modifier
+                        .padding(8.dp)
+                        .align(Alignment.TopEnd)
+                        .clickable { onClosePhoto() })
+                // todo remove these and just have a tap on screen left/right
+                if (selectedPhoto < model.images.size - 1) {
+                    Image(
+                        Icons.Filled.ArrowCircleRight,
+                        contentDescription = "Next",
+                        colorFilter = ColorFilter.tint(Color.White),
+                        modifier = Modifier
+                            .padding(16.dp)
+                            .size(32.dp)
+                            .align(Alignment.BottomEnd)
+                            .background(BLACK_TSP, shape = RoundedCornerShape(4.dp))
+                            .clickable { onNextPhoto() }
+                    )
+                }
+
+                if (selectedPhoto > 0) {
+                    Image(
+                        Icons.Filled.ArrowCircleLeft,
+                        contentDescription = "Previous",
+                        colorFilter = ColorFilter.tint(Color.White),
+                        modifier = Modifier
+                            .padding(16.dp)
+                            .size(32.dp)
+                            .align(Alignment.BottomStart)
+                            .background(BLACK_TSP, shape = RoundedCornerShape(4.dp))
+                            .clickable { onPrevPhoto() }
+                    )
+                }
+            }
+        }
+    }
 
     @Composable
     fun StaggeredPhotoGrid(

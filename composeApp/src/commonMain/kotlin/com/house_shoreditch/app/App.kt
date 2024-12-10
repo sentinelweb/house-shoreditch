@@ -101,7 +101,7 @@ fun App(viewModel: MainVViewModel = MainVViewModel()) {
                         }
                     }
             ) {
-                IntroScreen(height = initialSize.height.dp)
+                Intro.IntroScreen(size = initialSize, model.value)
                 Photos.PhotosView(size = initialSize, model.value)
                 Facilities(height = initialSize.height.dp)
                 Reviews(height = initialSize.height.dp)
@@ -120,32 +120,6 @@ private fun CoroutineScope.scrollToPage(
 ) {
     launch {
         verticalScrollState.animateScrollTo((initialSize.height * density * page).toInt())
-    }
-}
-
-@Composable
-private fun IntroScreen(
-    height: Dp
-) {
-    Column(
-        horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = Modifier.fillMaxWidth()
-            .height(height)
-            .padding(16.dp)
-    ) {
-        Text(
-            "WELCOME",
-            style = MaterialTheme.typography.displayLarge,
-        )
-
-        Text(
-            "! Shoreditch Oasis - 3 Bed house",
-            style = MaterialTheme.typography.headlineLarge,
-        )
-        Text(
-            "Welcome to the oasis house in shoreditch, there is lots to see here",
-            style = MaterialTheme.typography.bodyMedium,
-        )
     }
 }
 
