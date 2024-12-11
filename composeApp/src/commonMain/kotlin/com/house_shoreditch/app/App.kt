@@ -1,9 +1,15 @@
 package com.house_shoreditch.app
 
-import androidx.compose.foundation.*
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.layout.*
-import androidx.compose.material3.*
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.FloatingActionButtonDefaults.elevation
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -13,6 +19,8 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
+import com.house_shoreditch.app.PlatformType.Android
+import com.house_shoreditch.app.PlatformType.Ios
 import com.house_shoreditch.app.theme.components.Action
 import com.house_shoreditch.app.theme.components.CuerMenuItem
 import com.house_shoreditch.app.theme.components.OsricAppBarComposables
@@ -27,6 +35,8 @@ import kotlin.math.min
 
 private val MAX_PAGES = 6
 
+private fun isMobile() = listOf(Android, Ios).contains(getPlatform().type)
+
 @Composable
 @Preview
 fun App(viewModel: MainVViewModel = MainVViewModel()) {
@@ -37,33 +47,51 @@ fun App(viewModel: MainVViewModel = MainVViewModel()) {
     val verticalScrollState = rememberScrollState()
     val coroutineScope = rememberCoroutineScope()
 
+    val primaryActions = listOf(
+        Action(CuerMenuItem.Images, {
+            page = 1
+            coroutineScope.scrollToPage(verticalScrollState, initialSize, density, page)
+        }),
+
+        Action(CuerMenuItem.Contact, {
+            page = 5
+            coroutineScope.scrollToPage(verticalScrollState, initialSize, density, page)
+        }),
+    )
+
+    val secondaryActions = listOf(
+        Action(CuerMenuItem.Facilities, {
+            page = 2
+            coroutineScope.scrollToPage(verticalScrollState, initialSize, density, page)
+        }),
+        Action(CuerMenuItem.Reviews, {
+            page = 3
+            coroutineScope.scrollToPage(verticalScrollState, initialSize, density, page)
+        }),
+        Action(CuerMenuItem.Booking, {
+            page = 4
+            coroutineScope.scrollToPage(verticalScrollState, initialSize, density, page)
+        }),
+    )
+
+    val actions = if (isMobile()) {
+        primaryActions
+    } else {
+        primaryActions.plus(secondaryActions)
+    }
+
+    val overflowActiovs = if (isMobile()) {
+        secondaryActions
+    } else {
+        null
+    }
     OsricTheme {
         Scaffold(
             topBar = {
                 OsricAppBarComposables.OsricAppBar(
-                    title = "Shoreditch Oasis",
-                    actions = listOf(
-                        Action(CuerMenuItem.Images, {
-                            page = 1
-                            coroutineScope.scrollToPage(verticalScrollState, initialSize, density, page)
-                        }),
-                        Action(CuerMenuItem.Facilities, {
-                            page = 2
-                            coroutineScope.scrollToPage(verticalScrollState, initialSize, density, page)
-                        }),
-                        Action(CuerMenuItem.Reviews, {
-                            page = 3
-                            coroutineScope.scrollToPage(verticalScrollState, initialSize, density, page)
-                        }),
-                        Action(CuerMenuItem.Booking, {
-                            page = 4
-                            coroutineScope.scrollToPage(verticalScrollState, initialSize, density, page)
-                        }),
-                        Action(CuerMenuItem.Contact, {
-                            page = 5
-                            coroutineScope.scrollToPage(verticalScrollState, initialSize, density, page)
-                        }),
-                    ),
+                    title = "Oasis Shoreditch",
+                    actions = actions,
+                    overflowActions = overflowActiovs,
                     onUp = {
                         page = 0
                         coroutineScope.scrollToPage(verticalScrollState, initialSize, density, page)
@@ -101,9 +129,9 @@ fun App(viewModel: MainVViewModel = MainVViewModel()) {
                         }
                     }
             ) {
-                Intro.IntroScreen(size = initialSize, model.value)
-                Photos.PhotosView(size = initialSize, model.value)
-                Facilities(height = initialSize.height.dp)
+                Intro.IntroScreen(size = initialSize, model = model.value)
+                Photos.PhotosView(size = initialSize, model = model.value)
+                Facilities.FacilitiesScreen(size = initialSize, model = model.value)
                 Reviews(height = initialSize.height.dp)
                 Booking(height = initialSize.height.dp)
                 Contact(height = initialSize.height.dp)
@@ -111,6 +139,7 @@ fun App(viewModel: MainVViewModel = MainVViewModel()) {
         }
     }
 }
+
 
 private fun CoroutineScope.scrollToPage(
     verticalScrollState: ScrollState,
@@ -123,22 +152,6 @@ private fun CoroutineScope.scrollToPage(
     }
 }
 
-@Composable
-private fun Facilities(
-    height: Dp
-) {
-    Column(
-        horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = Modifier.fillMaxWidth()
-            .height(height)
-            .padding(16.dp)
-    ) {
-        Text(
-            "Facilities",
-            style = MaterialTheme.typography.displayLarge,
-        )
-    }
-}
 
 @Composable
 private fun Reviews(

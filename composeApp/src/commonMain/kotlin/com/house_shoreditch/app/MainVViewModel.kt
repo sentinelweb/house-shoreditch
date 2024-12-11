@@ -1,6 +1,7 @@
 package com.house_shoreditch.app
 
 import androidx.lifecycle.ViewModel
+import com.house_shoreditch.app.MainContract.Model.Companion.Areas
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 
@@ -61,7 +62,8 @@ class MainVViewModel:ViewModel() {
         )
         _model.value = MainContract.Model(
             homeBackground = "$path/garden_7_DSC_0291.JPG",
-            images = imageList.map { "$path/$it" }
+            images = imageList.map { "$path/$it" },
+            areas = Areas
         )
     }
 }

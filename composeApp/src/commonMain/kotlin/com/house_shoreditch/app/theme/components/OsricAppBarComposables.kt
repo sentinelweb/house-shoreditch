@@ -42,7 +42,7 @@ object OsricAppBarComposables {
                     Column(modifier = modifier.align(Alignment.CenterStart)) {
                         Text(
                             text = title,
-                            style = MaterialTheme.typography.headlineSmall,
+                            style = MaterialTheme.typography.displaySmall,
                             maxLines = 1,
                             color = contentColor,
                         )
