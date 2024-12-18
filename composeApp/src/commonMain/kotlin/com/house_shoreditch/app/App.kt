@@ -39,7 +39,7 @@ private fun isMobile() = listOf(Android, Ios).contains(getPlatform().type)
 
 @Composable
 @Preview
-fun App(viewModel: MainVViewModel = MainVViewModel()) {
+fun App(viewModel: MainViewModel = MainViewModel()) {
     val model = viewModel.model.collectAsState()
     var initialSize by remember { mutableStateOf(IntSize.Zero) }
     var page by remember { mutableStateOf(0) }
@@ -77,7 +77,10 @@ fun App(viewModel: MainVViewModel = MainVViewModel()) {
     val actions = if (isMobile()) {
         primaryActions
     } else {
-        primaryActions.plus(secondaryActions)
+        primaryActions
+            .toMutableList()
+            .apply { addAll(1, secondaryActions) }
+            .toList()
     }
 
     val overflowActiovs = if (isMobile()) {

@@ -5,7 +5,7 @@ import com.house_shoreditch.app.MainContract.Model.Companion.Areas
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 
-class MainVViewModel:ViewModel() {
+class MainViewModel:ViewModel() {
 
     val _model: MutableStateFlow<MainContract.Model> = MutableStateFlow(MainContract.Model.Init)
     val model: StateFlow<MainContract.Model> = _model

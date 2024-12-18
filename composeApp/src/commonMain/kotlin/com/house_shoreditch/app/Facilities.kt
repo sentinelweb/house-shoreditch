@@ -3,8 +3,6 @@ package com.house_shoreditch.app
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Circle
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -13,6 +11,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
+import org.jetbrains.compose.resources.painterResource
 
 object Facilities {
 
@@ -47,14 +46,29 @@ object Facilities {
     @Composable
     private fun Area(area: MainContract.Model.Area) {
         Column(
-            modifier = Modifier.widthIn(max = 252.dp)
+            modifier = Modifier.widthIn(max = 508.dp)
+                .padding(horizontal = 16.dp, vertical = 16.dp)
         ) {
-            Text(
-                area.name,
-                style = MaterialTheme.typography.displaySmall,
-            )
-            area.fetures.forEach { feature ->
-                AreaFeature(feature)
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier.padding(bottom = 8.dp)
+            ) {
+                Icon(
+                    painterResource(area.icon),
+                    contentDescription = null,
+                    tint = MaterialTheme.colorScheme.onPrimary,
+                    modifier = Modifier.padding(horizontal = 8.dp).size(32.dp)
+                )
+                Text(
+                    area.name,
+                    style = MaterialTheme.typography.displaySmall,
+                )
+            }
+            val splitFeatures = area.features.chunked(6)
+            FlowRow {
+                splitFeatures.forEach { features ->
+                    Column { features.forEach { feature -> AreaFeature(feature) } }
+                }
             }
         }
 
@@ -64,23 +78,20 @@ object Facilities {
     private fun AreaFeature(feature: MainContract.Model.Area.Feature) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier.padding(horizontal = 4.dp, vertical = 8.dp)
+            modifier = Modifier
+                .width(236.dp)
+                .padding(horizontal = 16.dp, vertical = 8.dp)
         ) {
-//            Icon(
-//                Icons.Filled.Circle,
-//                contentDescription = null,
-//                tint = MaterialTheme.colorScheme.onPrimary,
-//                modifier = Modifier.padding(8.dp).size(12.dp)
-//            )
+            Icon(
+                painterResource(feature.icon),
+                contentDescription = null,
+                tint = MaterialTheme.colorScheme.onPrimary,
+                modifier = Modifier.padding(horizontal = 8.dp,).size(24.dp)
+            )
             Text(
                 feature.title,
-                style = MaterialTheme.typography.titleMedium,
+                style = MaterialTheme.typography.bodyLarge,
             )
         }
-        Text(
-            feature.description,
-            style = MaterialTheme.typography.bodyMedium,
-            modifier = Modifier.padding(start = 16.dp)
-        )
     }
 }
