@@ -28,7 +28,6 @@ interface MainContract {
 
         companion object {
             val Areas: List<Area> =
-                //(1..11).map {
                 listOf(
                     Area(
                         name = "Living room",
@@ -53,6 +52,10 @@ interface MainContract {
                             Area.Feature(
                                 title = "Underfloor heating",
                                 icon = Res.drawable.heat
+                            ),
+                            Area.Feature(
+                                title = "Fibre internt 1Ghz",
+                                icon = Res.drawable.wifi
                             ),
                             Area.Feature(
                                 title = "Smart controls",
@@ -335,7 +338,6 @@ interface MainContract {
                         )
                     ),
                 )
-//                }
 
             val Init: Model = Model("", listOf(), Areas)
 

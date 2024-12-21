@@ -46,7 +46,6 @@ fun App(viewModel: MainViewModel = MainViewModel()) {
     val density = LocalDensity.current.density
     val verticalScrollState = rememberScrollState()
     val coroutineScope = rememberCoroutineScope()
-
     val primaryActions = listOf(
         Action(CuerMenuItem.Images, {
             page = 1

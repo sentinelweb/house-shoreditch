@@ -15,6 +15,7 @@ import androidx.compose.foundation.gestures.detectTransformGestures
 import androidx.compose.foundation.gestures.rememberTransformableState
 import androidx.compose.foundation.gestures.transformable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.staggeredgrid.LazyHorizontalStaggeredGrid
 import androidx.compose.foundation.lazy.staggeredgrid.LazyVerticalStaggeredGrid
 import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridCells
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -246,9 +247,10 @@ object Photos {
         onClickPhoto: (Int) -> Unit,
     ) {
         val isLandscape = size.width > size.height
-        val numColumns = max(3, (size.width / 150f).toInt())
-        LazyVerticalStaggeredGrid(
-            columns = StaggeredGridCells.Fixed(numColumns),
+//        numColumns = max(3, (size.width / 150f).toInt())
+        val numRows = 4;//(size.height / 4f) .toInt()
+        LazyHorizontalStaggeredGrid(
+            rows = StaggeredGridCells.Fixed(numRows),
             modifier = Modifier.height(size.height.dp),
         ) {
             items(model.images.size) { item ->

@@ -1,8 +1,8 @@
 package com.house_shoreditch.app
 
+import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -15,26 +15,26 @@ import org.jetbrains.compose.resources.painterResource
 
 object Facilities {
 
-
-    @OptIn(ExperimentalLayoutApi::class)
     @Composable
     fun FacilitiesScreen(
         size: IntSize,
         model: MainContract.Model,
     ) {
-        val verticalScrollState = rememberScrollState()
+        val horizontalScrollState = rememberScrollState()
         Column(
-            horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier.fillMaxWidth()
                 .height(size.height.dp)
-                .verticalScroll(verticalScrollState)
                 .padding(16.dp)
         ) {
             Text(
                 "Facilities",
                 style = MaterialTheme.typography.displayMedium,
+                modifier = Modifier.padding(horizontal = 32.dp)
             )
-            FlowRow(modifier = Modifier.padding(8.dp)) {
+            Row(
+                modifier = Modifier.padding(8.dp)
+                    .horizontalScroll(horizontalScrollState)
+            ) {
                 model.areas.forEach { area ->
                     Area(area)
                 }
@@ -42,7 +42,6 @@ object Facilities {
         }
     }
 
-    @OptIn(ExperimentalLayoutApi::class)
     @Composable
     private fun Area(area: MainContract.Model.Area) {
         Column(
@@ -64,14 +63,13 @@ object Facilities {
                     style = MaterialTheme.typography.displaySmall,
                 )
             }
-            val splitFeatures = area.features.chunked(6)
-            FlowRow {
+            val splitFeatures = area.features.chunked(11)
+            Row {
                 splitFeatures.forEach { features ->
                     Column { features.forEach { feature -> AreaFeature(feature) } }
                 }
             }
         }
-
     }
 
     @Composable
@@ -86,7 +84,7 @@ object Facilities {
                 painterResource(feature.icon),
                 contentDescription = null,
                 tint = MaterialTheme.colorScheme.onPrimary,
-                modifier = Modifier.padding(horizontal = 8.dp,).size(24.dp)
+                modifier = Modifier.padding(horizontal = 8.dp).size(24.dp)
             )
             Text(
                 feature.title,
