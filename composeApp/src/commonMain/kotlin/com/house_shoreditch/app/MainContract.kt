@@ -2,10 +2,6 @@ package com.house_shoreditch.app
 
 import org.jetbrains.compose.resources.DrawableResource
 import osric.composeapp.generated.resources.*
-import osric.composeapp.generated.resources.Res
-import osric.composeapp.generated.resources.cast
-import osric.composeapp.generated.resources.heat
-import osric.composeapp.generated.resources.yard
 
 interface MainContract {
 
@@ -13,6 +9,7 @@ interface MainContract {
         val homeBackground: String,
         val images: List<String>,
         val areas: List<Area>,
+        val reviews: List<Review>,
     ) {
         data class Area(
             val name: String,
@@ -25,6 +22,13 @@ interface MainContract {
                 val icon: DrawableResource,
             )
         }
+
+        data class Review(
+            val author: String,
+            val rating: Int,
+            val review: String,
+        )
+
 
         companion object {
             val Areas: List<Area> =
@@ -54,7 +58,7 @@ interface MainContract {
                                 icon = Res.drawable.heat
                             ),
                             Area.Feature(
-                                title = "Fibre internt 1Ghz",
+                                title = "Fibre internet 1Ghz",
                                 icon = Res.drawable.wifi
                             ),
                             Area.Feature(
@@ -339,8 +343,56 @@ interface MainContract {
                     ),
                 )
 
-            val Init: Model = Model("", listOf(), Areas)
-
+            val Reviews = listOf(
+                Review(
+                    author = "Clarke",
+                    rating = 5,
+                    review = """Robert's home was a lovely place to stay. We were there for nine days with a 1-year-old baby. It wasn't some corporate-run Airbnb...it felt like staying in someone's truly well-kept home. The photos don't do it justice! Kitchen was huge and so well-stocked. The outdoor space felt like I was stepping into a tropical paradise! If only the British weather had cooperated and let us spend a bit more time out there.
+Just to note that the bathroom on the ground floor is very small, but so well thought out. Even so, it's great to have the flexibility of two showers—and perfect for one member of our party who would have struggled with stepping into tub in upstairs bathroom.
+I'm home and already wishing I were back!"""
+                ),
+                Review(
+                    author = "Lindsey",
+                    rating = 5,
+                    review = """In London from the States for a family vacation with my husband and three children. Robert was responsive, helpful, and friendly. He helped with a change in travel itinerary. House was extremely comfortable and incredibly well equipped. The espresso maker was delightful!!! A great place to stay close to the underground and in a really cool neighborhood!!!"""
+                ),
+                Review(
+                    author = "Cillian & Lauren",
+                    rating = 5,
+                    review = """Robert’s place was perfect, a lovely home with private garden, only 10 minutes walk to the tube. The Shoreditch Hoxton area has so much going on and it’s easy to grab food or drinks in the neighborhood. We found the house very well equipped with everything we could need including some extra toiletries, towels and made use of the washer and dryer. This spot was excellent for our group and we would love to come back. Thanks again!"""
+                ),
+                Review(
+                    author = "Loïc",
+                    rating = 5,
+                    review = """Family stay at 8 in April. Great apartment very well located in a nice and lively neighborhood, just what you need. Overlooking a small park on one side and the street on the other, the apartment is easy to access with the metro nearby, on a line that makes it easy and quick to get to the tourist sites. The amenities mentioned are all there and are of quality. Robert was very kind and welcomed us very warmly. We were even able to enjoy the patio, very nice, with a ray of sunshine.
+We would recommend it."""
+                ),
+                Review(
+                    author = "John",
+                    rating = 5,
+                    review = """We had a beautiful stay in the house. It was very clean and has everything we need to cook as well as just stay in and watch a movie with amazing 4k projection and great sound. The garden was also great and we got some winter sun in the afternoon.
+Rob was very helpful and got back right away if we need anything. We'll stay again when we are in town! Thanks for everything."""
+                ),
+                Review(
+                    author = "Lisa",
+                    rating = 5,
+                    review = """The house was wonderful, close to public transportation. It had everything we needed for an enjoyable holiday. This was my first time using AB&B, after this stay I will definitely do it again."""
+                ),
+                Review(
+                    author = "Bev",
+                    rating = 5,
+                    review = """Robert’s place was perfect for our family vacation in London. We were staying at hotels the week leading up to our stay in London and was tired of eating out every meal. Robert’s place allowed our family to cook/reheat ready-to-eat meals we picked up at grocery stores. There are many options for getting food nearby, from the larger M&S food and Aldi to the smaller Tesco express and Sainsbury local, all within walking distance. Robert’s kitchen is well stocked and had everything we needed.
+Robert responded quickly to all of our questions. He was also very accommodating to our needs. By letting us do luggage store, we were able to drop off our bags at the house before dropping off the rental car.
+We were a family of 5 adults and 1 child, and Robert’s place was very spacious and comfortable. The separate washer and dryer was a huge bonus for us.
+I highly recommend Robert’s place for anyone looking for an Airbnb in London. It was easy to jump on the Tube, overground or a bus."""
+                ),
+                Review(
+                    author = "Tom",
+                    rating = 5,
+                    review = """Great stay, Robert's communication is excellent and the house is really well equipped (cooking equipment, technology etc all exceptional)."""
+                )
+            )
+            val Init: Model = Model("", listOf(), Areas, Reviews)
         }
     }
 }

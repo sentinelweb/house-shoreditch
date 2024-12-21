@@ -17,6 +17,9 @@ lateinit var RobotoFamily: FontFamily
 lateinit var GaramondFamily: FontFamily
 lateinit var OsricTypography: Typography
 
+lateinit var serifType: FontFamily
+lateinit var sansSerifType: FontFamily
+
 @Composable
 fun initFont() {
     RobotoFamily = FontFamily(
@@ -39,8 +42,8 @@ fun initFont() {
         Font(Res.font.EBGaramond_SemiBold, FontWeight.SemiBold),
         Font(Res.font.EBGaramond_ExtraBold, FontWeight.ExtraBold),
     )
-    var serifType = GaramondFamily
-    var sansSerifType = RobotoFamily
+    serifType = GaramondFamily
+    sansSerifType = RobotoFamily
     if (getPlatform().type == PlatformType.Web) {
         serifType = FontFamily.Cursive
         sansSerifType = FontFamily.SansSerif

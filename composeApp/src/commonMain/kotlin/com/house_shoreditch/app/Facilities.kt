@@ -11,6 +11,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
+import com.house_shoreditch.app.theme.components.TextComponents.SectionTitle
 import org.jetbrains.compose.resources.painterResource
 
 object Facilities {
@@ -26,11 +27,7 @@ object Facilities {
                 .height(size.height.dp)
                 .padding(16.dp)
         ) {
-            Text(
-                "Facilities",
-                style = MaterialTheme.typography.displayMedium,
-                modifier = Modifier.padding(horizontal = 32.dp)
-            )
+            SectionTitle("Facilities")
             Row(
                 modifier = Modifier.padding(8.dp)
                     .horizontalScroll(horizontalScrollState)

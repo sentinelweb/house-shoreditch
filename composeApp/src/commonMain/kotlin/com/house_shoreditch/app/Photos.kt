@@ -52,7 +52,7 @@ object Photos {
         size: IntSize,
         model: MainContract.Model
     ) {
-        var selectedPhoto by remember { mutableStateOf<Int>(-1) }
+        var selectedPhoto by remember { mutableStateOf(-1) }
         var showLoading by remember { mutableStateOf(false) }
         val fadeSpec: FiniteAnimationSpec<Float> = tween(durationMillis = 500, easing = FastOutSlowInEasing)
         Column(

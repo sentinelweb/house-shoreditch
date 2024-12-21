@@ -134,7 +134,7 @@ fun App(viewModel: MainViewModel = MainViewModel()) {
                 Intro.IntroScreen(size = initialSize, model = model.value)
                 Photos.PhotosView(size = initialSize, model = model.value)
                 Facilities.FacilitiesScreen(size = initialSize, model = model.value)
-                Reviews(height = initialSize.height.dp)
+                Reviews.ReviewsSection(size = initialSize, model = model.value)
                 Booking(height = initialSize.height.dp)
                 Contact(height = initialSize.height.dp)
             }
@@ -151,24 +151,6 @@ private fun CoroutineScope.scrollToPage(
 ) {
     launch {
         verticalScrollState.animateScrollTo((initialSize.height * density * page).toInt())
-    }
-}
-
-
-@Composable
-private fun Reviews(
-    height: Dp
-) {
-    Column(
-        horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = Modifier.fillMaxWidth()
-            .height(height)
-            .padding(16.dp)
-    ) {
-        Text(
-            "Reviews",
-            style = MaterialTheme.typography.displayLarge,
-        )
     }
 }
 

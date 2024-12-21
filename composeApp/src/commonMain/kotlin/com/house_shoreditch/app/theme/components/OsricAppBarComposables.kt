@@ -160,7 +160,7 @@ fun TopAppBarOverflowMenu(
                             .padding(12.dp)
                     )
                 },
-                text = { Text(stringResource(action.item.label)) },
+                text = { Text(stringResource(action.item.label), color = contentColor) },
                 onClick = {
                     expanded = false
                     action.action()

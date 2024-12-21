@@ -5,6 +5,7 @@ package com.moonsift.app.ui.theme
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import com.house_shoreditch.app.theme.components.initButtonsColors
 
 @Composable
 fun OsricTheme(
@@ -13,6 +14,7 @@ fun OsricTheme(
     content: @Composable () -> Unit
 ) {
     initFont()
+    initButtonsColors()
     val colorScheme = if (darkTheme) DarkColorScheme else LightColorScheme
 
     MaterialTheme(
