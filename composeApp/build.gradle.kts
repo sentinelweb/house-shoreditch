@@ -15,10 +15,10 @@ kotlin {
     androidTarget {
         @OptIn(ExperimentalKotlinGradlePluginApi::class)
         compilerOptions {
-            jvmTarget.set(JvmTarget.JVM_11)
+            jvmTarget.set(JvmTarget.JVM_21)
         }
     }
-    
+
     listOf(
         iosX64(),
         iosArm64(),
@@ -29,9 +29,9 @@ kotlin {
             isStatic = true
         }
     }
-    
+
     jvm("desktop")
-    
+
     @OptIn(ExperimentalWasmDsl::class)
     wasmJs {
         moduleName = "composeApp"
@@ -51,10 +51,10 @@ kotlin {
         }
         binaries.executable()
     }
-    
+
     sourceSets {
         val desktopMain by getting
-        
+
         androidMain.dependencies {
             implementation(compose.preview)
             implementation(libs.androidx.activity.compose)
@@ -116,8 +116,8 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = JavaVersion.VERSION_21
+        targetCompatibility = JavaVersion.VERSION_21
     }
 }
 
@@ -126,13 +126,35 @@ dependencies {
 }
 
 compose.desktop {
+
     application {
         mainClass = "com.house_shoreditch.app.MainKt"
-
         nativeDistributions {
             targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
-            packageName = "com.house_shoreditch.app"
+            packageName = "Oasis shoreditch"
             packageVersion = "1.0.0"
+
+            macOS {
+                dockName = "Oasis Shoreditch"
+                setDockNameSameAsPackageName = true
+                iconFile.set(project.file("../media/appicon/MacOsIcon.icns"))
+            }
+            windows {
+                iconFile.set(project.file("../media/appicon/icon_512.ico"))
+            }
+            linux {
+                iconFile.set(project.file("../media/appicon/icon_512.png"))
+            }
+        }
+        buildTypes.release.proguard {
+            version.set("7.4.0")
+            obfuscate.set(false)
+            isEnabled = false
         }
     }
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_21
+    targetCompatibility = JavaVersion.VERSION_21
 }
