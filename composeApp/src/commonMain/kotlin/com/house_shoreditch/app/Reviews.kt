@@ -32,36 +32,41 @@ object Reviews {
         size: IntSize,
         model: MainContract.Model,
     ) {
+
         val horizontalScrollState = rememberScrollState()
         val coroutineScope = rememberCoroutineScope()
         val density = LocalDensity.current
-        Box(
-            modifier = Modifier
-                .width(size.width.dp)
-                .height(size.height.dp)
-        ) {
-            Column(modifier = Modifier.padding(horizontal = 16.dp)) {
-                SectionTitle("Reviews")
-                Row(
-                    modifier = Modifier
-                        .horizontalScroll(horizontalScrollState)
-                        .padding(end = 32.dp)
-                ) {
-                    model.reviews.forEach { review ->
-                        ReviewView(review, size.width)
+
+        // this stops rendering until size is obtined after first layout
+        if (size.height > 0) {
+            Box(
+                modifier = Modifier
+                    .width(size.width.dp)
+                    .height(size.height.dp)
+            ) {
+                Column(modifier = Modifier.padding(horizontal = 16.dp)) {
+                    SectionTitle("Reviews")
+                    Row(
+                        modifier = Modifier
+                            .horizontalScroll(horizontalScrollState)
+                            .padding(end = 32.dp)
+                    ) {
+                        model.reviews.forEach { review ->
+                            ReviewView(review, size.width)
+                        }
                     }
                 }
+                RoundIconButton(
+                    "Next",
+                    icon = Res.drawable.arrow_forward,
+                    modifier = Modifier
+                        .align(Alignment.BottomEnd)
+                        .padding(bottom = 84.dp),
+                    onClick = {
+                        onNextReview(coroutineScope, horizontalScrollState, size, density)
+                    }
+                )
             }
-            RoundIconButton(
-                "Next",
-                icon = Res.drawable.arrow_forward,
-                modifier = Modifier
-                    .align(Alignment.BottomEnd)
-                    .padding(bottom = 84.dp),
-                onClick = {
-                    onNextReview(coroutineScope, horizontalScrollState, size, density)
-                }
-            )
         }
     }
 
@@ -92,8 +97,10 @@ object Reviews {
                 style = MaterialTheme.typography.titleMedium,
                 modifier = Modifier.padding(vertical = 8.dp)
             )
-            Row(verticalAlignment = Alignment.CenterVertically,
-                modifier = Modifier.padding(bottom = 16.dp)) {
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier.padding(bottom = 16.dp)
+            ) {
                 (1..review.rating).forEach { _ ->
                     Icon(
                         painterResource(Res.drawable.star),
