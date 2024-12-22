@@ -146,18 +146,18 @@ fun RowScope.NoIconOrLoading(
 }
 
 @Composable
-fun MoonCtaButton(
+fun RoundButton(
     text: String,
     enabled: Boolean = true,
     isLoading: Boolean = false,
     modifier: Modifier = Modifier,
     onClick: () -> Unit
 ) {
-    MoonButtonBase(
+    ButtonBase(
         onClick = { onClick() },
         outlined = false,
         enabled = enabled,
-        cta = true,
+        round = true,
         text = text,
         textStartPadding = if (isLoading) 8.dp else 0.dp,
         modifier = modifier,
@@ -171,7 +171,7 @@ fun MoonCtaButton(
 }
 
 @Composable
-fun MoonCtaIconButton(
+fun RoundIconButton(
     text: String,
     icon: DrawableResource,
     iconPadding: Dp = 0.dp,
@@ -181,11 +181,11 @@ fun MoonCtaIconButton(
     modifier: Modifier = Modifier,
     onClick: () -> Unit
 ) {
-    MoonButtonBase(
+    ButtonBase(
         onClick = { onClick() },
         outlined = false,
         enabled = enabled,
-        cta = true,
+        round = true,
         text = text,
         textStartPadding = 8.dp,
         modifier = modifier,
@@ -202,7 +202,7 @@ fun MoonCtaIconButton(
 }
 
 @Composable
-fun MoonCtaIconOutlineButton(
+fun RoundIconOutlineButton(
     text: String,
    icon: DrawableResource,
     iconPadding: Dp = 0.dp,
@@ -212,11 +212,11 @@ fun MoonCtaIconOutlineButton(
     modifier: Modifier = Modifier,
     onClick: () -> Unit
 ) {
-    MoonButtonBase(
+    ButtonBase(
         onClick = { onClick() },
         outlined = true,
         enabled = enabled,
-        cta = true,
+        round = true,
         text = text,
         textStartPadding = 8.dp,
         modifier = modifier,
@@ -233,18 +233,18 @@ fun MoonCtaIconOutlineButton(
 }
 
 @Composable
-fun MoonCtaOutlineButton(
+fun RoundOutlineButton(
     text: String,
     enabled: Boolean = true,
     loading: Boolean = false,
     modifier: Modifier = Modifier,
     onClick: () -> Unit
 ) {
-    MoonButtonBase(
+    ButtonBase(
         onClick = { onClick() },
         outlined = true,
         enabled = enabled,
-        cta = true,
+        round = true,
         text = text,
         textStartPadding = if (loading) 8.dp else 0.dp,
         modifier = modifier,
@@ -254,18 +254,18 @@ fun MoonCtaOutlineButton(
 }
 
 @Composable
-fun MoonButton(
+fun SquareButton(
     text: String,
     enabled: Boolean = true,
     loading: Boolean = false,
     modifier: Modifier = Modifier,
     onClick: () -> Unit
 ) {
-    MoonButtonBase(
+    ButtonBase(
         onClick = { onClick() },
         outlined = false,
         enabled = enabled,
-        cta = false,
+        round = false,
         text = text,
         textStartPadding = if (loading) 8.dp else 0.dp,
         modifier = modifier,
@@ -275,18 +275,18 @@ fun MoonButton(
 }
 
 @Composable
-fun MoonOutlineButton(
+fun SquareOutlineButton(
     text: String,
     enabled: Boolean = true,
     loading: Boolean = false,
     modifier: Modifier = Modifier,
     onClick: () -> Unit
 ) {
-    MoonButtonBase(
+    ButtonBase(
         onClick = { onClick() },
         outlined = true,
         enabled = enabled,
-        cta = false,
+        round = false,
         text = text,
         textStartPadding = if (loading) 8.dp else 0.dp,
         modifier = modifier,
@@ -296,7 +296,7 @@ fun MoonOutlineButton(
 }
 
 @Composable
-fun MoonIconButton(
+fun SquareIconButton(
     text: String,
     icon: DrawableResource,
     iconPadding: Dp = 0.dp,
@@ -306,11 +306,11 @@ fun MoonIconButton(
     modifier: Modifier = Modifier,
     onClick: () -> Unit
 ) {
-    MoonButtonBase(
+    ButtonBase(
         onClick = { onClick() },
         outlined = false,
         enabled = enabled,
-        cta = false,
+        round = false,
         text = text,
         modifier = modifier,
         textStartPadding = 8.dp
@@ -327,7 +327,7 @@ fun MoonIconButton(
 }
 
 @Composable
-fun MoonIconOutlineButton(
+fun SquareIconOutlineButton(
     text: String,
     icon: DrawableResource,
     iconPadding: Dp = 0.dp,
@@ -337,11 +337,11 @@ fun MoonIconOutlineButton(
     modifier: Modifier = Modifier,
     onClick: () -> Unit
 ) {
-    MoonButtonBase(
+    ButtonBase(
         onClick = { onClick() },
         outlined = true,
         enabled = enabled,
-        cta = false,
+        round = false,
         text = text,
         modifier = modifier,
         textStartPadding = 8.dp
@@ -360,10 +360,10 @@ fun MoonIconOutlineButton(
 private val NO_ICON: @Composable RowScope.() -> Unit = {}
 
 @Composable
-fun MoonButtonBase(
+fun ButtonBase(
     text: String,
     enabled: Boolean = true,
-    cta: Boolean = false,
+    round: Boolean = false,
     outlined: Boolean = false,
     modifier: Modifier = Modifier,
     onClick: () -> Unit,
@@ -375,7 +375,7 @@ fun MoonButtonBase(
     val border = if (outlined) {
         if (enabled) outlinedBorder else outlinedBorderDisabled
     } else null
-    val shape = if (cta) ctaButtonShape else buttonShape
+    val shape = if (round) ctaButtonShape else buttonShape
 
     Button(
         onClick = { onClick() },
@@ -403,7 +403,7 @@ fun MoonButtonBase(
 }
 
 @Composable
-fun MoonCircleIconButton(
+fun CircleIconButton(
     icon: DrawableResource,
     iconPadding: Dp = 0.dp,
     enabled: Boolean = true,
@@ -478,73 +478,73 @@ fun Modifier.bounceClick(enabled: Boolean) = composed {
 
 @Preview
 @Composable
-fun MoonCtaButtonPreview() {
+fun RoundButtonPreview() {
     OsricTheme {
-        MoonCtaButton("Button") {}
+        RoundButton("Button") {}
     }
 }
 
 @Preview
 @Composable
-fun MoonCtaIconButtonPreview() {
+fun RoundIconButtonPreview() {
     OsricTheme {
-        MoonCtaIconButton("Button", icon = Res.drawable.star) {}
+        RoundIconButton("Button", icon = Res.drawable.star) {}
     }
 }
 
 @Preview
 @Composable
-fun MoonCtaOutlineButtonPreview() {
+fun RoundOutlineButtonPreview() {
     OsricTheme {
-        MoonCtaOutlineButton("Button") {}
+        RoundOutlineButton("Button") {}
     }
 }
 
 @Preview
 @Composable
-fun MoonCtaIconOutlineButtonPreview() {
+fun RoundIconOutlineButtonPreview() {
     OsricTheme {
-        MoonCtaIconOutlineButton("Button", icon = Res.drawable.star) {}
+        RoundIconOutlineButton("Button", icon = Res.drawable.star) {}
     }
 }
 
 @Preview
 @Composable
-fun MoonOutlineButtonPreview() {
+fun SquareOutlineButtonPreview() {
     OsricTheme {
-        MoonOutlineButton("Button") {}
+        SquareOutlineButton("Button") {}
     }
 }
 
 @Preview
 @Composable
-fun MoonIconButtonPreview() {
+fun SquareIconButtonPreview() {
     OsricTheme {
-        MoonIconButton("Button", icon = Res.drawable.star) {}
+        SquareIconButton("Button", icon = Res.drawable.star) {}
     }
 }
 
 @Preview
 @Composable
-fun MoonButtonPreview() {
+fun SquareButtonPreview() {
     OsricTheme {
-        MoonButton("Button") {}
+        SquareButton("Button") {}
     }
 }
 
 @Preview
 @Composable
-fun MoonIconOutlineButtonPreview() {
+fun SquareIconOutlineButtonPreview() {
     OsricTheme {
-        MoonIconOutlineButton("Button", icon = Res.drawable.star) {}
+        SquareIconOutlineButton("Button", icon = Res.drawable.star) {}
     }
 }
 
 @Preview
 @Composable
-fun MoonCircleIconButtonPreview() {
+fun CircleIconButtonPreview() {
     OsricTheme {
-        MoonCircleIconButton(icon = Res.drawable.star) {}
+        CircleIconButton(icon = Res.drawable.star) {}
     }
 }
 

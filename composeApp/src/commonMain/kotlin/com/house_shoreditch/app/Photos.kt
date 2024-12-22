@@ -16,12 +16,9 @@ import androidx.compose.foundation.gestures.rememberTransformableState
 import androidx.compose.foundation.gestures.transformable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.staggeredgrid.LazyHorizontalStaggeredGrid
-import androidx.compose.foundation.lazy.staggeredgrid.LazyVerticalStaggeredGrid
 import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridCells
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowCircleLeft
-import androidx.compose.material.icons.filled.ArrowCircleRight
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material3.Card
 import androidx.compose.material3.CircularProgressIndicator
@@ -38,10 +35,13 @@ import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
 import coil3.compose.AsyncImagePainter
-import com.moonsift.app.ui.theme.BLACK_TSP
+import com.house_shoreditch.app.theme.components.RoundIconButton
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import osric.composeapp.generated.resources.Res
+import osric.composeapp.generated.resources.arrow_back
+import osric.composeapp.generated.resources.arrow_forward
 import kotlin.math.max
 import kotlin.math.min
 
@@ -208,32 +208,25 @@ object Photos {
                         .padding(8.dp)
                         .align(Alignment.TopEnd)
                         .clickable { onClosePhoto() })
-                // todo remove these and just have a tap on screen left/right
+
                 if (selectedPhoto < model.images.size - 1) {
-                    Image(
-                        Icons.Filled.ArrowCircleRight,
-                        contentDescription = "Next",
-                        colorFilter = ColorFilter.tint(Color.White),
-                        modifier = Modifier
-                            .padding(16.dp)
-                            .size(32.dp)
-                            .align(Alignment.BottomEnd)
-                            .background(BLACK_TSP, shape = RoundedCornerShape(4.dp))
-                            .clickable { onNextPhoto() }
+                    RoundIconButton(
+                        text = "Next",
+                        icon = Res.drawable.arrow_forward,
+                        onClick = { onNextPhoto() },
+                        modifier = Modifier.align(Alignment.BottomEnd)
+                            .padding(end = 16.dp)
                     )
                 }
 
                 if (selectedPhoto > 0) {
-                    Image(
-                        Icons.Filled.ArrowCircleLeft,
-                        contentDescription = "Previous",
-                        colorFilter = ColorFilter.tint(Color.White),
+                    RoundIconButton(
+                        text = "Previous",
+                        icon = Res.drawable.arrow_back,
+                        onClick = { onPrevPhoto() },
                         modifier = Modifier
-                            .padding(16.dp)
-                            .size(32.dp)
                             .align(Alignment.BottomStart)
-                            .background(BLACK_TSP, shape = RoundedCornerShape(4.dp))
-                            .clickable { onPrevPhoto() }
+                            .padding(start = 16.dp)
                     )
                 }
             }
@@ -246,9 +239,7 @@ object Photos {
         model: MainContract.Model,
         onClickPhoto: (Int) -> Unit,
     ) {
-        val isLandscape = size.width > size.height
-//        numColumns = max(3, (size.width / 150f).toInt())
-        val numRows = 4;//(size.height / 4f) .toInt()
+        val numRows = 4
         LazyHorizontalStaggeredGrid(
             rows = StaggeredGridCells.Fixed(numRows),
             modifier = Modifier.height(size.height.dp),

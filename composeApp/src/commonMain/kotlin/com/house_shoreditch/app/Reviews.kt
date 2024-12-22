@@ -1,5 +1,6 @@
 package com.house_shoreditch.app
 
+import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
@@ -12,10 +13,12 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
-import com.house_shoreditch.app.theme.components.MoonCtaIconButton
+import com.house_shoreditch.app.theme.components.RoundIconButton
 import com.house_shoreditch.app.theme.components.TextComponents.SectionTitle
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.painterResource
 import osric.composeapp.generated.resources.Res
@@ -49,25 +52,33 @@ object Reviews {
                     }
                 }
             }
-            MoonCtaIconButton(
+            RoundIconButton(
                 "Next",
                 icon = Res.drawable.arrow_forward,
                 modifier = Modifier
                     .align(Alignment.BottomEnd)
                     .padding(bottom = 84.dp),
                 onClick = {
-                    coroutineScope.launch {
-                        val currentPage = horizontalScrollState.value / (size.width - 64) / density.density
-                        println("currentPage: $currentPage")
-                        horizontalScrollState.animateScrollTo(((size.width - 64) * density.density * (currentPage+1)).toInt())
-                    }
+                    onNextReview(coroutineScope, horizontalScrollState, size, density)
                 }
             )
         }
     }
 
-    private @Composable
-    fun ReviewView(
+    private fun onNextReview(
+        coroutineScope: CoroutineScope,
+        horizontalScrollState: ScrollState,
+        size: IntSize,
+        density: Density
+    ) {
+        coroutineScope.launch {
+            val currentPage = horizontalScrollState.value / (size.width - 64) / density.density
+            horizontalScrollState.animateScrollTo(((size.width - 64) * density.density * (currentPage + 1)).toInt())
+        }
+    }
+
+    @Composable
+    private fun ReviewView(
         review: MainContract.Model.Review,
         width: Int
     ) {
