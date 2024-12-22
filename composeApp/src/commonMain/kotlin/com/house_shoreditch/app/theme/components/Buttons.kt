@@ -29,7 +29,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.moonsift.app.ui.theme.OsricTheme
-import com.moonsift.app.ui.theme.sansSerifType
+import com.moonsift.app.ui.theme.RobotoFamily
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
@@ -43,25 +43,21 @@ private lateinit var outlinedButtonColors: ButtonColors
 
 private val disabledContainerColor = Color.Gray
 private val disabledContentColor = Color.DarkGray
-private val containerColor = Color.Black
-private val contentColor = Color.White
-private val containerOutlineColor = Color.White
-private val contentOutlineColor = Color.Black
 
 // todo remove function
 @Composable
 fun initButtonsColors() {
     themeButtonColors = ButtonDefaults.buttonColors(
-        containerColor = containerColor,
-        contentColor = contentColor,
+        containerColor = MaterialTheme.colorScheme.surface,
+        contentColor = MaterialTheme.colorScheme.onSurface,
         disabledContainerColor = disabledContainerColor,
         disabledContentColor = disabledContentColor,
     )
-    outlinedBorder = BorderStroke(width = 1.dp, color = contentOutlineColor)
+    outlinedBorder = BorderStroke(width = 1.dp, color = MaterialTheme.colorScheme.surface)
     outlinedBorderDisabled = BorderStroke(width = 1.dp, color = disabledContainerColor)
     outlinedButtonColors = ButtonDefaults.buttonColors(
-        containerColor = containerOutlineColor,
-        contentColor = contentOutlineColor,
+        containerColor = MaterialTheme.colorScheme.onSurface,
+        contentColor = MaterialTheme.colorScheme.surface,
         disabledContainerColor = disabledContainerColor,
         disabledContentColor = disabledContentColor,
     )
@@ -70,7 +66,7 @@ fun initButtonsColors() {
 private const val CTA_SHAPE_PERCENT = 50
 private val buttonIconSize = 24.dp
 private val buttonTextStyle = TextStyle(
-    fontFamily = sansSerifType,
+    fontFamily = RobotoFamily,
     fontWeight = FontWeight.Medium,
     fontSize = 18.sp,
 )
@@ -84,7 +80,7 @@ private fun iconColor(
     enabled: Boolean,
     outlined: Boolean,
 ) = if (enabled)
-    if (outlined) contentOutlineColor else contentColor
+    if (outlined) MaterialTheme.colorScheme.surface else MaterialTheme.colorScheme.onSurface
 else disabledContentColor
 
 @Composable
@@ -478,7 +474,7 @@ fun Modifier.bounceClick(enabled: Boolean) = composed {
 
 @Preview
 @Composable
-fun RoundButtonPreview() {
+private fun RoundButtonPreview() {
     OsricTheme {
         RoundButton("Button") {}
     }
@@ -486,7 +482,7 @@ fun RoundButtonPreview() {
 
 @Preview
 @Composable
-fun RoundIconButtonPreview() {
+private fun RoundIconButtonPreview() {
     OsricTheme {
         RoundIconButton("Button", icon = Res.drawable.star) {}
     }
@@ -494,7 +490,7 @@ fun RoundIconButtonPreview() {
 
 @Preview
 @Composable
-fun RoundOutlineButtonPreview() {
+private fun RoundOutlineButtonPreview() {
     OsricTheme {
         RoundOutlineButton("Button") {}
     }
@@ -502,7 +498,7 @@ fun RoundOutlineButtonPreview() {
 
 @Preview
 @Composable
-fun RoundIconOutlineButtonPreview() {
+private fun RoundIconOutlineButtonPreview() {
     OsricTheme {
         RoundIconOutlineButton("Button", icon = Res.drawable.star) {}
     }
@@ -510,7 +506,7 @@ fun RoundIconOutlineButtonPreview() {
 
 @Preview
 @Composable
-fun SquareOutlineButtonPreview() {
+private fun SquareOutlineButtonPreview() {
     OsricTheme {
         SquareOutlineButton("Button") {}
     }
@@ -518,7 +514,7 @@ fun SquareOutlineButtonPreview() {
 
 @Preview
 @Composable
-fun SquareIconButtonPreview() {
+private fun SquareIconButtonPreview() {
     OsricTheme {
         SquareIconButton("Button", icon = Res.drawable.star) {}
     }
@@ -526,7 +522,7 @@ fun SquareIconButtonPreview() {
 
 @Preview
 @Composable
-fun SquareButtonPreview() {
+private fun SquareButtonPreview() {
     OsricTheme {
         SquareButton("Button") {}
     }
@@ -534,7 +530,7 @@ fun SquareButtonPreview() {
 
 @Preview
 @Composable
-fun SquareIconOutlineButtonPreview() {
+private fun SquareIconOutlineButtonPreview() {
     OsricTheme {
         SquareIconOutlineButton("Button", icon = Res.drawable.star) {}
     }
@@ -542,7 +538,7 @@ fun SquareIconOutlineButtonPreview() {
 
 @Preview
 @Composable
-fun CircleIconButtonPreview() {
+private fun CircleIconButtonPreview() {
     OsricTheme {
         CircleIconButton(icon = Res.drawable.star) {}
     }

@@ -10,6 +10,7 @@ import androidx.compose.ui.window.CanvasBasedWindow
 import com.house_shoreditch.app.di.OsricModules
 import com.house_shoreditch.app.ui.App
 import com.moonsift.app.ui.theme.GaramondFamily
+import com.moonsift.app.ui.theme.RobotoFamily
 import kotlinx.browser.document
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.stringResource
@@ -28,18 +29,33 @@ fun main() {
         var isFontsPreloaded by remember { mutableStateOf(false) }
         val fontResolver = LocalFontFamilyResolver.current
         LaunchedEffect(Unit) {
-            GaramondFamily = FontFamily(listOf(
-                Font("EBGaramond_Bold", Res.readBytes("font/EBGaramond_Bold.ttf"), FontWeight.Bold),
-                Font("EBGaramond_ExtraBold", Res.readBytes("font/EBGaramond_ExtraBold.ttf"), FontWeight.ExtraBold),
-                Font("EBGaramond_SemiBold", Res.readBytes("font/EBGaramond_SemiBold.ttf"), FontWeight.SemiBold),
-                Font("EBGaramond_Medium", Res.readBytes("font/EBGaramond_Medium.ttf"), FontWeight.Medium),
-                Font("EBGaramond_Regular", Res.readBytes("font/EBGaramond_Regular.ttf"), FontWeight.Normal),
-            ))
+            GaramondFamily = FontFamily(
+                listOf(
+                    Font("EBGaramond_Bold", Res.readBytes("font/EBGaramond_Bold.ttf"), FontWeight.Bold),
+                    Font("EBGaramond_ExtraBold", Res.readBytes("font/EBGaramond_ExtraBold.ttf"), FontWeight.ExtraBold),
+                    Font("EBGaramond_SemiBold", Res.readBytes("font/EBGaramond_SemiBold.ttf"), FontWeight.SemiBold),
+                    Font("EBGaramond_Medium", Res.readBytes("font/EBGaramond_Medium.ttf"), FontWeight.Medium),
+                    Font("EBGaramond_Regular", Res.readBytes("font/EBGaramond_Regular.ttf"), FontWeight.Normal),
+                )
+            )
+
+            RobotoFamily = FontFamily(
+                listOf(
+                    Font("Roboto_Bold", Res.readBytes("font/Roboto_Bold.ttf"), FontWeight.Bold),
+                    Font("Roboto_Medium", Res.readBytes("font/Roboto_Medium.ttf"), FontWeight.Medium),
+                    Font("Roboto_Black", Res.readBytes("font/Roboto_Black.ttf"), FontWeight.Normal),
+                    Font("Roboto_Light", Res.readBytes("font/Roboto_Light.ttf"), FontWeight.Light),
+                    Font("Roboto_Thin", Res.readBytes("font/Roboto_Thin.ttf"), FontWeight.Thin),
+                )
+            )
 
             fontResolver.preload(GaramondFamily)
+            fontResolver.preload(RobotoFamily)
             isFontsPreloaded = true
         }
+
         document.title = stringResource(Res.string.app_name)
+
         if (isFontsPreloaded) {
             App()
         }

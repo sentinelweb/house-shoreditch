@@ -4,36 +4,29 @@ import androidx.compose.material3.Typography
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 import org.jetbrains.compose.resources.Font
-import org.jetbrains.compose.resources.InternalResourceApi
 import osric.composeapp.generated.resources.*
 
 
 lateinit var RobotoFamily: FontFamily
 lateinit var GaramondFamily: FontFamily
-lateinit var WebGaramondFamily: FontFamily
 lateinit var OsricTypography: Typography
 
-lateinit var serifType: FontFamily
-lateinit var sansSerifType: FontFamily
-
-@OptIn(InternalResourceApi::class)
 @Composable
 fun initFont() {
     RobotoFamily = FontFamily(
         Font(Res.font.Roboto_Bold, FontWeight.Bold),
-        Font(Res.font.Roboto_BoldItalic, FontWeight.Bold, FontStyle.Italic),
+//        Font(Res.font.Roboto_BoldItalic, FontWeight.Bold, FontStyle.Italic),
         Font(Res.font.Roboto_Regular, FontWeight.Normal),
-        Font(Res.font.Roboto_Italic, FontWeight.Normal, FontStyle.Italic),
+//        Font(Res.font.Roboto_Italic, FontWeight.Normal, FontStyle.Italic),
         Font(Res.font.Roboto_Light, FontWeight.Light),
-        Font(Res.font.Roboto_LightItalic, FontWeight.Light, FontStyle.Italic),
+//        Font(Res.font.Roboto_LightItalic, FontWeight.Light, FontStyle.Italic),
         Font(Res.font.Roboto_Medium, FontWeight.Medium),
-        Font(Res.font.Roboto_MediumItalic, FontWeight.Medium, FontStyle.Italic),
+//        Font(Res.font.Roboto_MediumItalic, FontWeight.Medium, FontStyle.Italic),
         Font(Res.font.Roboto_Thin, FontWeight.Thin),
-        Font(Res.font.Roboto_ThinItalic, FontWeight.Thin, FontStyle.Italic),
+//        Font(Res.font.Roboto_ThinItalic, FontWeight.Thin, FontStyle.Italic),
     )
 
     GaramondFamily = FontFamily(
@@ -44,87 +37,88 @@ fun initFont() {
         Font(Res.font.EBGaramond_ExtraBold, FontWeight.ExtraBold),
     )
 
-    serifType = GaramondFamily
-    sansSerifType = RobotoFamily
     OsricTypography = Typography(
         displayLarge = TextStyle(
-            fontFamily = serifType,
+            fontFamily = GaramondFamily,
             fontWeight = FontWeight.ExtraBold,
             fontSize = 64.sp,
         ),
         displayMedium = TextStyle(
-            fontFamily = serifType,
+            fontFamily = GaramondFamily,
             fontWeight = FontWeight.ExtraBold,
             fontSize = 40.sp,
         ),
         displaySmall = TextStyle(
-            fontFamily = serifType,
+            fontFamily = GaramondFamily,
             fontWeight = FontWeight.Bold,
             fontSize = 32.sp,
         ),
 
         headlineLarge = TextStyle(
-            fontFamily = sansSerifType,
+            fontFamily = RobotoFamily,
             fontWeight = FontWeight.Medium,
             fontSize = 32.sp,
         ),
         headlineMedium = TextStyle(
-            fontFamily = sansSerifType,
+            fontFamily = RobotoFamily,
             fontWeight = FontWeight.Medium,
             fontSize = 28.sp,
         ),
         headlineSmall = TextStyle(
-            fontFamily = sansSerifType,
+            fontFamily = RobotoFamily,
             fontWeight = FontWeight.Medium,
             fontSize = 24.sp,
         ),
 
         titleLarge = TextStyle(
-            fontFamily = sansSerifType,
+            fontFamily = RobotoFamily,
             fontWeight = FontWeight.Medium,
             fontSize = 20.sp,
         ),
 
         titleMedium = TextStyle(
-            fontFamily = sansSerifType,
+            fontFamily = RobotoFamily,
             fontWeight = FontWeight.Medium,
             fontSize = 18.sp,
         ),
 
         titleSmall = TextStyle(
-            fontFamily = sansSerifType,
+            fontFamily = RobotoFamily,
             fontWeight = FontWeight.Medium,
             fontSize = 16.sp,
         ),
 
         bodyLarge = TextStyle(
-            fontFamily = sansSerifType,
+            fontFamily = RobotoFamily,
             fontWeight = FontWeight.Normal,
             fontSize = 16.sp,
         ),
+
         bodyMedium = TextStyle(
-            fontFamily = sansSerifType,
+            fontFamily = RobotoFamily,
             fontWeight = FontWeight.Normal,
             fontSize = 14.sp,
         ),
+
         bodySmall = TextStyle(
-            fontFamily = sansSerifType,
+            fontFamily = RobotoFamily,
             fontWeight = FontWeight.Normal,
             fontSize = 12.sp,
         ),
 
         labelLarge = TextStyle(
-            fontFamily = sansSerifType,
+            fontFamily = RobotoFamily,
             fontWeight = FontWeight.Light,
             fontSize = 16.sp,
         ),
+
         labelMedium = TextStyle(
-            fontFamily = sansSerifType,
+            fontFamily = RobotoFamily,
             fontWeight = FontWeight.Light,
             fontSize = 14.sp,
         ),
         labelSmall = TextStyle(
-            fontFamily = serifType,
+            fontFamily = RobotoFamily,
             fontWeight = FontWeight.Normal,
             fontSize = 14.sp,
         ),

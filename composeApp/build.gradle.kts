@@ -59,6 +59,7 @@ kotlin {
             implementation(compose.preview)
             implementation(libs.androidx.activity.compose)
             implementation(libs.coil.ktor3.android)
+            implementation(libs.koin.android)
         }
 
         commonMain.dependencies {

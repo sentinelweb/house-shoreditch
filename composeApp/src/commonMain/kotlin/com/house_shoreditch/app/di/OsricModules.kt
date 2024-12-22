@@ -9,7 +9,7 @@ object OsricModules {
 
     fun initKoin() {
         startKoin {
-            modules(mainModule)
+            modules(listOf(mainModule))
         }
     }
 

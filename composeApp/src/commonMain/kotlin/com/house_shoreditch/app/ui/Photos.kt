@@ -36,7 +36,7 @@ import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
 import coil3.compose.AsyncImagePainter
 import com.house_shoreditch.app.main.MainContract
-import com.house_shoreditch.app.theme.components.RoundIconButton
+import com.house_shoreditch.app.theme.components.RoundIconOutlineButton
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -211,7 +211,7 @@ object Photos {
                         .clickable { onClosePhoto() })
 
                 if (selectedPhoto < model.images.size - 1) {
-                    RoundIconButton(
+                    RoundIconOutlineButton(
                         text = "Next",
                         icon = Res.drawable.arrow_forward,
                         onClick = { onNextPhoto() },
@@ -221,7 +221,7 @@ object Photos {
                 }
 
                 if (selectedPhoto > 0) {
-                    RoundIconButton(
+                    RoundIconOutlineButton(
                         text = "Previous",
                         icon = Res.drawable.arrow_back,
                         onClick = { onPrevPhoto() },

@@ -1,12 +1,21 @@
 package com.house_shoreditch.app
 
 import android.app.Application
+import com.house_shoreditch.app.di.AndroidModules
 import com.house_shoreditch.app.di.OsricModules
+import org.koin.android.ext.koin.androidContext
+import org.koin.core.context.startKoin
 
-class OsricApp: Application() {
+class OsricApp : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        OsricModules.initKoin()
+        startKoin {
+            androidContext(this@OsricApp)
+            modules(
+                listOf(OsricModules.mainModule)
+                    .plus(AndroidModules.androidModule)
+            )
+        }
     }
 }

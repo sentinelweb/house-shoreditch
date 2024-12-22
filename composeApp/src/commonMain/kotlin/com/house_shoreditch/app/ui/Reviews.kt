@@ -17,7 +17,7 @@ import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
 import com.house_shoreditch.app.main.MainContract
-import com.house_shoreditch.app.theme.components.RoundIconButton
+import com.house_shoreditch.app.theme.components.RoundIconOutlineButton
 import com.house_shoreditch.app.theme.components.TextComponents.SectionTitle
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
@@ -57,7 +57,7 @@ object Reviews {
                         }
                     }
                 }
-                RoundIconButton(
+                RoundIconOutlineButton(
                     "Next",
                     icon = Res.drawable.arrow_forward,
                     modifier = Modifier

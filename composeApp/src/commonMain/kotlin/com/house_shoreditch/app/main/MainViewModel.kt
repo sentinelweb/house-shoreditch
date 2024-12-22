@@ -3,10 +3,13 @@ package com.house_shoreditch.app.main
 import androidx.lifecycle.ViewModel
 import com.house_shoreditch.app.main.MainContract.Model.Companion.Areas
 import com.house_shoreditch.app.main.MainContract.Model.Companion.Reviews
+import com.house_shoreditch.app.util.LinkLauncher
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 
-class MainViewModel: ViewModel() {
+class MainViewModel(
+    private val linkLauncher: LinkLauncher = LinkLauncher()
+): ViewModel() {
 
     val _model: MutableStateFlow<MainContract.Model> = MutableStateFlow(MainContract.Model.Init)
     val model: StateFlow<MainContract.Model> = _model
@@ -67,5 +70,13 @@ class MainViewModel: ViewModel() {
             areas = Areas,
             reviews = Reviews,
         )
+    }
+
+    fun openBooking() {
+        linkLauncher.open("https://www.booking.com/hotel/gb/inviting-3-bedroom-house-and-garden-in-shoreditch.en-gb.html")
+    }
+
+    fun openAirbnb() {
+        linkLauncher.open("https://www.airbnb.com/rooms/945464635020318901")
     }
 }
