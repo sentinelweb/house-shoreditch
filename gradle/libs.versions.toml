@@ -17,6 +17,7 @@ kotlin = "2.0.21"
 kotlinx-coroutines = "1.9.0"
 coil = "3.0.4"
 ktor = "3.0.2"
+koin-bom = "4.0.0"
 
 
 [libraries]
@@ -39,7 +40,9 @@ coil-ktor3-android = { group = "io.ktor", name = "ktor-client-android", version.
 coil-ktor3-desktop = { group = "io.ktor", name = "ktor-client-java", version.ref = "ktor" }
 coil-ktor3-ios = { group = "io.ktor", name = "ktor-client-darwin", version.ref = "ktor" }
 coil-ktor3-wasmjs = { group = "io.ktor", name = "ktor-client-core-wasm-js", version.ref = "ktor" }
-
+koin-bom = { module = "io.insert-koin:koin-bom", version.ref = "koin-bom" }
+koin-core = { module = "io.insert-koin:koin-core" }
+koin-composeVM = { module = "io.insert-koin:koin-compose-viewmodel" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }

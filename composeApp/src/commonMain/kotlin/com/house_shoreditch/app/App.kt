@@ -29,6 +29,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
+import org.koin.compose.viewmodel.koinViewModel
 import osric.composeapp.generated.resources.Res
 import osric.composeapp.generated.resources.arrow_downward
 import kotlin.math.min
@@ -39,7 +40,7 @@ private fun isMobile() = listOf(Android, Ios).contains(getPlatform().type)
 
 @Composable
 @Preview
-fun App(viewModel: MainViewModel = MainViewModel()) {
+fun App(viewModel: MainViewModel = koinViewModel()) {
     val model = viewModel.model.collectAsState()
     var initialSize by remember { mutableStateOf(IntSize.Zero) }
     var page by remember { mutableStateOf(0) }

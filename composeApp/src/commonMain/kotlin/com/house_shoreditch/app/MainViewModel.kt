@@ -12,7 +12,7 @@ class MainViewModel:ViewModel() {
     val model: StateFlow<MainContract.Model> = _model
 
     init {
-        val path = "https://raw.githubusercontent.com/sentinelweb/house-shoreditch/refs/heads/main/media/photos"
+        val imageBasePath = "https://raw.githubusercontent.com/sentinelweb/house-shoreditch/refs/heads/main/media/photos"
         val imageList = listOf(
             "living_1.png",
             "living_2.png",
@@ -62,10 +62,10 @@ class MainViewModel:ViewModel() {
             "kitchen_2.png",
         )
         _model.value = MainContract.Model(
-            homeBackground = "$path/garden_7_DSC_0291.JPG",
-            images = imageList.map { "$path/$it" },
+            homeBackground = "$imageBasePath/garden_7_DSC_0291.JPG",
+            images = imageList.map { "$imageBasePath/$it" },
             areas = Areas,
-            reviews = Reviews
+            reviews = Reviews,
         )
     }
 }
