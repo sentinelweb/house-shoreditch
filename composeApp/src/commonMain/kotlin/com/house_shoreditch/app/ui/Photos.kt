@@ -1,4 +1,4 @@
-package com.house_shoreditch.app
+package com.house_shoreditch.app.ui
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.Crossfade
@@ -35,6 +35,7 @@ import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
 import coil3.compose.AsyncImagePainter
+import com.house_shoreditch.app.main.MainContract
 import com.house_shoreditch.app.theme.components.RoundIconButton
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
@@ -163,7 +164,7 @@ object Photos {
                             },
                             onClosePhoto = {
                                 closePhoto()
-                                resetTransform();
+                                resetTransform()
                             }
                         )
 

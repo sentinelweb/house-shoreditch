@@ -1,4 +1,4 @@
-package com.house_shoreditch.app
+package com.house_shoreditch.app.ui
 
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.*
@@ -11,6 +11,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
+import com.house_shoreditch.app.main.MainContract
 import com.house_shoreditch.app.theme.components.TextComponents.SectionTitle
 import org.jetbrains.compose.resources.painterResource
 

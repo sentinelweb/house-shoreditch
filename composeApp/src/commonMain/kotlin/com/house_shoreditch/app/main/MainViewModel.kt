@@ -1,12 +1,12 @@
-package com.house_shoreditch.app
+package com.house_shoreditch.app.main
 
 import androidx.lifecycle.ViewModel
-import com.house_shoreditch.app.MainContract.Model.Companion.Areas
-import com.house_shoreditch.app.MainContract.Model.Companion.Reviews
+import com.house_shoreditch.app.main.MainContract.Model.Companion.Areas
+import com.house_shoreditch.app.main.MainContract.Model.Companion.Reviews
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 
-class MainViewModel:ViewModel() {
+class MainViewModel: ViewModel() {
 
     val _model: MutableStateFlow<MainContract.Model> = MutableStateFlow(MainContract.Model.Init)
     val model: StateFlow<MainContract.Model> = _model

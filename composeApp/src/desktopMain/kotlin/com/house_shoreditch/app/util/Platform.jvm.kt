@@ -1,4 +1,4 @@
-package com.house_shoreditch.app
+package com.house_shoreditch.app.util
 
 class JVMPlatform: Platform {
     override val type: PlatformType = PlatformType.Desktop

@@ -1,4 +1,4 @@
-package com.house_shoreditch.app
+package com.house_shoreditch.app.main
 
 import androidx.compose.runtime.*
 import androidx.compose.ui.ExperimentalComposeUiApi
@@ -8,6 +8,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.platform.Font
 import androidx.compose.ui.window.CanvasBasedWindow
 import com.house_shoreditch.app.di.OsricModules
+import com.house_shoreditch.app.ui.App
 import com.moonsift.app.ui.theme.GaramondFamily
 import kotlinx.browser.document
 import org.jetbrains.compose.resources.ExperimentalResourceApi

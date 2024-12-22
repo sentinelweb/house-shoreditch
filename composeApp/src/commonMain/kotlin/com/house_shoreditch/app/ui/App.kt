@@ -1,4 +1,4 @@
-package com.house_shoreditch.app
+package com.house_shoreditch.app.ui
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.ScrollState
@@ -19,8 +19,10 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
-import com.house_shoreditch.app.PlatformType.Android
-import com.house_shoreditch.app.PlatformType.Ios
+import com.house_shoreditch.app.main.MainViewModel
+import com.house_shoreditch.app.util.PlatformType.Android
+import com.house_shoreditch.app.util.PlatformType.Ios
+import com.house_shoreditch.app.util.getPlatform
 import com.house_shoreditch.app.theme.components.Action
 import com.house_shoreditch.app.theme.components.CuerMenuItem
 import com.house_shoreditch.app.theme.components.OsricAppBarComposables
@@ -136,13 +138,12 @@ fun App(viewModel: MainViewModel = koinViewModel()) {
                 Photos.PhotosView(size = initialSize, model = model.value)
                 Facilities.FacilitiesScreen(size = initialSize, model = model.value)
                 Reviews.ReviewsSection(size = initialSize, model = model.value)
-                Booking(height = initialSize.height.dp)
+                Booking.BookingSection(size = initialSize, model = model.value)
                 Contact(height = initialSize.height.dp)
             }
         }
     }
 }
-
 
 private fun CoroutineScope.scrollToPage(
     verticalScrollState: ScrollState,
@@ -152,23 +153,6 @@ private fun CoroutineScope.scrollToPage(
 ) {
     launch {
         verticalScrollState.animateScrollTo((initialSize.height * density * page).toInt())
-    }
-}
-
-@Composable
-private fun Booking(
-    height: Dp
-) {
-    Column(
-        horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = Modifier.fillMaxWidth()
-            .height(height)
-            .padding(16.dp)
-    ) {
-        Text(
-            "Booking",
-            style = MaterialTheme.typography.displayLarge,
-        )
     }
 }
 

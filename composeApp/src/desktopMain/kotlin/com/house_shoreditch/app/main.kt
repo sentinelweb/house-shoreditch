@@ -7,6 +7,7 @@ import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
 import androidx.compose.ui.window.rememberWindowState
 import com.house_shoreditch.app.di.OsricModules
+import com.house_shoreditch.app.ui.App
 import org.jetbrains.compose.resources.painterResource
 import osric.composeapp.generated.resources.Res
 import osric.composeapp.generated.resources.home_512

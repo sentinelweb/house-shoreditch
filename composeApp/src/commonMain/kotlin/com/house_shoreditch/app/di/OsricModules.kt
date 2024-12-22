@@ -1,6 +1,6 @@
 package com.house_shoreditch.app.di
 
-import com.house_shoreditch.app.MainViewModel
+import com.house_shoreditch.app.main.MainViewModel
 import org.koin.core.context.startKoin
 import org.koin.core.module.dsl.viewModel
 import org.koin.dsl.module
