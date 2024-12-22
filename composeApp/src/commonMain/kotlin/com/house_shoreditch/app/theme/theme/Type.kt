@@ -7,19 +7,20 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
-import com.house_shoreditch.app.PlatformType
-import com.house_shoreditch.app.getPlatform
 import org.jetbrains.compose.resources.Font
+import org.jetbrains.compose.resources.InternalResourceApi
 import osric.composeapp.generated.resources.*
 
 
 lateinit var RobotoFamily: FontFamily
 lateinit var GaramondFamily: FontFamily
+lateinit var WebGaramondFamily: FontFamily
 lateinit var OsricTypography: Typography
 
 lateinit var serifType: FontFamily
 lateinit var sansSerifType: FontFamily
 
+@OptIn(InternalResourceApi::class)
 @Composable
 fun initFont() {
     RobotoFamily = FontFamily(
@@ -42,12 +43,9 @@ fun initFont() {
         Font(Res.font.EBGaramond_SemiBold, FontWeight.SemiBold),
         Font(Res.font.EBGaramond_ExtraBold, FontWeight.ExtraBold),
     )
+
     serifType = GaramondFamily
     sansSerifType = RobotoFamily
-    if (getPlatform().type == PlatformType.Web) {
-        serifType = FontFamily.Cursive
-        sansSerifType = FontFamily.SansSerif
-    }
     OsricTypography = Typography(
         displayLarge = TextStyle(
             fontFamily = serifType,
