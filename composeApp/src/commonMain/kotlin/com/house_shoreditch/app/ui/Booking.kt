@@ -1,22 +1,29 @@
 package com.house_shoreditch.app.ui
 
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.background
+import androidx.compose.foundation.horizontalScroll
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
 import com.house_shoreditch.app.main.MainContract
 import com.house_shoreditch.app.main.MainViewModel
-import com.house_shoreditch.app.theme.components.RoundOutlineButton
+import com.house_shoreditch.app.theme.components.CircleIconButton
+import com.house_shoreditch.app.theme.components.RoundIconOutlineButton
+import com.house_shoreditch.app.theme.components.TextComponents.Hr
+import com.house_shoreditch.app.theme.components.TextComponents.LabelText
 import com.house_shoreditch.app.theme.components.TextComponents.SectionTitle
+import com.house_shoreditch.app.theme.components.TextComponents.SubSectionTitle
+import osric.composeapp.generated.resources.*
 
 object Booking {
 
+    @OptIn(ExperimentalLayoutApi::class)
     @Composable
     fun BookingSection(
         size: IntSize,
@@ -26,40 +33,107 @@ object Booking {
         var showDatePicker by remember { mutableStateOf(false) }
         var selectedDateRange: Pair<Long?, Long?> by remember { mutableStateOf(null to null) }
         Column(
-            horizontalAlignment = Alignment.CenterHorizontally,
+            horizontalAlignment = Alignment.Start,
             modifier = Modifier.fillMaxWidth()
                 .height(size.height.dp)
                 .padding(16.dp)
         ) {
 
-            SectionTitle("Booking")
+            //SectionTitle("Booking")
 
-            RoundOutlineButton(
-                "Booking.com",
-                onClick = { viewModel.openBooking() }
-            )
+            //BodyText("You can book on the major booking sites or try booking directly to save unnecessary fees :)")
 
-            RoundOutlineButton(
-                "Airbnb",
-                onClick = { viewModel.openAirbnb() }
-            )
-            RoundOutlineButton(
-                "Select range",
-                onClick = { showDatePicker = true }
-            )
+            SubSectionTitle("Direct booking")
 
-            Text(
-                (selectedDateRange.first?.toString() ?: "?") + " -> " + (selectedDateRange.second?.toString() ?: "?"),
-            )
-            if (showDatePicker) {
-                DateRangePickerModal(
-                    onDateRangeSelected = {
-                        selectedDateRange = it
-                        showDatePicker = false
-                    },
-                    onDismiss = { showDatePicker = false }
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier.padding(vertical = 8.dp)
+            ) {
+                RoundIconOutlineButton(
+                    "Select dates",
+                    icon = Res.drawable.calendar,
+                    onClick = { showDatePicker = true }
+                )
+
+                Text(
+                    (selectedDateRange.first?.toString() ?: "?") + " -> " + (selectedDateRange.second?.toString()
+                        ?: "?"),
+                )
+
+                if (showDatePicker) {
+                    DateRangePickerModal(
+                        onDateRangeSelected = {
+                            selectedDateRange = it
+                            showDatePicker = false
+                        },
+                        onDismiss = { showDatePicker = false }
+                    )
+                }
+            }
+            LabelText("Preferred payment methods")
+            Row(
+                modifier = Modifier
+                    .padding(vertical = 8.dp)
+                    .horizontalScroll(rememberScrollState())
+            ) {
+                CircleIconButton(icon = Res.drawable.pounds, modifier = Modifier.padding(4.dp)) {}
+                CircleIconButton(icon = Res.drawable.cash_payment, modifier = Modifier.padding(4.dp)) {}
+                CircleIconButton(icon = Res.drawable.credit_card, modifier = Modifier.padding(4.dp)) {}
+                CircleIconButton(icon = Res.drawable.crypto_btc, modifier = Modifier.padding(4.dp)) {}
+                CircleIconButton(icon = Res.drawable.paypal, modifier = Modifier.padding(4.dp)) {}
+                CircleIconButton(icon = Res.drawable.crypto_eth, modifier = Modifier.padding(4.dp)) {}
+                CircleIconButton(icon = Res.drawable.crypto_sol, modifier = Modifier.padding(4.dp)) {}
+                CircleIconButton(icon = Res.drawable.crypto_doge, modifier = Modifier.padding(4.dp)) {}
+                CircleIconButton(icon = Res.drawable.crypto_litecoin, modifier = Modifier.padding(4.dp)) {}
+            }
+
+            LabelText("Send via ..")
+
+            Row(
+                modifier = Modifier
+                    .padding(vertical = 8.dp)
+                    .horizontalScroll(rememberScrollState())
+            ) {
+                RoundIconOutlineButton(
+                    "Email",
+                    icon = Res.drawable.email,
+                    onClick = { }
+                )
+                RoundIconOutlineButton(
+                    "Gmail",
+                    icon = Res.drawable.google,
+                    onClick = { }
+                )
+                RoundIconOutlineButton(
+                    "SMS",
+                    icon = Res.drawable.sms,
+                    onClick = { }
                 )
             }
+
+
+            Hr()
+
+            SubSectionTitle("Booking sites")
+
+            FlowRow(modifier = Modifier
+                .padding(vertical = 8.dp)
+                .horizontalScroll(rememberScrollState())
+            ) {
+                RoundIconOutlineButton(
+                    "Airbnb",
+                    icon = Res.drawable.airbnb_com,
+                    onClick = { viewModel.openAirbnb() }
+                )
+                RoundIconOutlineButton(
+                    "Booking.com",
+                    icon = Res.drawable.booking_com,
+                    onClick = { viewModel.openBooking() }
+                )
+
+            }
+
+
         }
     }
 
@@ -72,6 +146,7 @@ object Booking {
         val dateRangePickerState = rememberDateRangePickerState()
 
         DatePickerDialog(
+            modifier = Modifier.background(Color.Transparent),
             onDismissRequest = onDismiss,
             confirmButton = {
                 TextButton(
@@ -106,7 +181,10 @@ object Booking {
                 state = dateRangePickerState,
                 title = {
                     Text(
-                        text = "Select date range"
+                        text = "Select date range",
+                        style = MaterialTheme.typography.titleMedium,
+                        color = MaterialTheme.colorScheme.secondary,
+                        modifier = Modifier.padding(8.dp)
                     )
                 },
                 showModeToggle = false,
@@ -118,12 +196,14 @@ object Booking {
                     selectedDayContainerColor = MaterialTheme.colorScheme.onSurface,
                     dayInSelectionRangeContentColor = MaterialTheme.colorScheme.surface,
                     dayInSelectionRangeContainerColor = MaterialTheme.colorScheme.onSurface,
-
-                    ),
+                    todayContentColor = MaterialTheme.colorScheme.onSurface,
+                    todayDateBorderColor = MaterialTheme.colorScheme.secondary,
+                ),
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(500.dp)
                     .padding(16.dp)
+                    .background(MaterialTheme.colorScheme.surface)
             )
         }
     }

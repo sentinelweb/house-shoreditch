@@ -16,23 +16,29 @@ val DARK_GREY = Color(0xFF444444)
 @Suppress("unused")
 val DarkColorScheme = darkColorScheme(
     primary = BLACK,
+    primaryContainer = BLACK,
     onPrimary = WHITE,
-    secondary = BLACK,
+    secondary = GREY,
+    secondaryContainer = GREY,
     onSecondary = WHITE,
     tertiary = DARK_GREY,
+    tertiaryContainer = DARK_GREY,
     onTertiary = WHITE,
     background = BLACK,
     onBackground = WHITE,
-    surface = WHITE,
-    onSurface = BLACK,
+    surface = BLACK,
+    onSurface = WHITE,
 )
 
 val LightColorScheme = lightColorScheme(
     primary = WHITE,
+    primaryContainer = WHITE,
     onPrimary = BLACK,
-    secondary = BLACK,
+    secondary = GREY,
+    secondaryContainer = WHITE,
     onSecondary = WHITE,
     tertiary = LIGHT_GREY,
+    tertiaryContainer = WHITE,
     onTertiary = BLACK,
     background = WHITE,
     onBackground = BLACK,

@@ -38,37 +38,35 @@ object Reviews {
         val coroutineScope = rememberCoroutineScope()
         val density = LocalDensity.current
 
-        // this stops rendering until size is obtined after first layout
-        if (size.height > 0) {
-            Box(
-                modifier = Modifier
-                    .width(size.width.dp)
-                    .height(size.height.dp)
-            ) {
-                Column(modifier = Modifier.padding(horizontal = 16.dp)) {
-                    SectionTitle("Reviews")
-                    Row(
-                        modifier = Modifier
-                            .horizontalScroll(horizontalScrollState)
-                            .padding(end = 32.dp)
-                    ) {
-                        model.reviews.forEach { review ->
-                            ReviewView(review, size.width)
-                        }
+        Box(
+            modifier = Modifier
+                .width(size.width.dp)
+                .height(size.height.dp)
+        ) {
+            Column(modifier = Modifier.padding(horizontal = 16.dp)) {
+                SectionTitle("Reviews")
+                Row(
+                    modifier = Modifier
+                        .horizontalScroll(horizontalScrollState)
+                        .padding(end = 32.dp)
+                ) {
+                    model.reviews.forEach { review ->
+                        ReviewView(review, size.width)
                     }
                 }
-                RoundIconOutlineButton(
-                    "Next",
-                    icon = Res.drawable.arrow_forward,
-                    modifier = Modifier
-                        .align(Alignment.BottomEnd)
-                        .padding(bottom = 84.dp),
-                    onClick = {
-                        onNextReview(coroutineScope, horizontalScrollState, size, density)
-                    }
-                )
             }
+            RoundIconOutlineButton(
+                "Next",
+                icon = Res.drawable.arrow_forward,
+                modifier = Modifier
+                    .align(Alignment.BottomEnd)
+                    .padding(bottom = 84.dp),
+                onClick = {
+                    onNextReview(coroutineScope, horizontalScrollState, size, density)
+                }
+            )
         }
+
     }
 
     private fun onNextReview(

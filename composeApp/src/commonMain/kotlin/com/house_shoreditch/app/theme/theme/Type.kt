@@ -91,31 +91,31 @@ fun initFont() {
         bodyLarge = TextStyle(
             fontFamily = RobotoFamily,
             fontWeight = FontWeight.Normal,
-            fontSize = 16.sp,
+            fontSize = 18.sp,
         ),
 
         bodyMedium = TextStyle(
             fontFamily = RobotoFamily,
             fontWeight = FontWeight.Normal,
-            fontSize = 14.sp,
+            fontSize = 16.sp,
         ),
 
         bodySmall = TextStyle(
             fontFamily = RobotoFamily,
             fontWeight = FontWeight.Normal,
-            fontSize = 12.sp,
+            fontSize = 14.sp,
         ),
 
         labelLarge = TextStyle(
             fontFamily = RobotoFamily,
             fontWeight = FontWeight.Light,
-            fontSize = 16.sp,
+            fontSize = 18.sp,
         ),
 
         labelMedium = TextStyle(
             fontFamily = RobotoFamily,
             fontWeight = FontWeight.Light,
-            fontSize = 14.sp,
+            fontSize = 16.sp,
         ),
         labelSmall = TextStyle(
             fontFamily = RobotoFamily,

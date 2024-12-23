@@ -36,6 +36,9 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
 import osric.composeapp.generated.resources.Res
 import osric.composeapp.generated.resources.star
 
+private const val MIN_BUTTON_SCALE = 0.70f
+private const val NORMAL_BUTTON_SCALE = 1f
+
 private lateinit var themeButtonColors: ButtonColors
 private lateinit var outlinedBorder: BorderStroke
 private lateinit var outlinedBorderDisabled: BorderStroke
@@ -48,19 +51,19 @@ private val disabledContentColor = Color.DarkGray
 @Composable
 fun initButtonsColors() {
     themeButtonColors = ButtonDefaults.buttonColors(
-        containerColor = MaterialTheme.colorScheme.surface,
-        contentColor = MaterialTheme.colorScheme.onSurface,
-        disabledContainerColor = disabledContainerColor,
-        disabledContentColor = disabledContentColor,
-    )
-    outlinedBorder = BorderStroke(width = 1.dp, color = MaterialTheme.colorScheme.surface)
-    outlinedBorderDisabled = BorderStroke(width = 1.dp, color = disabledContainerColor)
-    outlinedButtonColors = ButtonDefaults.buttonColors(
         containerColor = MaterialTheme.colorScheme.onSurface,
         contentColor = MaterialTheme.colorScheme.surface,
         disabledContainerColor = disabledContainerColor,
         disabledContentColor = disabledContentColor,
     )
+    outlinedButtonColors = ButtonDefaults.buttonColors(
+        containerColor = MaterialTheme.colorScheme.surface,
+        contentColor = MaterialTheme.colorScheme.onSurface,
+        disabledContainerColor = disabledContainerColor,
+        disabledContentColor = disabledContentColor,
+    )
+    outlinedBorder = BorderStroke(width = 1.dp, color = MaterialTheme.colorScheme.onSurface)
+    outlinedBorderDisabled = BorderStroke(width = 1.dp, color = disabledContainerColor)
 }
 
 private const val CTA_SHAPE_PERCENT = 50
@@ -80,7 +83,7 @@ private fun iconColor(
     enabled: Boolean,
     outlined: Boolean,
 ) = if (enabled)
-    if (outlined) MaterialTheme.colorScheme.surface else MaterialTheme.colorScheme.onSurface
+    if (outlined) MaterialTheme.colorScheme.onSurface else MaterialTheme.colorScheme.surface
 else disabledContentColor
 
 @Composable
@@ -406,15 +409,22 @@ fun CircleIconButton(
     size: Dp = 48.dp,
     dontTintIcon: Boolean = false,
     modifier: Modifier = Modifier,
+    selected: Boolean = false,
     onClick: () -> Unit,
 ) {
     val colors = outlinedButtonColors
     val border = outlinedBorder
     val shape = ctaButtonShape
 
+    val colorsSelection = if (selected) {
+        colors.copy(containerColor = MaterialTheme.colorScheme.secondary)
+    } else {
+        colors
+    }
+
     Button(
         onClick = { onClick() },
-        colors = colors,
+        colors = colorsSelection,
         border = border,
         enabled = enabled,
         shape = shape,
@@ -543,6 +553,3 @@ private fun CircleIconButtonPreview() {
         CircleIconButton(icon = Res.drawable.star) {}
     }
 }
-
-private const val MIN_BUTTON_SCALE = 0.70f
-private const val NORMAL_BUTTON_SCALE = 1f
