@@ -9,11 +9,11 @@ import com.house_shoreditch.app.theme.components.initButtonsColors
 
 @Composable
 fun OsricTheme(
-    @Suppress("unused") darkTheme: Boolean = isSystemInDarkTheme(),
-    @Suppress("unused") dynamicColor: Boolean = true,
+    darkTheme: Boolean = isSystemInDarkTheme(),
     content: @Composable () -> Unit
 ) {
     initFont()
+    initColors(darkTheme)
     initButtonsColors()
     val colorScheme = if (darkTheme) DarkColorScheme else LightColorScheme
 

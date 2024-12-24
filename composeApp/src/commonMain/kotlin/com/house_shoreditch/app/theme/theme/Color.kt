@@ -13,6 +13,16 @@ val LIGHT_GREY = Color(0xFFBBBBBB)
 val GREY = Color(0xFF888888)
 val DARK_GREY = Color(0xFF444444)
 
+var surfaceColor: Color = WHITE
+var onSurfaceColor: Color = BLACK
+
+fun initColors(isDark: Boolean = false) {
+    if (isDark) {
+        surfaceColor = BLACK
+        onSurfaceColor = WHITE
+    }
+}
+
 @Suppress("unused")
 val DarkColorScheme = darkColorScheme(
     primary = BLACK,
@@ -44,5 +54,6 @@ val LightColorScheme = lightColorScheme(
     onBackground = BLACK,
     surface = WHITE,
     onSurface = BLACK,
+
 )
 

@@ -1,5 +1,4 @@
-@file:Suppress("FunctionNaming", "LongParameterList", "TooManyFunctions")
-
+@file:Suppress("unused","FunctionNaming", "LongParameterList", "TooManyFunctions")
 package com.house_shoreditch.app.theme.components
 
 import androidx.compose.animation.core.Spring
@@ -30,6 +29,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.moonsift.app.ui.theme.OsricTheme
 import com.moonsift.app.ui.theme.RobotoFamily
+import com.moonsift.app.ui.theme.onSurfaceColor
+import com.moonsift.app.ui.theme.surfaceColor
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
@@ -40,9 +41,9 @@ private const val MIN_BUTTON_SCALE = 0.70f
 private const val NORMAL_BUTTON_SCALE = 1f
 
 private lateinit var themeButtonColors: ButtonColors
+private lateinit var outlinedButtonColors: ButtonColors
 private lateinit var outlinedBorder: BorderStroke
 private lateinit var outlinedBorderDisabled: BorderStroke
-private lateinit var outlinedButtonColors: ButtonColors
 
 private val disabledContainerColor = Color.Gray
 private val disabledContentColor = Color.DarkGray
@@ -51,19 +52,23 @@ private val disabledContentColor = Color.DarkGray
 @Composable
 fun initButtonsColors() {
     themeButtonColors = ButtonDefaults.buttonColors(
-        containerColor = MaterialTheme.colorScheme.onSurface,
-        contentColor = MaterialTheme.colorScheme.surface,
+//        containerColor = MaterialTheme.colorScheme.onSurface,
+//        contentColor = MaterialTheme.colorScheme.surface,
+        contentColor = surfaceColor,
+        containerColor = onSurfaceColor,
         disabledContainerColor = disabledContainerColor,
         disabledContentColor = disabledContentColor,
     )
     outlinedButtonColors = ButtonDefaults.buttonColors(
-        containerColor = MaterialTheme.colorScheme.surface,
-        contentColor = MaterialTheme.colorScheme.onSurface,
+//        containerColor = MaterialTheme.colorScheme.surface,
+//        contentColor = MaterialTheme.colorScheme.onSurface,
+        contentColor = onSurfaceColor,
+        containerColor = surfaceColor,
         disabledContainerColor = disabledContainerColor,
         disabledContentColor = disabledContentColor,
     )
-    outlinedBorder = BorderStroke(width = 1.dp, color = MaterialTheme.colorScheme.onSurface)
-    outlinedBorderDisabled = BorderStroke(width = 1.dp, color = disabledContainerColor)
+    outlinedBorder = BorderStroke(width = 1.dp, color = onSurfaceColor)
+    outlinedBorderDisabled = BorderStroke(width = 0.dp, color = disabledContainerColor)
 }
 
 private const val CTA_SHAPE_PERCENT = 50
@@ -83,7 +88,7 @@ private fun iconColor(
     enabled: Boolean,
     outlined: Boolean,
 ) = if (enabled)
-    if (outlined) MaterialTheme.colorScheme.onSurface else MaterialTheme.colorScheme.surface
+    if (outlined) onSurfaceColor else surfaceColor
 else disabledContentColor
 
 @Composable
