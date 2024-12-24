@@ -12,12 +12,13 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
 import com.house_shoreditch.app.main.MainContract
+import com.house_shoreditch.app.main.MainContract.Model.PaymentMethod
+import com.house_shoreditch.app.main.MainContract.Model.PaymentMethod.*
 import com.house_shoreditch.app.main.MainViewModel
 import com.house_shoreditch.app.theme.components.CircleIconButton
 import com.house_shoreditch.app.theme.components.RoundIconOutlineButton
 import com.house_shoreditch.app.theme.components.TextComponents.Hr
 import com.house_shoreditch.app.theme.components.TextComponents.LabelText
-import com.house_shoreditch.app.theme.components.TextComponents.SectionTitle
 import com.house_shoreditch.app.theme.components.TextComponents.SubSectionTitle
 import osric.composeapp.generated.resources.*
 
@@ -36,7 +37,7 @@ object Booking {
             horizontalAlignment = Alignment.Start,
             modifier = Modifier.fillMaxWidth()
                 .height(size.height.dp)
-                .padding(16.dp)
+                .padding(horizontal = 16.dp)
         ) {
 
             //SectionTitle("Booking")
@@ -71,20 +72,8 @@ object Booking {
                 }
             }
             LabelText("Preferred payment methods")
-            Row(
-                modifier = Modifier
-                    .padding(vertical = 8.dp)
-                    .horizontalScroll(rememberScrollState())
-            ) {
-                CircleIconButton(icon = Res.drawable.pounds, modifier = Modifier.padding(4.dp)) {}
-                CircleIconButton(icon = Res.drawable.cash_payment, modifier = Modifier.padding(4.dp)) {}
-                CircleIconButton(icon = Res.drawable.credit_card, modifier = Modifier.padding(4.dp)) {}
-                CircleIconButton(icon = Res.drawable.crypto_btc, modifier = Modifier.padding(4.dp)) {}
-                CircleIconButton(icon = Res.drawable.paypal, modifier = Modifier.padding(4.dp)) {}
-                CircleIconButton(icon = Res.drawable.crypto_eth, modifier = Modifier.padding(4.dp)) {}
-                CircleIconButton(icon = Res.drawable.crypto_sol, modifier = Modifier.padding(4.dp)) {}
-                CircleIconButton(icon = Res.drawable.crypto_doge, modifier = Modifier.padding(4.dp)) {}
-                CircleIconButton(icon = Res.drawable.crypto_litecoin, modifier = Modifier.padding(4.dp)) {}
+            PaymentMethodsRow{ method ->
+
             }
 
             LabelText("Send via ..")
@@ -114,11 +103,12 @@ object Booking {
 
             Hr()
 
-            SubSectionTitle("Booking sites")
+            SubSectionTitle("Or book on ...")
 
-            FlowRow(modifier = Modifier
-                .padding(vertical = 8.dp)
-                .horizontalScroll(rememberScrollState())
+            FlowRow(
+                modifier = Modifier
+                    .padding(vertical = 8.dp)
+                    .horizontalScroll(rememberScrollState())
             ) {
                 RoundIconOutlineButton(
                     "Airbnb",
@@ -132,8 +122,25 @@ object Booking {
                 )
 
             }
+        }
+    }
 
-
+    @Composable
+    fun PaymentMethodsRow(onClick: (PaymentMethod) -> Unit) {
+        Row(
+            modifier = Modifier
+                .padding(vertical = 8.dp)
+                .horizontalScroll(rememberScrollState())
+        ) {
+            CircleIconButton(icon = Res.drawable.pounds, modifier = Modifier.padding(4.dp)) { onClick(Pounds) }
+            CircleIconButton(icon = Res.drawable.cash_payment, modifier = Modifier.padding(4.dp)) { onClick(Cash) }
+            CircleIconButton(icon = Res.drawable.credit_card, modifier = Modifier.padding(4.dp)) { onClick(CreditCard) }
+            CircleIconButton(icon = Res.drawable.crypto_btc, modifier = Modifier.padding(4.dp)) { onClick(Btc) }
+            CircleIconButton(icon = Res.drawable.paypal, modifier = Modifier.padding(4.dp)) { onClick(PayPal) }
+            CircleIconButton(icon = Res.drawable.crypto_eth, modifier = Modifier.padding(4.dp)) { onClick(Eth) }
+            CircleIconButton(icon = Res.drawable.crypto_sol, modifier = Modifier.padding(4.dp)) { onClick(Sol) }
+            CircleIconButton(icon = Res.drawable.crypto_doge, modifier = Modifier.padding(4.dp)) { onClick(Doge) }
+            CircleIconButton(icon = Res.drawable.crypto_litecoin, modifier = Modifier.padding(4.dp)) { onClick(Ltc) }
         }
     }
 

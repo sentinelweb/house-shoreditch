@@ -2,10 +2,6 @@ package com.house_shoreditch.app.main
 
 import org.jetbrains.compose.resources.DrawableResource
 import osric.composeapp.generated.resources.*
-import osric.composeapp.generated.resources.Res
-import osric.composeapp.generated.resources.living
-import osric.composeapp.generated.resources.smart_display
-import osric.composeapp.generated.resources.speaker
 
 interface MainContract {
 
@@ -33,6 +29,19 @@ interface MainContract {
             val review: String,
         )
 
+        enum class PaymentMethod(
+            val drawable: DrawableResource
+        ) {
+            Pounds(Res.drawable.pounds),
+            Cash(Res.drawable.cash_payment),
+            CreditCard(Res.drawable.credit_card),
+            Btc(Res.drawable.crypto_btc),
+            Eth(Res.drawable.crypto_eth),
+            Doge(Res.drawable.crypto_doge),
+            PayPal(Res.drawable.paypal),
+            Sol(Res.drawable.crypto_sol),
+            Ltc(Res.drawable.crypto_litecoin)
+        }
 
         companion object {
             val Areas: List<Area> =

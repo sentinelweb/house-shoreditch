@@ -9,6 +9,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 
 object TextComponents {
@@ -31,9 +32,14 @@ object TextComponents {
     }
 
     @Composable
-    fun LabelText(title: String, modifier: Modifier = Modifier) {
+    fun LabelText(
+        title: String,
+        color: Color = MaterialTheme.colorScheme.onPrimary,
+        modifier: Modifier = Modifier
+    ) {
         Text(
             title,
+            color = color,
             style = MaterialTheme.typography.labelMedium,
             modifier = modifier
         )
@@ -49,7 +55,7 @@ object TextComponents {
     }
 
     @Composable
-    fun Hr(){
+    fun Hr() {
         Box(
             modifier = Modifier
                 .fillMaxWidth()

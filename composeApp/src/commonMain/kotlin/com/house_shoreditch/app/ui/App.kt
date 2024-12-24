@@ -1,13 +1,18 @@
 package com.house_shoreditch.app.ui
 
-import androidx.compose.foundation.*
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.layout.*
-import androidx.compose.material3.*
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.FloatingActionButtonDefaults.elevation
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalDensity
@@ -15,13 +20,13 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
 import com.house_shoreditch.app.main.MainViewModel
-import com.house_shoreditch.app.util.PlatformType.Android
-import com.house_shoreditch.app.util.PlatformType.Ios
-import com.house_shoreditch.app.util.getPlatform
 import com.house_shoreditch.app.theme.components.Action
 import com.house_shoreditch.app.theme.components.CuerMenuItem
 import com.house_shoreditch.app.theme.components.OsricAppBarComposables
 import com.house_shoreditch.app.ui.Test.TestContent
+import com.house_shoreditch.app.util.PlatformType.Android
+import com.house_shoreditch.app.util.PlatformType.Ios
+import com.house_shoreditch.app.util.getPlatform
 import com.moonsift.app.ui.theme.OsricTheme
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
@@ -126,22 +131,21 @@ fun App(viewModel: MainViewModel = koinViewModel()) {
                     .verticalScroll(verticalScrollState)
                     .onGloballyPositioned {
                         if (initialSize == IntSize.Zero) {
-                            initialSize = IntSize((it.size.width / density).toInt(), (it.size.height / density).toInt())
+                            initialSize =
+                                IntSize((it.size.width / density).toInt(), (it.size.height / density).toInt())
                         }
                     }
             ) {
                 if (initialSize != IntSize.Zero) {
-                    Intro.IntroScreen(size = initialSize, model = model.value)
+                    Intro.IntroScreen(size = initialSize, model = model.value, pageJump = { page ->
+                        coroutineScope.scrollToPage(verticalScrollState, initialSize, density, page)
+                    })
                     Photos.PhotosView(size = initialSize, model = model.value)
                     Facilities.FacilitiesScreen(size = initialSize, model = model.value)
                     Reviews.ReviewsSection(size = initialSize, model = model.value)
                     Booking.BookingSection(size = initialSize, model = model.value, viewModel = viewModel)
                     Contact(height = initialSize.height.dp)
                     TestContent(size = initialSize)
-                } else {
-                    Box(Modifier.fillMaxSize().background(Color.Black)) {
-                        CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
-                    }
                 }
             }
         }
