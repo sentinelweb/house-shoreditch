@@ -145,7 +145,7 @@ fun App(viewModel: MainViewModel = koinViewModel()) {
                     Reviews.ReviewsSection(size = initialSize, model = model.value)
                     Booking.BookingSection(size = initialSize, model = model.value, viewModel = viewModel)
                     Contact(height = initialSize.height.dp)
-                    TestContent(size = initialSize)
+                    TestContent()
                 }
             }
         }

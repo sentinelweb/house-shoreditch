@@ -14,7 +14,6 @@ import com.house_shoreditch.app.theme.components.TextComponents.Hr
 import osric.composeapp.generated.resources.*
 
 object Test {
-
     @Composable
     fun TestContent() {
         Column(
