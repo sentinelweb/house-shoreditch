@@ -13,8 +13,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
 import com.house_shoreditch.app.main.MainContract
-import com.house_shoreditch.app.main.MainContract.Model.PaymentMethod
-import com.house_shoreditch.app.main.MainContract.Model.PaymentMethod.*
+import com.house_shoreditch.app.main.MainContract.BookingModel
+import com.house_shoreditch.app.main.MainContract.PaymentMethod
+import com.house_shoreditch.app.main.MainContract.PaymentMethod.*
 import com.house_shoreditch.app.main.MainViewModel
 import com.house_shoreditch.app.theme.components.CircleIconButton
 import com.house_shoreditch.app.theme.components.RoundIconOutlineButton
@@ -30,9 +31,9 @@ object Booking {
     @Composable
     fun BookingSection(
         size: IntSize,
-        model: MainContract.Model,
         viewModel: MainViewModel
     ) {
+        val bookingModel = viewModel.bookingModel.collectAsState()
         var showDatePicker by remember { mutableStateOf(false) }
         var selectedDateRange: Pair<Long?, Long?> by remember { mutableStateOf(null to null) }
         Column(
@@ -59,8 +60,7 @@ object Booking {
                 )
 
                 Text(
-                    (selectedDateRange.first?.toString() ?: "?") + " -> " + (selectedDateRange.second?.toString()
-                        ?: "?"),
+                    bookingModel.value.dateRange.first + " -> " + bookingModel.value.dateRange.second,
                 )
 
                 if (showDatePicker) {
@@ -75,7 +75,7 @@ object Booking {
             }
 
             LabelText("Preferred payment methods:")
-            PaymentMethodsRow { method -> }
+            PaymentMethodsRow(bookingModel.value) { method -> }
 
             LabelText("Send enquiry via ..")
 
@@ -127,31 +127,34 @@ object Booking {
     }
 
     @Composable
-    fun PaymentMethodsRow(onClick: (PaymentMethod) -> Unit) {
+    fun PaymentMethodsRow(bookingModel: BookingModel, onClick: (PaymentMethod) -> Unit) {
         Row(
             modifier = Modifier
                 .padding(vertical = 8.dp)
                 .horizontalScroll(rememberScrollState())
         ) {
-            PaymentMethod(Pounds, onClick)
-            PaymentMethod(Cash, onClick)
-            PaymentMethod(CreditCard, onClick)
-            PaymentMethod(Btc, onClick)
-            PaymentMethod(PayPal, onClick)
-            PaymentMethod(Eth, onClick)
-            PaymentMethod(Sol, onClick)
-            PaymentMethod(Doge, onClick)
-            PaymentMethod(Ltc, onClick)
+            PaymentMethod(Pounds, bookingModel, onClick)
+            PaymentMethod(Cash, bookingModel, onClick)
+            PaymentMethod(CreditCard, bookingModel, onClick)
+            PaymentMethod(Btc, bookingModel, onClick)
+            PaymentMethod(PayPal, bookingModel, onClick)
+            PaymentMethod(Eth, bookingModel, onClick)
+            PaymentMethod(Sol, bookingModel, onClick)
+            PaymentMethod(Doge, bookingModel, onClick)
+            PaymentMethod(Ltc, bookingModel, onClick)
         }
     }
 
     @Composable
-    private fun PaymentMethod(method: PaymentMethod, onClick: (PaymentMethod) -> Unit) {
+    private fun PaymentMethod(method: PaymentMethod, bookingModel: BookingModel, onClick: (PaymentMethod) -> Unit) {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier.padding(4.dp).clickable { onClick(method) }
         ) {
-            CircleIconButton(icon = method.drawable) { onClick(Pounds) }
+            CircleIconButton(
+                icon = method.drawable,
+                selected = bookingModel.paymentMethods.contains(method),
+            ) { onClick(Pounds) }
             Text(stringResource(method.description), style = MaterialTheme.typography.labelSmall, modifier = Modifier.padding(4.dp))
         }
     }
