@@ -13,7 +13,7 @@ class OsricApp : Application() {
         startKoin {
             androidContext(this@OsricApp)
             modules(
-                listOf(OsricModules.mainModule)
+                OsricModules.allModules
                     .plus(AndroidModules.androidModule)
             )
         }

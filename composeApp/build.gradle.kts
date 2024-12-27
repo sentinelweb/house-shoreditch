@@ -3,6 +3,7 @@ import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpackConfig
+import java.util.*
 
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
@@ -77,6 +78,7 @@ kotlin {
             implementation(project.dependencies.enforcedPlatform(libs.koin.bom.get()))
             implementation(libs.koin.core)
             implementation(libs.koin.composeVM)
+            implementation(libs.kotlinx.datetime)
         }
 
         wasmJsMain.dependencies {
@@ -158,4 +160,36 @@ compose.desktop {
 java {
     sourceCompatibility = JavaVersion.VERSION_21
     targetCompatibility = JavaVersion.VERSION_21
+}
+
+tasks.register("generateSecretsClass") {
+    doLast {
+        val file = File("$projectDir/src/commonMain/kotlin/com/house_shoreditch/app/Secrets.kt")
+        print(file.absolutePath)
+        file.parentFile.mkdirs()
+        file.writeText(
+            """
+            package uk.co.sentinelweb.cuer.hub
+            
+            object Secrets {
+                val email: String = "${getSecret("EMAIL")}"
+                val phone: String = "${getSecret("PHONE")}"
+            }
+        """.trimIndent()
+        )
+    }
+}
+
+tasks.named("generateComposeResClass") {
+    dependsOn("generateSecretsClass")
+}
+
+fun getSecret(propertyName: String): String {
+    val secretsFile = rootProject.file("secrets.properties")
+    if (secretsFile.exists()) {
+        val properties = Properties()
+        secretsFile.inputStream().use { properties.load(it) }
+        val property = properties.getProperty(propertyName)
+        return property
+    } else return "invalid"
 }

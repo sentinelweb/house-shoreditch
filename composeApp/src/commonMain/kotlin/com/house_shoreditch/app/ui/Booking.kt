@@ -12,16 +12,21 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
-import com.house_shoreditch.app.main.MainContract
+import androidx.compose.ui.unit.sp
+import com.house_shoreditch.app.domain.PaymentMethod
+import com.house_shoreditch.app.domain.PaymentMethod.*
 import com.house_shoreditch.app.main.MainContract.BookingModel
-import com.house_shoreditch.app.main.MainContract.PaymentMethod
-import com.house_shoreditch.app.main.MainContract.PaymentMethod.*
 import com.house_shoreditch.app.main.MainViewModel
 import com.house_shoreditch.app.theme.components.CircleIconButton
 import com.house_shoreditch.app.theme.components.RoundIconOutlineButton
 import com.house_shoreditch.app.theme.components.TextComponents.Hr
 import com.house_shoreditch.app.theme.components.TextComponents.LabelText
 import com.house_shoreditch.app.theme.components.TextComponents.SubSectionTitle
+import com.house_shoreditch.app.util.PlatformType.*
+import com.house_shoreditch.app.util.getPlatform
+import com.moonsift.app.ui.theme.onSurfaceColor
+import kotlinx.datetime.Clock
+import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import osric.composeapp.generated.resources.*
 
@@ -34,8 +39,6 @@ object Booking {
         viewModel: MainViewModel
     ) {
         val bookingModel = viewModel.bookingModel.collectAsState()
-        var showDatePicker by remember { mutableStateOf(false) }
-        var selectedDateRange: Pair<Long?, Long?> by remember { mutableStateOf(null to null) }
         Column(
             horizontalAlignment = Alignment.Start,
             modifier = Modifier.fillMaxWidth()
@@ -43,91 +46,156 @@ object Booking {
                 .padding(horizontal = 16.dp)
         ) {
 
-            //SectionTitle("Booking")
-
-            //BodyText("You can book on the major booking sites or try booking directly to save unnecessary fees :)")
+            // BodyText("You can book on the major booking sites or try booking directly to save unnecessary fees :)")
 
             SubSectionTitle("Direct booking")
 
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                modifier = Modifier.padding(vertical = 8.dp)
-            ) {
-                RoundIconOutlineButton(
-                    "Select dates",
-                    icon = Res.drawable.calendar,
-                    onClick = { showDatePicker = true }
-                )
+            DateSelectionField(bookingModel, viewModel)
 
-                Text(
-                    bookingModel.value.dateRange.first + " -> " + bookingModel.value.dateRange.second,
-                )
-
-                if (showDatePicker) {
-                    DateRangePickerModal(
-                        onDateRangeSelected = {
-                            selectedDateRange = it
-                            showDatePicker = false
-                        },
-                        onDismiss = { showDatePicker = false }
-                    )
-                }
-            }
+            NumberPeopleField(bookingModel, viewModel)
 
             LabelText("Preferred payment methods:")
-            PaymentMethodsRow(bookingModel.value) { method -> }
-
-            LabelText("Send enquiry via ..")
-
-            Row(
-                modifier = Modifier
-                    .padding(vertical = 8.dp)
-                    .horizontalScroll(rememberScrollState())
-            ) {
-                RoundIconOutlineButton(
-                    "Email",
-                    icon = Res.drawable.email,
-                    onClick = { }
-                )
-                RoundIconOutlineButton(
-                    "Gmail",
-                    icon = Res.drawable.google,
-                    onClick = { }
-                )
-                RoundIconOutlineButton(
-                    "SMS",
-                    icon = Res.drawable.sms,
-                    onClick = { }
-                )
+            PaymentMethodsField(bookingModel.value) { method ->
+                viewModel.onClickPayemntMethod(method)
             }
 
+            SendButtons(viewModel)
 
             Hr()
 
-            SubSectionTitle("Or book on ...")
+            BookOnSection(viewModel)
+        }
+    }
 
-            FlowRow(
-                modifier = Modifier
-                    .padding(vertical = 8.dp)
-                    .horizontalScroll(rememberScrollState())
-            ) {
+    @Composable
+    private fun SendButtons(viewModel: MainViewModel) {
+        LabelText("Send enquiry via ..")
+        Row(
+            modifier = Modifier
+                .padding(vertical = 8.dp)
+                .horizontalScroll(rememberScrollState())
+        ) {
+            if (listOf(Android, Desktop, Web).contains(getPlatform().type)) {
                 RoundIconOutlineButton(
-                    "Airbnb",
-                    icon = Res.drawable.airbnb_com,
-                    onClick = { viewModel.openAirbnb() }
+                    "Gmail",
+                    icon = Res.drawable.google,
+                    onClick = { viewModel.onSendEnquiryGmail() }
                 )
+            }
+            RoundIconOutlineButton(
+                "Email",
+                icon = Res.drawable.email,
+                onClick = { viewModel.onSendEnquiryEmail() }
+            )
+            if (listOf(Android, Ios, Web).contains(getPlatform().type)) {
                 RoundIconOutlineButton(
-                    "Booking.com",
-                    icon = Res.drawable.booking_com,
-                    onClick = { viewModel.openBooking() }
+                    "SMS",
+                    icon = Res.drawable.sms,
+                    onClick = { viewModel.onSendEnquirySms() }
                 )
-
             }
         }
     }
 
     @Composable
-    fun PaymentMethodsRow(bookingModel: BookingModel, onClick: (PaymentMethod) -> Unit) {
+    @OptIn(ExperimentalLayoutApi::class)
+    private fun DateSelectionField(
+        bookingModel: State<BookingModel>,
+        viewModel: MainViewModel
+    ) {
+        var showDatePicker by remember { mutableStateOf(false) }
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier.padding(vertical = 8.dp)
+        ) {
+
+            RoundIconOutlineButton(
+                "Select dates",
+                icon = Res.drawable.calendar,
+                onClick = { showDatePicker = true },
+                modifier = Modifier.padding(end = 8.dp)
+            )
+
+            bookingModel.value.dateRange?.let {
+                FlowRow {
+                    Text(it.first)
+                    Icon(
+                        painterResource(Res.drawable.arrow_forward),
+                        contentDescription = null,
+                        tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                        modifier = Modifier.padding(horizontal = 4.dp, vertical = 4.dp).size(16.dp)
+                    )
+                    Text(it.second)
+                }
+            }
+
+            if (showDatePicker) {
+                DateRangePickerModal(
+                    onDateRangeSelected = {
+                        viewModel.onDatesSelected(it)
+                        showDatePicker = false
+                    },
+                    onDismiss = { showDatePicker = false }
+                )
+            }
+        }
+    }
+
+    @Composable
+    private fun NumberPeopleField(
+        bookingModel: State<BookingModel>,
+        viewModel: MainViewModel
+    ) {
+        LabelText("Number of people:")
+        var numPeople by remember { mutableStateOf(bookingModel.value.numPeople) }
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            Text(
+                bookingModel.value.numPeople.toString(),
+                style = MaterialTheme.typography.titleLarge,
+                fontSize = 24.sp,
+                modifier = Modifier.padding(horizontal = 4.dp)
+            )
+            Slider(
+                value = bookingModel.value.numPeople / 7f,
+                onValueChange = { fraction ->
+                    numPeople = (fraction * 7).toInt()
+                    viewModel.onChangeNumPeople(numPeople)
+                },
+                colors = SliderDefaults.colors(
+                    thumbColor = onSurfaceColor,
+                    activeTrackColor = onSurfaceColor,
+                ),
+                modifier = Modifier.fillMaxWidth().padding(horizontal = 4.dp)
+            )
+        }
+    }
+
+    @OptIn(ExperimentalLayoutApi::class)
+    @Composable
+    private fun BookOnSection(viewModel: MainViewModel) {
+        SubSectionTitle("Or book on ...")
+
+        FlowRow(
+            modifier = Modifier
+                .padding(vertical = 8.dp)
+                .horizontalScroll(rememberScrollState())
+        ) {
+            RoundIconOutlineButton(
+                "Airbnb",
+                icon = Res.drawable.airbnb_com,
+                onClick = { viewModel.openAirbnb() }
+            )
+            RoundIconOutlineButton(
+                "Booking.com",
+                icon = Res.drawable.booking_com,
+                onClick = { viewModel.openBooking() }
+            )
+
+        }
+    }
+
+    @Composable
+    fun PaymentMethodsField(bookingModel: BookingModel, onClick: (PaymentMethod) -> Unit) {
         Row(
             modifier = Modifier
                 .padding(vertical = 8.dp)
@@ -154,8 +222,12 @@ object Booking {
             CircleIconButton(
                 icon = method.drawable,
                 selected = bookingModel.paymentMethods.contains(method),
-            ) { onClick(Pounds) }
-            Text(stringResource(method.description), style = MaterialTheme.typography.labelSmall, modifier = Modifier.padding(4.dp))
+            ) { onClick(method) }
+            Text(
+                stringResource(method.description),
+                style = MaterialTheme.typography.labelSmall,
+                modifier = Modifier.padding(4.dp)
+            )
         }
     }
 
@@ -165,7 +237,17 @@ object Booking {
         onDateRangeSelected: (Pair<Long?, Long?>) -> Unit,
         onDismiss: () -> Unit
     ) {
-        val dateRangePickerState = rememberDateRangePickerState()
+        val dateRangePickerState = rememberDateRangePickerState(
+            selectableDates = object : SelectableDates {
+                override fun isSelectableDate(utcTimeMillis: Long): Boolean {
+                    return utcTimeMillis > Clock.System.now().toEpochMilliseconds()
+                }
+
+                override fun isSelectableYear(year: Int): Boolean {
+                    return year >= Clock.System.now().epochSeconds / (60 * 60 * 24 * 365)
+                }
+            }
+        )
 
         DatePickerDialog(
             modifier = Modifier.background(Color.Transparent),

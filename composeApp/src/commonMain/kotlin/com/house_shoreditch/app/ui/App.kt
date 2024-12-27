@@ -19,6 +19,7 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
+import com.house_shoreditch.app.main.MainContract
 import com.house_shoreditch.app.main.MainViewModel
 import com.house_shoreditch.app.theme.components.Action
 import com.house_shoreditch.app.theme.components.CuerMenuItem
@@ -44,7 +45,8 @@ private fun isMobile() = listOf(Android, Ios).contains(getPlatform().type)
 @Composable
 @Preview
 fun App(viewModel: MainViewModel = koinViewModel()) {
-    val model = viewModel.model.collectAsState()
+//    val model = viewModel.model.collectAsState()
+    val model = MainContract.Init
     var initialSize by remember { mutableStateOf(IntSize.Zero) }
     var page by remember { mutableStateOf(0) }
     val density = LocalDensity.current.density
@@ -137,12 +139,12 @@ fun App(viewModel: MainViewModel = koinViewModel()) {
                     }
             ) {
                 if (initialSize != IntSize.Zero) {
-                    Intro.IntroScreen(size = initialSize, model = model.value, pageJump = { page ->
+                    Intro.IntroScreen(size = initialSize, pageJump = { page ->
                         coroutineScope.scrollToPage(verticalScrollState, initialSize, density, page)
                     })
-                    Photos.PhotosView(size = initialSize, model = model.value)
-                    Facilities.FacilitiesScreen(size = initialSize, model = model.value)
-                    Reviews.ReviewsSection(size = initialSize, model = model.value)
+                    Photos.PhotosView(size = initialSize, model = model)
+                    Facilities.FacilitiesScreen(size = initialSize, model = model)
+                    Reviews.ReviewsSection(size = initialSize, model = model)
                     Booking.BookingSection(size = initialSize, viewModel = viewModel)
                     Contact(height = initialSize.height.dp)
                     TestContent()

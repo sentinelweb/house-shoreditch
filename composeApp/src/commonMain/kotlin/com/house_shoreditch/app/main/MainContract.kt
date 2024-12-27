@@ -1,10 +1,10 @@
 package com.house_shoreditch.app.main
 
+import com.house_shoreditch.app.domain.PaymentMethod
+import com.house_shoreditch.app.domain.PaymentMethod.Pounds
 import com.house_shoreditch.app.main.MainContract.Model.Area
 import com.house_shoreditch.app.main.MainContract.Model.Review
-import com.house_shoreditch.app.main.MainContract.PaymentMethod.*
 import org.jetbrains.compose.resources.DrawableResource
-import org.jetbrains.compose.resources.StringResource
 import osric.composeapp.generated.resources.*
 
 interface MainContract {
@@ -35,30 +35,15 @@ interface MainContract {
     }
 
     data class BookingModel(
-        val dateRange: Pair<String, String>,
+        val dateRange: Pair<String, String>?,
         val paymentMethods: Set<PaymentMethod>,
-        val numPeople: Int
+        val numPeople: Int,
     )
 
-    enum class PaymentMethod(
-        val drawable: DrawableResource,
-        val description: StringResource,
-    ) {
-        Pounds(Res.drawable.pounds, Res.string.pm_pounds),
-        Cash(Res.drawable.cash_payment, Res.string.pm_cash),
-        CreditCard(Res.drawable.credit_card, Res.string.pm_cc),
-        Btc(Res.drawable.crypto_btc, Res.string.pm_btc),
-        Eth(Res.drawable.crypto_eth, Res.string.pm_eth),
-        Doge(Res.drawable.crypto_doge, Res.string.pm_doge),
-        PayPal(Res.drawable.paypal, Res.string.pm_Paypal),
-        Sol(Res.drawable.crypto_sol, Res.string.pm_sol),
-        Ltc(Res.drawable.crypto_litecoin, Res.string.pm_ltc)
-    }
-
     companion object {
-        val imageBasePath =
+        val ImageBasePath =
             "https://raw.githubusercontent.com/sentinelweb/house-shoreditch/refs/heads/main/media/photos"
-        val imageList = listOf(
+        val ImageList = listOf(
             "living_1.png",
             "living_2.png",
             "living_2_DSC_0274.JPG",
@@ -469,15 +454,16 @@ I highly recommend Robert’s place for anyone looking for an Airbnb in London. 
             )
         )
         val Init: Model = Model(
-            homeBackground = "$imageBasePath/garden_7_DSC_0291.JPG",
-            images = imageList.map { "$imageBasePath/$it" },
+            homeBackground = "$ImageBasePath/garden_7_DSC_0291.JPG",
+            images = ImageList.map { "$ImageBasePath/$it" },
             areas = Areas,
             reviews = Reviews,
         )
+        val NumberOfPeopleInitial: Int = 4
         val BookingInit = BookingModel(
-            dateRange = "startDate" to "EndDte",
-            paymentMethods = setOf(Pounds, Cash, Btc),
-            numPeople = 0
+            dateRange = null,
+            paymentMethods = setOf(Pounds),
+            numPeople = NumberOfPeopleInitial
         )
     }
 }

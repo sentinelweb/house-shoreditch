@@ -18,6 +18,7 @@ kotlinx-coroutines = "1.9.0"
 coil = "3.0.4"
 ktor = "3.0.2"
 koin-bom = "4.0.0"
+kotlinx-datetime = "0.6.1"
 
 
 [libraries]
@@ -44,6 +45,7 @@ koin-bom = { module = "io.insert-koin:koin-bom", version.ref = "koin-bom" }
 koin-core = { module = "io.insert-koin:koin-core" }
 koin-android = { module = "io.insert-koin:koin-android" }
 koin-composeVM = { module = "io.insert-koin:koin-compose-viewmodel" }
+kotlinx-datetime = { group = "org.jetbrains.kotlinx", name = "kotlinx-datetime", version.ref = "kotlinx-datetime" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }

@@ -25,7 +25,7 @@ import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.house_shoreditch.app.main.MainContract
-import com.house_shoreditch.app.main.MainContract.PaymentMethod
+import com.house_shoreditch.app.domain.PaymentMethod
 import com.moonsift.app.ui.theme.BLACK_TSP
 import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.painterResource
@@ -38,7 +38,6 @@ object Intro {
     @Composable
     fun IntroScreen(
         size: IntSize,
-        model: MainContract.Model,
         pageJump: (Int) -> Unit
     ) {
 
