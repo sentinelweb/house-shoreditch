@@ -38,6 +38,8 @@ actual class LinkLauncher : KoinComponent {
     }
 
     actual fun gmail(message: EnquiryMessageDomain) {
+        messageMapper.mapGmailUrlUnencoded(message)
+            .apply { open(this) }
     }
 
     actual fun sms(message: EnquiryMessageDomain) {

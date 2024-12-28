@@ -17,6 +17,12 @@ class MessageMapper() : KoinComponent {
             .replace(SUBJECT_PLACEHOLDER, linkLauncher.encode(message.subject))
             .replace(BODY_PLACEHOLDER, linkLauncher.encode(message.message))
 
+    fun mapGmailUrlUnencoded(message: EnquiryMessageDomain) =
+        EnquiryMessageDomain.GMAIL_URL
+            .replace(TO_PLACEHOLDER, message.to)
+            .replace(SUBJECT_PLACEHOLDER, message.subject)
+            .replace(BODY_PLACEHOLDER, message.message)
+
     fun mapMailUrl(message: EnquiryMessageDomain) =
         EnquiryMessageDomain.MAIL_URI
             .replace(TO_PLACEHOLDER, linkLauncher.encode(message.to))

@@ -75,19 +75,19 @@ object Booking {
                 .padding(vertical = 8.dp)
                 .horizontalScroll(rememberScrollState())
         ) {
-            if (listOf(Android, Desktop, Web).contains(getPlatform().type)) {
                 RoundIconOutlineButton(
                     "Gmail",
                     icon = Res.drawable.google,
                     onClick = { viewModel.onSendEnquiryGmail() }
                 )
+            if (getPlatform().isEmailAvailable) {
+                RoundIconOutlineButton(
+                    "Email",
+                    icon = Res.drawable.email,
+                    onClick = { viewModel.onSendEnquiryEmail() }
+                )
             }
-            RoundIconOutlineButton(
-                "Email",
-                icon = Res.drawable.email,
-                onClick = { viewModel.onSendEnquiryEmail() }
-            )
-            if (listOf(Android, Ios, Web).contains(getPlatform().type)) {
+            if (getPlatform().isSmsAvailable) {
                 RoundIconOutlineButton(
                     "SMS",
                     icon = Res.drawable.sms,
