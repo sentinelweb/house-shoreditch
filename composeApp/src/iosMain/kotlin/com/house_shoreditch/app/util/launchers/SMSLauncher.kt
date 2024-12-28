@@ -1,12 +1,12 @@
 package com.house_shoreditch.app.util.launchers
 
+import com.house_shoreditch.app.di.UIViewControllerWrapper
 import platform.MessageUI.MFMessageComposeViewController
 import platform.MessageUI.MFMessageComposeViewControllerDelegateProtocol
 import platform.MessageUI.MessageComposeResult
-import platform.UIKit.UIViewController
 import platform.darwin.NSObject
 
-class SMSLauncher(private val rootViewController: UIViewController) {
+class SMSLauncher(private val rootViewControllerWrapper: UIViewControllerWrapper) {
     fun sendSMS(phoneNumber: String, message: String) {
         if (!MFMessageComposeViewController.canSendText()) {
             println("Cannot send SMS. Check device capabilities.")
@@ -26,6 +26,6 @@ class SMSLauncher(private val rootViewController: UIViewController) {
             }
         }
 
-        rootViewController.presentViewController(smsComposer, animated = true, completion = null)
+        rootViewControllerWrapper.viewController.presentViewController(smsComposer, animated = true, completion = null)
     }
 }

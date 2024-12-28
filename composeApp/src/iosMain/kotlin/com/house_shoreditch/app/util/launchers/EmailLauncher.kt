@@ -1,9 +1,9 @@
 package com.house_shoreditch.app.util.launchers
 
+import com.house_shoreditch.app.di.UIViewControllerWrapper
 import platform.MessageUI.MFMailComposeViewController
-import platform.UIKit.UIViewController
 
-class EmailLauncher(private val rootViewController: UIViewController) {
+class EmailLauncher(private val rootViewControllerWarpper: UIViewControllerWrapper) {
 
     fun composeEmail(recipient: String, subject: String, body: String) {
         if (!MFMailComposeViewController.canSendMail()) {
@@ -18,6 +18,10 @@ class EmailLauncher(private val rootViewController: UIViewController) {
 //            delegate = rootViewController
         }
 
-        rootViewController.presentViewController(mailComposeViewController, animated = true, completion = null)
+        rootViewControllerWarpper.viewController.presentViewController(
+            mailComposeViewController,
+            animated = true,
+            completion = null
+        )
     }
 }

@@ -13,9 +13,9 @@ import ComposeApp
 class AppDelegate: NSObject, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        
-        OsricModules.shared.doInitKoin()
-    
+        // print("starting koin")
+        IosKoinConfig.shared.startKoin()
+        // print("started koin")
         return true
     }
 }
