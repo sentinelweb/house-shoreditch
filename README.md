@@ -1,12 +1,10 @@
 # Config
 
 ## Ios App
-config is stored in `iosApp/Configuration/Config.xcconfig`
+config is stored in `iosApp/Configuration/Secrets.xcconfig`
 
 properties are:
 - TEAM_ID=
-- BUNDLE_ID=com.house-shoreditch.app.Osric
-- APP_NAME=Oasis Shoreditch
 
 re-create this file when checking out on a new device
 

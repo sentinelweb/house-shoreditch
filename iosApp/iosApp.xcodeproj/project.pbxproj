@@ -12,17 +12,19 @@
 		2152FB042600AC8F00CF470E /* iOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2152FB032600AC8F00CF470E /* iOSApp.swift */; };
 		7555FF83242A565900829871 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7555FF82242A565900829871 /* ContentView.swift */; };
 		BD8C749E2D183D98000F3D0B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD8C749D2D183D98000F3D0B /* AppDelegate.swift */; };
+		BD8C74A02D20770C000F3D0B /* Secrets.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = BD8C749F2D20770C000F3D0B /* Secrets.xcconfig */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		058557BA273AAA24004C7B11 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		058557D8273AAEEB004C7B11 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		2152FB032600AC8F00CF470E /* iOSApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iOSApp.swift; sourceTree = "<group>"; };
-		7555FF7B242A565900829871 /* Osric.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Osric.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		7555FF7B242A565900829871 /* Oasis Shoreditch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Oasis Shoreditch.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7555FF82242A565900829871 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		7555FF8C242A565B00829871 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AB3632DC29227652001CCB65 /* Config.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 		BD8C749D2D183D98000F3D0B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		BD8C749F2D20770C000F3D0B /* Secrets.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Secrets.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,7 +66,7 @@
 		7555FF7C242A565900829871 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				7555FF7B242A565900829871 /* Osric.app */,
+				7555FF7B242A565900829871 /* Oasis Shoreditch.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -86,6 +88,7 @@
 			isa = PBXGroup;
 			children = (
 				AB3632DC29227652001CCB65 /* Config.xcconfig */,
+				BD8C749F2D20770C000F3D0B /* Secrets.xcconfig */,
 			);
 			path = Configuration;
 			sourceTree = "<group>";
@@ -110,7 +113,7 @@
 			packageProductDependencies = (
 			);
 			productName = iosApp;
-			productReference = 7555FF7B242A565900829871 /* Osric.app */;
+			productReference = 7555FF7B242A565900829871 /* Oasis Shoreditch.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -156,6 +159,7 @@
 			files = (
 				058557D9273AAEEB004C7B11 /* Preview Assets.xcassets in Resources */,
 				058557BB273AAA24004C7B11 /* Assets.xcassets in Resources */,
+				BD8C74A02D20770C000F3D0B /* Secrets.xcconfig in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
