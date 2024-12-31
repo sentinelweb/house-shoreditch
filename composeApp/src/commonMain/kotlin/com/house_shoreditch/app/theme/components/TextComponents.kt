@@ -55,6 +55,15 @@ object TextComponents {
     }
 
     @Composable
+    fun FormTitle(title: String, modifier: Modifier = Modifier) {
+        Text(
+            title,
+            style = MaterialTheme.typography.titleMedium,
+            modifier = modifier.padding(bottom = 8.dp, top = 16.dp),
+        )
+    }
+
+    @Composable
     fun Hr() {
         Box(
             modifier = Modifier

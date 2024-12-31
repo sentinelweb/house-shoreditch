@@ -20,11 +20,9 @@ import com.house_shoreditch.app.main.MainViewModel
 import com.house_shoreditch.app.theme.components.CircleIconButton
 import com.house_shoreditch.app.theme.components.RoundIconOutlineButton
 import com.house_shoreditch.app.theme.components.TextComponents.Hr
-import com.house_shoreditch.app.theme.components.TextComponents.LabelText
 import com.house_shoreditch.app.theme.components.TextComponents.SubSectionTitle
-import com.house_shoreditch.app.util.PlatformType.*
+import com.house_shoreditch.app.theme.components.TextComponents.FormTitle
 import com.house_shoreditch.app.util.getPlatform
-import com.moonsift.app.ui.theme.onSurfaceColor
 import kotlinx.datetime.Clock
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
@@ -54,46 +52,13 @@ object Booking {
 
             NumberPeopleField(bookingModel, viewModel)
 
-            LabelText("Preferred payment methods:")
-            PaymentMethodsField(bookingModel.value) { method ->
-                viewModel.onClickPayemntMethod(method)
-            }
+            PaymentMethods(bookingModel, viewModel)
 
             SendButtons(viewModel)
 
             Hr()
 
             BookOnSection(viewModel)
-        }
-    }
-
-    @Composable
-    private fun SendButtons(viewModel: MainViewModel) {
-        LabelText("Send enquiry via ..")
-        Row(
-            modifier = Modifier
-                .padding(vertical = 8.dp)
-                .horizontalScroll(rememberScrollState())
-        ) {
-                RoundIconOutlineButton(
-                    "Gmail",
-                    icon = Res.drawable.google,
-                    onClick = { viewModel.onSendEnquiryGmail() }
-                )
-            if (getPlatform().isEmailAvailable) {
-                RoundIconOutlineButton(
-                    "Email",
-                    icon = Res.drawable.email,
-                    onClick = { viewModel.onSendEnquiryEmail() }
-                )
-            }
-            if (getPlatform().isSmsAvailable) {
-                RoundIconOutlineButton(
-                    "SMS",
-                    icon = Res.drawable.sms,
-                    onClick = { viewModel.onSendEnquirySms() }
-                )
-            }
         }
     }
 
@@ -146,51 +111,45 @@ object Booking {
         bookingModel: State<BookingModel>,
         viewModel: MainViewModel
     ) {
-        LabelText("Number of people:")
-        var numPeople by remember { mutableStateOf(bookingModel.value.numPeople) }
+        FormTitle(
+            "Number of people:",
+            modifier = Modifier
+        )
         Row(verticalAlignment = Alignment.CenterVertically) {
+
+            CircleIconButton(
+                icon = Res.drawable.minus,
+            ) {
+                viewModel.onChangeNumPeople(bookingModel.value.numPeople - 1)
+            }
+
             Text(
                 bookingModel.value.numPeople.toString(),
                 style = MaterialTheme.typography.titleLarge,
                 fontSize = 24.sp,
-                modifier = Modifier.padding(horizontal = 4.dp)
+                modifier = Modifier.padding(horizontal = 8.dp)
             )
-            Slider(
-                value = bookingModel.value.numPeople / 7f,
-                onValueChange = { fraction ->
-                    numPeople = (fraction * 7).toInt()
-                    viewModel.onChangeNumPeople(numPeople)
-                },
-                colors = SliderDefaults.colors(
-                    thumbColor = onSurfaceColor,
-                    activeTrackColor = onSurfaceColor,
-                ),
-                modifier = Modifier.fillMaxWidth().padding(horizontal = 4.dp)
-            )
+
+            CircleIconButton(
+                icon = Res.drawable.add,
+            ) {
+                viewModel.onChangeNumPeople(bookingModel.value.numPeople + 1)
+            }
+
         }
     }
 
-    @OptIn(ExperimentalLayoutApi::class)
     @Composable
-    private fun BookOnSection(viewModel: MainViewModel) {
-        SubSectionTitle("Or book on ...")
-
-        FlowRow(
+    private fun PaymentMethods(
+        bookingModel: State<BookingModel>,
+        viewModel: MainViewModel
+    ) {
+        FormTitle(
+            "Preferred payment methods:",
             modifier = Modifier
-                .padding(vertical = 8.dp)
-                .horizontalScroll(rememberScrollState())
-        ) {
-            RoundIconOutlineButton(
-                "Airbnb",
-                icon = Res.drawable.airbnb_com,
-                onClick = { viewModel.openAirbnb() }
-            )
-            RoundIconOutlineButton(
-                "Booking.com",
-                icon = Res.drawable.booking_com,
-                onClick = { viewModel.openBooking() }
-            )
-
+        )
+        PaymentMethodsField(bookingModel.value) { method ->
+            viewModel.onClickPayemntMethod(method)
         }
     }
 
@@ -198,7 +157,6 @@ object Booking {
     fun PaymentMethodsField(bookingModel: BookingModel, onClick: (PaymentMethod) -> Unit) {
         Row(
             modifier = Modifier
-                .padding(vertical = 8.dp)
                 .horizontalScroll(rememberScrollState())
         ) {
             PaymentMethod(Pounds, bookingModel, onClick)
@@ -228,6 +186,36 @@ object Booking {
                 style = MaterialTheme.typography.labelSmall,
                 modifier = Modifier.padding(4.dp)
             )
+        }
+    }
+
+    @Composable
+    private fun SendButtons(viewModel: MainViewModel) {
+        FormTitle("Send enquiry via ..")
+        Row(
+            modifier = Modifier
+                .padding(vertical = 8.dp)
+                .horizontalScroll(rememberScrollState())
+        ) {
+            RoundIconOutlineButton(
+                "Gmail",
+                icon = Res.drawable.google,
+                onClick = { viewModel.onSendEnquiryGmail() }
+            )
+            if (getPlatform().isEmailAvailable) {
+                RoundIconOutlineButton(
+                    "Email",
+                    icon = Res.drawable.email,
+                    onClick = { viewModel.onSendEnquiryEmail() }
+                )
+            }
+            if (getPlatform().isSmsAvailable) {
+                RoundIconOutlineButton(
+                    "SMS",
+                    icon = Res.drawable.sms,
+                    onClick = { viewModel.onSendEnquirySms() }
+                )
+            }
         }
     }
 
@@ -309,6 +297,30 @@ object Booking {
                     .padding(16.dp)
                     .background(MaterialTheme.colorScheme.surface)
             )
+        }
+    }
+
+    @OptIn(ExperimentalLayoutApi::class)
+    @Composable
+    private fun BookOnSection(viewModel: MainViewModel) {
+        SubSectionTitle("Or book on ...")
+
+        FlowRow(
+            modifier = Modifier
+                .padding(vertical = 8.dp)
+                .horizontalScroll(rememberScrollState())
+        ) {
+            RoundIconOutlineButton(
+                "Airbnb",
+                icon = Res.drawable.airbnb_com,
+                onClick = { viewModel.openAirbnb() }
+            )
+            RoundIconOutlineButton(
+                "Booking.com",
+                icon = Res.drawable.booking_com,
+                onClick = { viewModel.openBooking() }
+            )
+
         }
     }
 
