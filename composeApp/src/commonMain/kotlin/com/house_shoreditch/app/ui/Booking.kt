@@ -216,6 +216,13 @@ object Booking {
                     onClick = { viewModel.onSendEnquirySms() }
                 )
             }
+            if (getPlatform().isWhatsappAvailable) {
+                RoundIconOutlineButton(
+                    "WhatsApp",
+                    icon = Res.drawable.whatsapp,
+                    onClick = { viewModel.onSendEnquiryWhatsApp() }
+                )
+            }
         }
     }
 

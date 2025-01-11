@@ -29,4 +29,8 @@ actual class LinkLauncher : KoinComponent {
     actual fun sms(message: EnquiryMessageDomain) {
         open(messageMapper.mapSmsUrl(message))
     }
+
+    actual fun whatsapp(message: EnquiryMessageDomain) {
+        open(messageMapper.mapWhatsappClickChatUrl(message))
+    }
 }

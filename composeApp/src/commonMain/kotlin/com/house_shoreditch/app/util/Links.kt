@@ -8,4 +8,5 @@ expect class LinkLauncher() {
     fun mail(message: EnquiryMessageDomain)
     fun gmail(message: EnquiryMessageDomain)
     fun sms(message: EnquiryMessageDomain)
+    fun whatsapp(message: EnquiryMessageDomain)
 }

@@ -102,6 +102,17 @@ class MainViewModel(
         }
     }
 
+    fun onSendEnquiryWhatsApp() {
+        EnquiryMessageDomain(
+            to = secrets.phone,
+            from = null,
+            subject = "",
+            message = generateEnquiryBody()
+        ).let {
+            linkLauncher.whatsapp(it)
+        }
+    }
+
     // todo mapper object
     private fun generateEnquiryBody(): String = BookingEnquiryDomain(
         dateRange = bookingModel.value.dateRange ?: ("None" to "None"),
@@ -115,5 +126,6 @@ class MainViewModel(
                 # People: ${it.numPeople}
             """.trimIndent()
     }
+
 
 }

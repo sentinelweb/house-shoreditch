@@ -7,6 +7,7 @@ class AndroidPlatform : Platform {
     override val name: String = "Android ${Build.VERSION.SDK_INT}"
     override val isSmsAvailable: Boolean = true
     override val isEmailAvailable: Boolean = true
+    override val isWhatsappAvailable: Boolean = true
 }
 
 actual fun getPlatform(): Platform = AndroidPlatform()

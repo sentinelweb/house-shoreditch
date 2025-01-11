@@ -8,6 +8,7 @@ class WasmPlatform: Platform {
     override val name: String = "Web with Kotlin/Wasm"
     override val isSmsAvailable: Boolean = isMobile()
     override val isEmailAvailable: Boolean = true
+    override val isWhatsappAvailable: Boolean = true
 }
 
 fun isMobile():Boolean  {

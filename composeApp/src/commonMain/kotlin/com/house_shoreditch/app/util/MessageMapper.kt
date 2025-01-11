@@ -29,9 +29,18 @@ class MessageMapper() : KoinComponent {
             .replace(SUBJECT_PLACEHOLDER, linkLauncher.encode(message.subject))
             .replace(BODY_PLACEHOLDER, linkLauncher.encode(message.message))
 
-
     fun mapSmsUrl(message: EnquiryMessageDomain) =
         EnquiryMessageDomain.SMS_URI
             .replace(TO_PLACEHOLDER, linkLauncher.encode(message.to))
+            .replace(BODY_PLACEHOLDER, linkLauncher.encode(message.message))
+
+    fun mapWhatsappClickChatUrl(message: EnquiryMessageDomain) =
+        EnquiryMessageDomain.WHATSAPP_CLICK_CHAT_URI
+            .replace(TO_PLACEHOLDER, message.to.substringAfter("+"))
+            .replace(BODY_PLACEHOLDER, linkLauncher.encode(message.message))
+
+    fun mapWhatsappUri(message: EnquiryMessageDomain) =
+        EnquiryMessageDomain.WHATSAPP_URI
+            .replace(TO_PLACEHOLDER, message.to)
             .replace(BODY_PLACEHOLDER, linkLauncher.encode(message.message))
 }

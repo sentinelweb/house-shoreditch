@@ -45,4 +45,13 @@ actual class LinkLauncher : KoinComponent {
     actual fun sms(message: EnquiryMessageDomain) {
         smsLauncher.sendSMS(message.to, message.message)
     }
+
+    actual fun whatsapp(message: EnquiryMessageDomain) {
+        val nsUrl = NSURL(string = messageMapper.mapWhatsappUri(message))
+        if (UIApplication.sharedApplication.canOpenURL(nsUrl)) {
+            UIApplication.sharedApplication.openURL(nsUrl)
+        } else {
+            println("Cannot open Whatsapp URL.")
+        }
+    }
 }

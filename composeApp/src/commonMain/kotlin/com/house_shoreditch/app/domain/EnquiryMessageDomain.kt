@@ -16,6 +16,8 @@ data class EnquiryMessageDomain (
                 "&body=$BODY_PLACEHOLDER"
         val MAIL_URI= "mailto:$TO_PLACEHOLDER?subject=$SUBJECT_PLACEHOLDER&body=$BODY_PLACEHOLDER"
         val SMS_URI = "sms:$TO_PLACEHOLDER?body=$BODY_PLACEHOLDER"
+        val WHATSAPP_CLICK_CHAT_URI = "https://wa.me/$TO_PLACEHOLDER?text=$BODY_PLACEHOLDER"
+        val WHATSAPP_URI = "whatsapp://send?phone=$TO_PLACEHOLDER&text=$BODY_PLACEHOLDER"
     }
 }
 

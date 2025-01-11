@@ -54,6 +54,10 @@ actual class LinkLauncher : KoinComponent {
     }
 
     actual fun sms(message: EnquiryMessageDomain) {
-        println("Not supported on thsi platform")
+        println("Not supported on this platform")
+    }
+
+    actual fun whatsapp(message: EnquiryMessageDomain) {
+        open(messageMapper.mapWhatsappClickChatUrl(message))
     }
 }
