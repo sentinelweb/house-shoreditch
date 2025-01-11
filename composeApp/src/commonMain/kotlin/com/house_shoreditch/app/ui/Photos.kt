@@ -22,6 +22,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material3.Card
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -37,6 +38,7 @@ import coil3.compose.AsyncImage
 import coil3.compose.AsyncImagePainter
 import com.house_shoreditch.app.main.MainContract
 import com.house_shoreditch.app.theme.components.RoundIconOutlineButton
+import com.moonsift.app.ui.theme.BLACK_TSP
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -90,6 +92,7 @@ object Photos {
                     }
                     val state = rememberTransformableState { zoomChange, panChange, _ ->
                         scale *= zoomChange
+                        scale = max(1f, scale)
                         offset = Offset(
                             offset.x + panChange.x,
                             offset.y + panChange.y
@@ -106,6 +109,7 @@ object Photos {
                             .pointerInput(Unit) {
                                 detectTransformGestures { _, pan, zoom, _ ->
                                     scale *= zoom
+                                    scale = max(1f, scale)
                                     offset = Offset(
                                         offset.x + pan.x,
                                         offset.y + pan.y
@@ -170,6 +174,7 @@ object Photos {
 
                         if (showLoading) {
                             CircularProgressIndicator(
+                                color = Color.White,
                                 modifier = Modifier
                                     .padding(8.dp)
                                     .align(Alignment.Center)
@@ -230,9 +235,23 @@ object Photos {
                             .padding(start = 16.dp)
                     )
                 }
+
+                Text(
+                    text = "${model.images.getOrNull(selectedPhoto)?.imageTitle()}",
+                    modifier = Modifier.align(Alignment.BottomCenter)
+                        .background(BLACK_TSP, shape = RoundedCornerShape(8.dp))
+                        .padding(16.dp),
+                    color = Color.White,
+                )
             }
         }
     }
+
+    fun String.imageTitle(): String =
+        substringAfterLast('/')
+        .replace('_', ' ')
+        .substringBeforeLast(".")
+        .replaceFirstChar { it.uppercase() }
 
     @Composable
     fun StaggeredPhotoGrid(

@@ -19,9 +19,6 @@ class MainViewModel(
     private val secrets: Secrets
 ) : ViewModel() {
 
-//    private val _model: MutableStateFlow<Model> = MutableStateFlow(Init)
-//    val model: StateFlow<Model> = _model
-
     private val _bookingModel: MutableStateFlow<BookingModel> = MutableStateFlow(BookingInit)
     val bookingModel: StateFlow<BookingModel> = _bookingModel
 
