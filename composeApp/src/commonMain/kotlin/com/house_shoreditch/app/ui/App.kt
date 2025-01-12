@@ -9,14 +9,12 @@ import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.FloatingActionButtonDefaults.elevation
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalDensity
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
 import com.house_shoreditch.app.main.MainContract
@@ -93,6 +91,10 @@ fun App(viewModel: MainViewModel = koinViewModel()) {
     } else {
         null
     }
+
+    val pageJump = { page: Int ->
+        coroutineScope.scrollToPage(verticalScrollState, initialSize, density, page)
+    }
     OsricTheme {
         Scaffold(
             topBar = {
@@ -139,15 +141,13 @@ fun App(viewModel: MainViewModel = koinViewModel()) {
                     }
             ) {
                 if (initialSize != IntSize.Zero) {
-                    Intro.IntroScreen(size = initialSize, pageJump = { page ->
-                        coroutineScope.scrollToPage(verticalScrollState, initialSize, density, page)
-                    })
+                    Intro.IntroScreen(size = initialSize, model = model, pageJump = pageJump)
                     Photos.PhotosView(size = initialSize, model = model)
                     Facilities.FacilitiesScreen(size = initialSize, model = model)
                     Reviews.ReviewsSection(size = initialSize, model = model)
                     Booking.BookingSection(size = initialSize, viewModel = viewModel)
-                    Contact(height = initialSize.height.dp)
-                    TestContent()
+                    Contact.ContactSection(size = initialSize, model = model)
+//                    TestContent()
                 }
             }
         }
@@ -165,19 +165,3 @@ private fun CoroutineScope.scrollToPage(
     }
 }
 
-@Composable
-private fun Contact(
-    height: Dp
-) {
-    Column(
-        horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = Modifier.fillMaxWidth()
-            .height(height)
-            .padding(16.dp)
-    ) {
-        Text(
-            "Contact",
-            style = MaterialTheme.typography.displayLarge,
-        )
-    }
-}

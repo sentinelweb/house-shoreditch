@@ -78,7 +78,7 @@ object Photos {
                         scale = 1f
                         offset = Offset(0f, 0f)
                     }
-                    val incrementPhoto = { selectedPhoto = min(selectedPhoto + 1, model.images.size - 1) }
+                    val incrementPhoto = { selectedPhoto = min(selectedPhoto + 1, model.imageUris.size - 1) }
                     val decrementPhoto = { selectedPhoto = max(selectedPhoto - 1, 0) }
                     val closePhoto = { selectedPhoto = -1 }
 
@@ -123,7 +123,7 @@ object Photos {
                             animationSpec = fadeSpec
                         ) { photoIndex ->
                             AsyncImage(
-                                model = model.images.getOrNull(photoIndex),
+                                model = model.imageUris.getOrNull(photoIndex),
                                 contentScale = ContentScale.Fit,
                                 contentDescription = "Description",
                                 onState = { state ->
@@ -215,7 +215,7 @@ object Photos {
                         .align(Alignment.TopEnd)
                         .clickable { onClosePhoto() })
 
-                if (selectedPhoto < model.images.size - 1) {
+                if (selectedPhoto < model.imageUris.size - 1) {
                     RoundIconOutlineButton(
                         text = "Next",
                         icon = Res.drawable.arrow_forward,
@@ -237,7 +237,7 @@ object Photos {
                 }
 
                 Text(
-                    text = "${model.images.getOrNull(selectedPhoto)?.imageTitle()}",
+                    text = "${model.imageUris.getOrNull(selectedPhoto)?.imageTitle()}",
                     modifier = Modifier.align(Alignment.BottomCenter)
                         .background(BLACK_TSP, shape = RoundedCornerShape(8.dp))
                         .padding(16.dp),
@@ -264,7 +264,7 @@ object Photos {
             rows = StaggeredGridCells.Fixed(numRows),
             modifier = Modifier.height(size.height.dp),
         ) {
-            items(model.images.size) { item ->
+            items(model.imageUris.size) { item ->
                 Box(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -275,7 +275,7 @@ object Photos {
                         shape = RoundedCornerShape(0.dp)
                     ) {
                         AsyncImage(
-                            model = model.images[item],
+                            model = model.imageUris[item],
                             contentScale = ContentScale.Crop,
                             contentDescription = "Description",
                             modifier = Modifier

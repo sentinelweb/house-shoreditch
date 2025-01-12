@@ -10,10 +10,11 @@ import osric.composeapp.generated.resources.*
 interface MainContract {
 
     data class Model(
-        val homeBackground: String,
-        val images: List<String>,
+        val homeBackgroundUris: List<String>,
+        val imageUris: List<String>,
         val areas: List<Area>,
         val reviews: List<Review>,
+        val mapImageUri: String
     ) {
         data class Area(
             val name: String,
@@ -42,7 +43,7 @@ interface MainContract {
 
     companion object {
         val ImageBasePath =
-            "https://raw.githubusercontent.com/sentinelweb/house-shoreditch/refs/heads/main/media/photos"
+            "https://raw.githubusercontent.com/sentinelweb/house-shoreditch/refs/heads/main/media/"
         val ImageList = listOf(
             "living_1_abb.jpg",
             "living_2_abb.jpg",
@@ -483,10 +484,17 @@ I highly recommend Robert’s place for anyone looking for an Airbnb in London. 
             )
         )
         val Init: Model = Model(
-            homeBackground = "$ImageBasePath/garden_7_DSC_0291.JPG",
-            images = ImageList.map { "$ImageBasePath/$it" },
+            homeBackgroundUris = listOf(
+                "garden_7_DSC_0291.JPG",
+                "living_1_abb.jpg",
+                "living_3_abb.jpg",
+                "garden_1_abb.jpg",
+                "garden_6_DSC_0292.JPG",
+            ).map { "$ImageBasePath/photos/$it" },
+            imageUris = ImageList.map { "$ImageBasePath/photos/$it" },
             areas = Areas,
             reviews = Reviews,
+            mapImageUri = "$ImageBasePath/other/map.png"
         )
         val NumberOfPeopleInitial: Int = 4
         val BookingInit = BookingModel(

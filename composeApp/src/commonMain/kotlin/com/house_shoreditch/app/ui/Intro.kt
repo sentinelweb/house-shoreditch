@@ -1,9 +1,7 @@
 package com.house_shoreditch.app.ui
 
-import androidx.compose.animation.core.Animatable
-import androidx.compose.animation.core.LinearEasing
-import androidx.compose.animation.core.animateFloatAsState
-import androidx.compose.animation.core.tween
+import androidx.compose.animation.Crossfade
+import androidx.compose.animation.core.*
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -24,9 +22,11 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.house_shoreditch.app.main.MainContract
+import coil3.compose.AsyncImage
 import com.house_shoreditch.app.domain.PaymentMethod
+import com.house_shoreditch.app.main.MainContract
 import com.moonsift.app.ui.theme.BLACK_TSP
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.painterResource
 import osric.composeapp.generated.resources.Res
@@ -38,7 +38,8 @@ object Intro {
     @Composable
     fun IntroScreen(
         size: IntSize,
-        pageJump: (Int) -> Unit
+        model: MainContract.Model,
+        pageJump: (Int) -> Unit,
     ) {
 
         Box(
@@ -46,7 +47,7 @@ object Intro {
                 .height(size.height.dp)
                 .background(BLACK_TSP)
         ) {
-            ImageWithCustomFadeIn()
+            ImageWithCustomFadeIn(model)
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally,
                 modifier = Modifier
@@ -115,22 +116,30 @@ object Intro {
     }
 
     @Composable
-    fun ImageWithCustomFadeIn() {
+    fun ImageWithCustomFadeIn(
+        model: MainContract.Model
+    ) {
         var isImageVisible by remember { mutableStateOf(false) }
-        val alpha by animateFloatAsState(
-            targetValue = if (isImageVisible) 1f else 0f,
-            animationSpec = tween(1000)
-        )
+        var currentImageIndex by remember { mutableStateOf(0) }
+        var currentImagePath by remember { mutableStateOf(model.homeBackgroundUris.get(currentImageIndex)) }
 
         LaunchedEffect(Unit) {
-            kotlinx.coroutines.delay(200)
+            delay(200)
             isImageVisible = true
+        }
+
+        LaunchedEffect(Unit) {
+            while (true) {
+                delay(5000)
+                currentImageIndex = (currentImageIndex + 1) % model.homeBackgroundUris.size
+                currentImagePath = model.homeBackgroundUris.get(currentImageIndex)
+            }
         }
 
         Box(modifier = Modifier.fillMaxSize()) {
             Image(
                 painter = painterResource(resource = Res.drawable.garden_7_DSC_0291),
-                contentDescription = "Local resource image",
+                contentDescription = "Initial intro image",
                 contentScale = ContentScale.Crop,
                 colorFilter = ColorFilter.tint(
                     color = BLACK_TSP,
@@ -138,8 +147,24 @@ object Intro {
                 ),
                 modifier = Modifier
                     .fillMaxSize()
-                    .alpha(alpha)
             )
+            Crossfade(
+                targetState = currentImagePath,
+                animationSpec = tween(durationMillis = 500, easing = FastOutSlowInEasing)
+            ) { photoPath ->
+                AsyncImage(
+                    model = photoPath,
+                    contentScale = ContentScale.Crop,
+                    contentDescription = "Description",
+                    colorFilter = ColorFilter.tint(
+                        color = BLACK_TSP,
+                        blendMode = BlendMode.Multiply
+                    ),
+                    modifier = Modifier
+                        .align(Alignment.Center)
+                        .fillMaxSize()
+                )
+            }
         }
     }
 }
