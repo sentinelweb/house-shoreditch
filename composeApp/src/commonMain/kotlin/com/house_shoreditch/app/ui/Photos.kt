@@ -90,14 +90,6 @@ object Photos {
                             showControls = false
                         }
                     }
-                    val state = rememberTransformableState { zoomChange, panChange, _ ->
-                        scale *= zoomChange
-                        scale = max(1f, scale)
-                        offset = Offset(
-                            offset.x + panChange.x,
-                            offset.y + panChange.y
-                        )
-                    }
                     LaunchedEffect(Unit) {
                         startAutoHideDelay()
                     }
@@ -115,7 +107,6 @@ object Photos {
                                         offset.y + pan.y
                                     )
                                 }
-
                             }
                     ) {
                         Crossfade(
@@ -141,7 +132,7 @@ object Photos {
                                         translationX = offset.x,
                                         translationY = offset.y
                                     )
-                                    .transformable(state = state)
+//                                    .transformable(state = transformState)
                                     .pointerInput(Unit) {
                                         detectTapGestures(
                                             onTap = {

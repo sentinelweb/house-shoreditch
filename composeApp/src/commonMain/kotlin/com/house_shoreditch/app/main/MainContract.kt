@@ -41,6 +41,13 @@ interface MainContract {
         val numPeople: Int,
     )
 
+    data class ContactModel(
+        val phone: String?,
+        val isShowPhone: Boolean,
+        val email: String?,
+        val isShowEmail: Boolean,
+    )
+
     companion object {
         val ImageBasePath =
             "https://raw.githubusercontent.com/sentinelweb/house-shoreditch/refs/heads/main/media/"
@@ -483,7 +490,7 @@ I highly recommend Robert’s place for anyone looking for an Airbnb in London. 
                 review = """Great stay, Robert's communication is excellent and the house is really well equipped (cooking equipment, technology etc all exceptional)."""
             )
         )
-        val Init: Model = Model(
+        val ModelInitial: Model = Model(
             homeBackgroundUris = listOf(
                 "garden_7_DSC_0291.JPG",
                 "living_1_abb.jpg",
@@ -494,13 +501,19 @@ I highly recommend Robert’s place for anyone looking for an Airbnb in London. 
             imageUris = ImageList.map { "$ImageBasePath/photos/$it" },
             areas = Areas,
             reviews = Reviews,
-            mapImageUri = "$ImageBasePath/other/map.png"
+            mapImageUri = "$ImageBasePath/other/map.png",
         )
         val NumberOfPeopleInitial: Int = 4
-        val BookingInit = BookingModel(
+        val BookingInitial = BookingModel(
             dateRange = null,
             paymentMethods = setOf(Pounds),
             numPeople = NumberOfPeopleInitial
+        )
+        val ContactInitial = ContactModel(
+            isShowPhone = false,
+            phone = null,
+            isShowEmail = false,
+            email = null,
         )
     }
 }

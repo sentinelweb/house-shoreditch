@@ -51,7 +51,7 @@ fun initFont() {
         displaySmall = TextStyle(
             fontFamily = GaramondFamily,
             fontWeight = FontWeight.Bold,
-            fontSize = 32.sp,
+            fontSize = 28.sp,
         ),
 
         headlineLarge = TextStyle(

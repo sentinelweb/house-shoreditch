@@ -197,30 +197,30 @@ object Booking {
                 .padding(vertical = 8.dp)
                 .horizontalScroll(rememberScrollState())
         ) {
-            RoundIconOutlineButton(
-                "Gmail",
+            CircleIconButton(
                 icon = Res.drawable.google,
-                onClick = { viewModel.onSendEnquiryGmail() }
+                onClick = { viewModel.onSendEnquiryGmail() },
+                modifier = Modifier.padding(4.dp)
             )
             if (getPlatform().isEmailAvailable) {
-                RoundIconOutlineButton(
-                    "Email",
+                CircleIconButton(
                     icon = Res.drawable.email,
-                    onClick = { viewModel.onSendEnquiryEmail() }
+                    onClick = { viewModel.onSendEnquiryEmail() },
+                    modifier = Modifier.padding(4.dp)
                 )
             }
             if (getPlatform().isSmsAvailable) {
-                RoundIconOutlineButton(
-                    "SMS",
+                CircleIconButton(
                     icon = Res.drawable.sms,
-                    onClick = { viewModel.onSendEnquirySms() }
+                    onClick = { viewModel.onSendEnquirySms() },
+                    modifier = Modifier.padding(4.dp)
                 )
             }
             if (getPlatform().isWhatsappAvailable) {
-                RoundIconOutlineButton(
-                    "WhatsApp",
+                CircleIconButton(
                     icon = Res.drawable.whatsapp,
-                    onClick = { viewModel.onSendEnquiryWhatsApp() }
+                    onClick = { viewModel.onSendEnquiryWhatsApp() },
+                    modifier = Modifier.padding(4.dp)
                 )
             }
         }

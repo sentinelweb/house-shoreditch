@@ -2,7 +2,9 @@ package com.house_shoreditch.app.ui
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.ScrollState
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.FloatingActionButton
@@ -22,7 +24,6 @@ import com.house_shoreditch.app.main.MainViewModel
 import com.house_shoreditch.app.theme.components.Action
 import com.house_shoreditch.app.theme.components.CuerMenuItem
 import com.house_shoreditch.app.theme.components.OsricAppBarComposables
-import com.house_shoreditch.app.ui.Test.TestContent
 import com.house_shoreditch.app.util.PlatformType.Android
 import com.house_shoreditch.app.util.PlatformType.Ios
 import com.house_shoreditch.app.util.getPlatform
@@ -44,7 +45,7 @@ private fun isMobile() = listOf(Android, Ios).contains(getPlatform().type)
 @Preview
 fun App(viewModel: MainViewModel = koinViewModel()) {
 //    val model = viewModel.model.collectAsState()
-    val model = MainContract.Init
+    val model = MainContract.ModelInitial
     var initialSize by remember { mutableStateOf(IntSize.Zero) }
     var page by remember { mutableStateOf(0) }
     val density = LocalDensity.current.density
@@ -146,7 +147,7 @@ fun App(viewModel: MainViewModel = koinViewModel()) {
                     Facilities.FacilitiesScreen(size = initialSize, model = model)
                     Reviews.ReviewsSection(size = initialSize, model = model)
                     Booking.BookingSection(size = initialSize, viewModel = viewModel)
-                    Contact.ContactSection(size = initialSize, model = model)
+                    Contact.ContactSection(size = initialSize, model = model, viewModel = viewModel)
 //                    TestContent()
                 }
             }

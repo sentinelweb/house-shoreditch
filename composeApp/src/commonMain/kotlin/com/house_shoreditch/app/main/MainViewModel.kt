@@ -5,9 +5,10 @@ import com.house_shoreditch.app.domain.BookingEnquiryDomain
 import com.house_shoreditch.app.domain.EnquiryMessageDomain
 import com.house_shoreditch.app.domain.PaymentMethod
 import com.house_shoreditch.app.main.MainContract.BookingModel
-import com.house_shoreditch.app.main.MainContract.Companion.BookingInit
+import com.house_shoreditch.app.main.MainContract.Companion.BookingInitial
+import com.house_shoreditch.app.main.MainContract.Companion.ContactInitial
+import com.house_shoreditch.app.main.MainContract.ContactModel
 import com.house_shoreditch.app.util.LinkLauncher
-import com.house_shoreditch.app.util.MessageMapper
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
@@ -19,8 +20,11 @@ class MainViewModel(
     private val secrets: Secrets
 ) : ViewModel() {
 
-    private val _bookingModel: MutableStateFlow<BookingModel> = MutableStateFlow(BookingInit)
+    private val _bookingModel: MutableStateFlow<BookingModel> = MutableStateFlow(BookingInitial)
     val bookingModel: StateFlow<BookingModel> = _bookingModel
+
+    private val _contactModel: MutableStateFlow<ContactModel> = MutableStateFlow(ContactInitial)
+    val contactModel: StateFlow<ContactModel> = _contactModel
 
     fun openBooking() {
         linkLauncher.open("https://www.booking.com/hotel/gb/inviting-3-bedroom-house-and-garden-in-shoreditch.en-gb.html")
@@ -113,6 +117,8 @@ class MainViewModel(
         }
     }
 
+
+
     // todo mapper object
     private fun generateEnquiryBody(): String = BookingEnquiryDomain(
         dateRange = bookingModel.value.dateRange ?: ("None" to "None"),
@@ -125,6 +131,38 @@ class MainViewModel(
                 PaymentMethods: ${it.paymentMethods}
                 # People: ${it.numPeople}
             """.trimIndent()
+    }
+
+    fun onDownloadPlayClick() {
+        linkLauncher.open("https://play.google.com") // todo update
+    }
+
+    fun onDownloadAppleStoreClick() {
+        linkLauncher.open("https://www.apple.com/app-store/") // todo update
+    }
+
+    fun onDownloadMacClick() {
+        linkLauncher.open("https://github.com/sentinelweb/house-shoreditch/releases")
+    }
+
+    fun onDownloadWinClick() {
+        linkLauncher.open("https://github.com/sentinelweb/house-shoreditch/releases")
+    }
+
+    fun onDownloadLinuxClick() {
+        linkLauncher.open("https://github.com/sentinelweb/house-shoreditch/releases")
+    }
+
+    fun onDownloadWebClick() {
+        linkLauncher.open("https://www.house-shoreditch.com/")
+    }
+
+    fun onContactPhoneClick() {
+
+    }
+
+    fun onContactEmailClick() {
+
     }
 
 

@@ -12,12 +12,12 @@
 
     <string name="pm_pounds">Pounds</string>
     <string name="pm_cash">Cash</string>
-    <string name="pm_cc">Credit card</string>
+    <string name="pm_cc">Card</string>
     <string name="pm_btc">Bitcoin</string>
-    <string name="pm_eth">Etherium</string>
-    <string name="pm_doge">DogeCoin</string>
+    <string name="pm_eth">Ether</string>
+    <string name="pm_doge">Doge</string>
     <string name="pm_sol">Solana</string>
-    <string name="pm_Paypal">PayPal</string>
+    <string name="pm_paypal">PayPal</string>
     <string name="pm_ltc">Litecoin</string>
 
 </resources>
