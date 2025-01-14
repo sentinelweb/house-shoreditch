@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.widget.Toast
-import androidx.core.content.ContextCompat.startActivity
 import com.house_shoreditch.app.domain.EnquiryMessageDomain
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject

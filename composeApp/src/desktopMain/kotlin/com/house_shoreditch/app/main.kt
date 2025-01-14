@@ -14,7 +14,7 @@ import osric.composeapp.generated.resources.home_512
 
 fun main() = application {
     OsricModules.initKoin()
-    val state = rememberWindowState(size = DpSize(1280.dp, 720.dp))
+    val state = rememberWindowState(size = DpSize(1472.dp, 828.dp))
     val icon = painterResource(Res.drawable.home_512)
     Tray(
         icon = icon,

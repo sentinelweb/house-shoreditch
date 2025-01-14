@@ -480,8 +480,7 @@ Rob was very helpful and got back right away if we need anything. We'll stay aga
                 rating = 5,
                 review = """Robert’s place was perfect for our family vacation in London. We were staying at hotels the week leading up to our stay in London and was tired of eating out every meal. Robert’s place allowed our family to cook/reheat ready-to-eat meals we picked up at grocery stores. There are many options for getting food nearby, from the larger M&S food and Aldi to the smaller Tesco express and Sainsbury local, all within walking distance. Robert’s kitchen is well stocked and had everything we needed.
 Robert responded quickly to all of our questions. He was also very accommodating to our needs. By letting us do luggage store, we were able to drop off our bags at the house before dropping off the rental car.
-We were a family of 5 adults and 1 child, and Robert’s place was very spacious and comfortable. The separate washer and dryer was a huge bonus for us.
-I highly recommend Robert’s place for anyone looking for an Airbnb in London. It was easy to jump on the Tube, overground or a bus."""
+We were a family of 5 adults and 1 child, and Robert’s place was very spacious and comfortable. The separate washer and dryer was a huge bonus for us."""
             ),
             Review(
                 author = "Tom",

@@ -1,6 +1,5 @@
 package com.house_shoreditch.app.util
 
-import kotlinx.browser.document
 import kotlinx.browser.window
 
 class WasmPlatform: Platform {

@@ -17,9 +17,9 @@ import com.house_shoreditch.app.main.MainContract.BookingModel
 import com.house_shoreditch.app.main.MainViewModel
 import com.house_shoreditch.app.theme.components.CircleIconButton
 import com.house_shoreditch.app.theme.components.RoundIconOutlineButton
+import com.house_shoreditch.app.theme.components.TextComponents.FormTitle
 import com.house_shoreditch.app.theme.components.TextComponents.Hr
 import com.house_shoreditch.app.theme.components.TextComponents.SubSectionTitle
-import com.house_shoreditch.app.theme.components.TextComponents.FormTitle
 import com.house_shoreditch.app.util.getPlatform
 import kotlinx.datetime.Clock
 import org.jetbrains.compose.resources.painterResource
