@@ -54,4 +54,8 @@ actual class LinkLauncher : KoinComponent {
             println("Cannot open Whatsapp URL.")
         }
     }
+
+    actual fun call(phone: String) {
+        open(messageMapper.mapPhoneUri(phone))
+    }
 }

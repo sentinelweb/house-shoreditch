@@ -9,4 +9,5 @@ expect class LinkLauncher() {
     fun gmail(message: EnquiryMessageDomain)
     fun sms(message: EnquiryMessageDomain)
     fun whatsapp(message: EnquiryMessageDomain)
+    fun call(phone: String)
 }

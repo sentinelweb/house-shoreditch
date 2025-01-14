@@ -43,9 +43,7 @@ interface MainContract {
 
     data class ContactModel(
         val phone: String?,
-        val isShowPhone: Boolean,
         val email: String?,
-        val isShowEmail: Boolean,
     )
 
     companion object {
@@ -510,9 +508,7 @@ I highly recommend Robert’s place for anyone looking for an Airbnb in London. 
             numPeople = NumberOfPeopleInitial
         )
         val ContactInitial = ContactModel(
-            isShowPhone = false,
             phone = null,
-            isShowEmail = false,
             email = null,
         )
     }

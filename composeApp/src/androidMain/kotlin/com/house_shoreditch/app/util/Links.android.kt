@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.widget.Toast
+import androidx.core.content.ContextCompat.startActivity
 import com.house_shoreditch.app.domain.EnquiryMessageDomain
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
@@ -72,5 +73,12 @@ actual class LinkLauncher : KoinComponent {
 
     private fun showErrorToast(type: String) {
         Toast.makeText(context, "Couldn't launch $type", Toast.LENGTH_LONG).show()
+    }
+
+    actual fun call(phone: String) {
+        Intent(Intent.ACTION_DIAL, Uri.parse(messageMapper.mapPhoneUri(phone)))
+            .apply { setFlags(Intent.FLAG_ACTIVITY_NEW_TASK) }
+            .apply { context.startActivity(this) }
+
     }
 }

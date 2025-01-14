@@ -23,10 +23,8 @@ import com.house_shoreditch.app.theme.components.CircleIconButton
 import com.house_shoreditch.app.theme.components.RoundIconOutlineButton
 import com.house_shoreditch.app.theme.components.TextComponents.SectionTitle
 import com.house_shoreditch.app.theme.components.TextComponents.SubSectionTitle
+import com.house_shoreditch.app.util.getPlatform
 import osric.composeapp.generated.resources.*
-import osric.composeapp.generated.resources.Res
-import osric.composeapp.generated.resources.email
-import osric.composeapp.generated.resources.phone
 import kotlin.math.max
 
 object Contact {
@@ -36,6 +34,7 @@ object Contact {
         model: MainContract.Model,
         viewModel: MainViewModel
     ) {
+        val contactModel = viewModel.contactModel.collectAsState()
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier
@@ -83,9 +82,15 @@ object Contact {
 
                                 offset = Offset(
                                     x = (offset.x + pan.x * oscale)
-                                        .coerceIn(-(scaledImageWidth - boxSize.width) / 2f, (scaledImageWidth - boxSize.width) / 2f),
+                                        .coerceIn(
+                                            -(scaledImageWidth - boxSize.width) / 2f,
+                                            (scaledImageWidth - boxSize.width) / 2f
+                                        ),
                                     y = (offset.y + pan.y * oscale)
-                                        .coerceIn(-(scaledImageHeight - boxSize.height) / 2f, (scaledImageHeight - boxSize.height) / 2f)
+                                        .coerceIn(
+                                            -(scaledImageHeight - boxSize.height) / 2f,
+                                            (scaledImageHeight - boxSize.height) / 2f
+                                        )
                                 )
                             }
                         }
@@ -93,15 +98,22 @@ object Contact {
                 )
             }
             RoundIconOutlineButton(
-                "Phone",
+                contactModel.value.phone ?: "Phone",
                 icon = Res.drawable.phone,
                 onClick = { viewModel.onContactPhoneClick() }
             )
             RoundIconOutlineButton(
-                "Email",
+                contactModel.value.email ?: "Email",
                 icon = Res.drawable.email,
                 onClick = { viewModel.onContactEmailClick() }
             )
+            if (getPlatform().isWhatsappAvailable) {
+                RoundIconOutlineButton(
+                    "WhatsApp",
+                    icon = Res.drawable.whatsapp,
+                    onClick = { viewModel.onContactWhatsAppClick() }
+                )
+            }
 
             SubSectionTitle("Other platforms", modifier = Modifier.padding(vertical = 8.dp))
             Row(modifier = Modifier.horizontalScroll(rememberScrollState(0))) {

@@ -49,7 +49,7 @@ fun main() {
                 )
             )
 
-            fontResolver.preload(GaramondFamily)
+//            fontResolver.preload(GaramondFamily)
             fontResolver.preload(RobotoFamily)
             isFontsPreloaded = true
         }

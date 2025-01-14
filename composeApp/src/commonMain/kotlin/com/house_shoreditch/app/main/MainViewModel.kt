@@ -158,12 +158,30 @@ class MainViewModel(
     }
 
     fun onContactPhoneClick() {
-
+        linkLauncher.call(secrets.phone)
+        _contactModel.update { contactModel.value.copy(phone = secrets.phone) }
     }
 
     fun onContactEmailClick() {
-
+        EnquiryMessageDomain(
+            to = secrets.email,
+            from = null,
+            subject = "Osric website enquiry",
+            message = ""
+        ).let {
+            linkLauncher.mail(it)
+        }
+        _contactModel.update { contactModel.value.copy(email = secrets.email) }
     }
 
-
+    fun onContactWhatsAppClick() {
+        EnquiryMessageDomain(
+            to = secrets.phone,
+            from = null,
+            subject = "",
+            message = ""
+        ).let {
+            linkLauncher.whatsapp(it)
+        }
+    }
 }

@@ -33,4 +33,8 @@ actual class LinkLauncher : KoinComponent {
     actual fun whatsapp(message: EnquiryMessageDomain) {
         open(messageMapper.mapWhatsappClickChatUrl(message))
     }
+
+    actual fun call(phone: String) {
+        open(messageMapper.mapPhoneUri(phone))
+    }
 }
