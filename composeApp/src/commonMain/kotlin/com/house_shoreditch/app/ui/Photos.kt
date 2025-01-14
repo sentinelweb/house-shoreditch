@@ -12,8 +12,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.gestures.detectTransformGestures
-import androidx.compose.foundation.gestures.rememberTransformableState
-import androidx.compose.foundation.gestures.transformable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.staggeredgrid.LazyHorizontalStaggeredGrid
 import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridCells
@@ -22,29 +20,28 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material3.Card
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
 import coil3.compose.AsyncImagePainter
 import com.house_shoreditch.app.main.MainContract
-import com.house_shoreditch.app.theme.components.RoundIconOutlineButton
 import com.moonsift.app.ui.theme.BLACK_TSP
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import osric.composeapp.generated.resources.Res
-import osric.composeapp.generated.resources.arrow_back
-import osric.composeapp.generated.resources.arrow_forward
 import kotlin.math.max
 import kotlin.math.min
 
@@ -63,6 +60,7 @@ object Photos {
             modifier = Modifier.fillMaxWidth()
                 .height(size.height.dp)
         ) {
+            // show photo crossfade
             Crossfade(
                 targetState = selectedPhoto > -1,
                 animationSpec = fadeSpec
@@ -81,7 +79,6 @@ object Photos {
                     val incrementPhoto = { selectedPhoto = min(selectedPhoto + 1, model.imageUris.size - 1) }
                     val decrementPhoto = { selectedPhoto = max(selectedPhoto - 1, 0) }
                     val closePhoto = { selectedPhoto = -1 }
-
                     val startAutoHideDelay = {
                         showControls = true
                         job?.cancel()
@@ -90,25 +87,57 @@ object Photos {
                             showControls = false
                         }
                     }
+                    val onNextPhoto = {
+                        incrementPhoto()
+                        resetTransform()
+                        startAutoHideDelay()
+                    }
+                    val onPrevPhoto = {
+                        decrementPhoto()
+                        resetTransform()
+                        startAutoHideDelay()
+                    }
+                    val onClosePhoto = {
+                        closePhoto()
+                        resetTransform()
+                    }
+
                     LaunchedEffect(Unit) {
                         startAutoHideDelay()
                     }
 
+                    var imageSize by remember { mutableStateOf(IntSize.Zero) }
+                    var boxSize by remember { mutableStateOf(IntSize.Zero) }
                     Box(
                         modifier = Modifier
                             .background(Color.Black)
                             .fillMaxSize()
+                            .clipToBounds()
+                            .onSizeChanged { boxSize = it }
                             .pointerInput(Unit) {
                                 detectTransformGestures { _, pan, zoom, _ ->
+                                    val scaledImageWidth = imageSize.width * scale
+                                    val scaledImageHeight = imageSize.height * scale
+
                                     scale *= zoom
                                     scale = max(1f, scale)
+
                                     offset = Offset(
-                                        offset.x + pan.x,
-                                        offset.y + pan.y
+                                        x = (offset.x + pan.x)
+                                            .coerceIn(
+                                                -(scaledImageWidth - boxSize.width) / 2f,
+                                                (scaledImageWidth - boxSize.width) / 2f
+                                            ),
+                                        y = (offset.y + pan.y)
+                                            .coerceIn(
+                                                -(scaledImageHeight - boxSize.height) / 2f,
+                                                (scaledImageHeight - boxSize.height) / 2f
+                                            )
                                     )
                                 }
                             }
                     ) {
+                        // change photo crossfade
                         Crossfade(
                             targetState = selectedPhoto,
                             animationSpec = fadeSpec
@@ -132,14 +161,23 @@ object Photos {
                                         translationX = offset.x,
                                         translationY = offset.y
                                     )
-//                                    .transformable(state = transformState)
+                                    .onSizeChanged { imageSize = it }
                                     .pointerInput(Unit) {
                                         detectTapGestures(
                                             onTap = {
-                                                startAutoHideDelay()
+                                                if (showControls) {
+                                                    if (it.x < boxSize.width / 2) {
+                                                        onPrevPhoto()
+                                                    } else {
+                                                        onNextPhoto()
+                                                    }
+                                                } else {
+                                                    startAutoHideDelay()
+                                                }
                                             }
                                         )
                                     }
+
                             )
                         }
 
@@ -147,20 +185,9 @@ object Photos {
                             showControls = showControls,
                             selectedPhoto = selectedPhoto,
                             model = model,
-                            onNextPhoto = {
-                                incrementPhoto()
-                                resetTransform()
-                                startAutoHideDelay()
-                            },
-                            onPrevPhoto = {
-                                decrementPhoto()
-                                resetTransform()
-                                startAutoHideDelay()
-                            },
-                            onClosePhoto = {
-                                closePhoto()
-                                resetTransform()
-                            }
+                            onNextPhoto = onNextPhoto,
+                            onPrevPhoto = onPrevPhoto,
+                            onClosePhoto = onClosePhoto,
                         )
 
                         if (showLoading) {
@@ -206,33 +233,21 @@ object Photos {
                         .align(Alignment.TopEnd)
                         .clickable { onClosePhoto() })
 
-                if (selectedPhoto < model.imageUris.size - 1) {
-                    RoundIconOutlineButton(
-                        text = "Next",
-                        icon = Res.drawable.arrow_forward,
-                        onClick = { onNextPhoto() },
-                        modifier = Modifier.align(Alignment.BottomEnd)
-                            .padding(end = 16.dp)
-                    )
-                }
-
-                if (selectedPhoto > 0) {
-                    RoundIconOutlineButton(
-                        text = "Previous",
-                        icon = Res.drawable.arrow_back,
-                        onClick = { onPrevPhoto() },
-                        modifier = Modifier
-                            .align(Alignment.BottomStart)
-                            .padding(start = 16.dp)
+                if (selectedPhoto > -1) {
+                    Text(
+                        text = "$selectedPhoto. ${model.imageUris.getOrNull(selectedPhoto)?.imageTitle()}",
+                        modifier = Modifier.align(Alignment.TopCenter)
+                            .background(BLACK_TSP, shape = RoundedCornerShape(8.dp))
+                            .padding(16.dp),
+                        color = Color.White,
                     )
                 }
 
                 Text(
-                    text = "${model.imageUris.getOrNull(selectedPhoto)?.imageTitle()}",
-                    modifier = Modifier.align(Alignment.BottomCenter)
-                        .background(BLACK_TSP, shape = RoundedCornerShape(8.dp))
-                        .padding(16.dp),
-                    color = Color.White,
+                    text = "Tap left/right side to change photo",
+                    modifier = Modifier.align(Alignment.BottomCenter),
+                    style = MaterialTheme.typography.bodySmall,
+                    color = Color.Gray,
                 )
             }
         }
@@ -240,9 +255,9 @@ object Photos {
 
     fun String.imageTitle(): String =
         substringAfterLast('/')
-        .replace('_', ' ')
-        .substringBeforeLast(".")
-        .replaceFirstChar { it.uppercase() }
+            .replace('_', ' ')
+            .substringBeforeLast(".")
+            .replaceFirstChar { it.uppercase() }
 
     @Composable
     fun StaggeredPhotoGrid(
