@@ -60,7 +60,8 @@ class MainViewModel(
             bookingModel.value.copy(
                 dateRange = if (start != null && end != null) {
                     start.format(formatter) to end.format(formatter)
-                } else null
+                } else null,
+                error = null,
             )
         }
     }
@@ -74,10 +75,11 @@ class MainViewModel(
     }
 
     fun onSendEnquiryEmail() {
+        if (!validate()) return
         EnquiryMessageDomain(
             to = secrets.email,
             from = null,
-            subject = "Osric website enquiry: ${bookingModel.value.dateRange?.first ?: "No date"}",
+            subject = "Oasis website enquiry: ${bookingModel.value.dateRange?.first ?: "No date"}",
             message = generateEnquiryBody()
         ).let {
             linkLauncher.mail(it)
@@ -85,10 +87,11 @@ class MainViewModel(
     }
 
     fun onSendEnquiryGmail() {
+        if (!validate()) return
         EnquiryMessageDomain(
             to = secrets.email,
             from = null,
-            subject = "Osric website enquiry: ${bookingModel.value.dateRange?.first ?: "No date"}",
+            subject = "Oasis website enquiry: ${bookingModel.value.dateRange?.first ?: "No date"}",
             message = generateEnquiryBody()
         ).let {
             linkLauncher.gmail(it)
@@ -96,6 +99,7 @@ class MainViewModel(
     }
 
     fun onSendEnquirySms() {
+        if (!validate()) return
         EnquiryMessageDomain(
             to = secrets.phone,
             from = null,
@@ -107,6 +111,7 @@ class MainViewModel(
     }
 
     fun onSendEnquiryWhatsApp() {
+        if (!validate()) return
         EnquiryMessageDomain(
             to = secrets.phone,
             from = null,
@@ -117,7 +122,13 @@ class MainViewModel(
         }
     }
 
-
+    private fun validate(): Boolean {
+        if (bookingModel.value.dateRange == null) {
+            _bookingModel.update { bookingModel.value.copy(error = "Please select some dates") }
+            return false
+        }
+        return true
+    }
 
     // todo mapper object
     private fun generateEnquiryBody(): String = BookingEnquiryDomain(
@@ -166,7 +177,7 @@ class MainViewModel(
         EnquiryMessageDomain(
             to = secrets.email,
             from = null,
-            subject = "Osric website enquiry",
+            subject = "Oasis website enquiry",
             message = ""
         ).let {
             linkLauncher.mail(it)

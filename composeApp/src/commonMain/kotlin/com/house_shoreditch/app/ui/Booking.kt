@@ -1,10 +1,8 @@
 package com.house_shoreditch.app.ui
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.horizontalScroll
+import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -30,7 +28,6 @@ import osric.composeapp.generated.resources.*
 
 object Booking {
 
-    @OptIn(ExperimentalLayoutApi::class)
     @Composable
     fun BookingSection(
         size: IntSize,
@@ -44,9 +41,11 @@ object Booking {
                 .padding(horizontal = 16.dp)
         ) {
 
-            // BodyText("You can book on the major booking sites or try booking directly to save unnecessary fees :)")
-
             SubSectionTitle("Direct booking")
+
+            bookingModel.value.error?.let {
+                ErrorDisplay(it)
+            }
 
             DateSelectionField(bookingModel, viewModel)
 
@@ -62,6 +61,22 @@ object Booking {
         }
     }
 
+    private @Composable
+    fun ErrorDisplay(error: String) {
+        Box(
+            modifier = Modifier
+                .background(MaterialTheme.colorScheme.errorContainer, RoundedCornerShape(50))
+                .border(1.dp, MaterialTheme.colorScheme.error, RoundedCornerShape(50))
+                .padding(horizontal = 16.dp, vertical = 8.dp)
+        ) {
+            Text(
+                error,
+                color = MaterialTheme.colorScheme.onPrimary,
+                style = MaterialTheme.typography.bodyMedium,
+            )
+        }
+    }
+
     @Composable
     @OptIn(ExperimentalLayoutApi::class)
     private fun DateSelectionField(
@@ -73,7 +88,6 @@ object Booking {
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier.padding(vertical = 8.dp)
         ) {
-
             RoundIconOutlineButton(
                 "Select dates",
                 icon = Res.drawable.calendar,
@@ -115,8 +129,7 @@ object Booking {
             "Number of people:",
             modifier = Modifier
         )
-        Row(verticalAlignment = Alignment.CenterVertically) {
-
+        Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.padding(horizontal = 8.dp)) {
             CircleIconButton(
                 icon = Res.drawable.minus,
             ) {
@@ -135,7 +148,6 @@ object Booking {
             ) {
                 viewModel.onChangeNumPeople(bookingModel.value.numPeople + 1)
             }
-
         }
     }
 

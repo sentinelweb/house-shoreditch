@@ -38,6 +38,8 @@ val DarkColorScheme = darkColorScheme(
     onBackground = WHITE,
     surface = BLACK,
     onSurface = WHITE,
+    error = Color.Red,
+    errorContainer = Color.Red.copy(alpha = 0.3f),
 )
 
 val LightColorScheme = lightColorScheme(
@@ -54,6 +56,7 @@ val LightColorScheme = lightColorScheme(
     onBackground = BLACK,
     surface = WHITE,
     onSurface = BLACK,
-
+    error = Color.Red,
+    errorContainer = Color.Red.copy(alpha = 0.3f),
 )
 

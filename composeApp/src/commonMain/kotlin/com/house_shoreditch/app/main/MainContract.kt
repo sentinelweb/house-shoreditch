@@ -39,6 +39,7 @@ interface MainContract {
         val dateRange: Pair<String, String>?,
         val paymentMethods: Set<PaymentMethod>,
         val numPeople: Int,
+        val error: String?
     )
 
     data class ContactModel(
@@ -505,7 +506,8 @@ I highly recommend Robert’s place for anyone looking for an Airbnb in London. 
         val BookingInitial = BookingModel(
             dateRange = null,
             paymentMethods = setOf(Pounds),
-            numPeople = NumberOfPeopleInitial
+            numPeople = NumberOfPeopleInitial,
+            error = null,
         )
         val ContactInitial = ContactModel(
             phone = null,
