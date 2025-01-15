@@ -28,18 +28,11 @@ jobs:
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
 
-      # Decode Keystore and secrets.properties
-      - name: secrets file
-        run: |
-          echo "$SECRETS_FILE"
-
-      - name: Decode secrets and keystore
+      - name: Decode secrets
         run: |
           echo "$SECRETS_FILE" > $GITHUB_WORKSPACE/secrets.properties
-
-      - name: Workspace path
-        run: |
-          echo "workspace: $GITHUB_WORKSPACE"
+        env:
+          KEYSTORE_BASE64: ${{ secrets.KEYSTORE_BASE64 }}
 
       - name: Build WASM distribution
         run: ./gradlew wasmJsBrowserDistribution
