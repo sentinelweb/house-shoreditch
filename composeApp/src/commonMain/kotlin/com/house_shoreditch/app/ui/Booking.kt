@@ -24,7 +24,7 @@ import com.house_shoreditch.app.util.getPlatform
 import kotlinx.datetime.Clock
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
-import osric.composeapp.generated.resources.*
+import oasis.composeapp.generated.resources.*
 
 object Booking {
 

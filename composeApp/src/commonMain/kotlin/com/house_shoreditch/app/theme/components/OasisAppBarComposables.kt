@@ -19,12 +19,12 @@ import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.StringResource
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
-import osric.composeapp.generated.resources.*
+import oasis.composeapp.generated.resources.*
 
-object OsricAppBarComposables {
+object OasisAppBarComposables {
     @OptIn(ExperimentalMaterial3Api::class)
     @Composable
-    fun OsricAppBar(
+    fun OasisAppBar(
         title: String,
         subTitle: String? = null,
         modifier: Modifier = Modifier,
@@ -111,7 +111,6 @@ sealed class CuerMenuItem(
     val label: StringResource,
     val icon: DrawableResource,
 ) {
-    object Home : CuerMenuItem(Res.string.menu_home, Res.drawable.home)
     object Images : CuerMenuItem(Res.string.menu_images, Res.drawable.photo_library)
     object Facilities : CuerMenuItem(Res.string.menu_facilities, Res.drawable.family_home)
     object Reviews : CuerMenuItem(Res.string.menu_reviews, Res.drawable.reviews)

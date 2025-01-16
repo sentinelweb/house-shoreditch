@@ -31,8 +31,8 @@ import com.moonsift.app.ui.theme.BLACK_TSP
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.painterResource
-import osric.composeapp.generated.resources.Res
-import osric.composeapp.generated.resources.garden_7_DSC_0291
+import oasis.composeapp.generated.resources.Res
+import oasis.composeapp.generated.resources.garden_7_DSC_0291
 
 object Intro {
 

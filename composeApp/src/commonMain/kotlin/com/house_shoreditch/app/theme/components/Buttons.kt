@@ -27,15 +27,15 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.moonsift.app.ui.theme.OsricTheme
+import com.moonsift.app.ui.theme.OasisTheme
 import com.moonsift.app.ui.theme.RobotoFamily
 import com.moonsift.app.ui.theme.onSurfaceColor
 import com.moonsift.app.ui.theme.surfaceColor
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
-import osric.composeapp.generated.resources.Res
-import osric.composeapp.generated.resources.star
+import oasis.composeapp.generated.resources.Res
+import oasis.composeapp.generated.resources.star
 
 private const val MIN_BUTTON_SCALE = 0.70f
 private const val NORMAL_BUTTON_SCALE = 1f
@@ -490,7 +490,7 @@ fun Modifier.bounceClick(enabled: Boolean) = composed {
 @Preview
 @Composable
 private fun RoundButtonPreview() {
-    OsricTheme {
+    OasisTheme {
         RoundButton("Button") {}
     }
 }
@@ -498,7 +498,7 @@ private fun RoundButtonPreview() {
 @Preview
 @Composable
 private fun RoundIconButtonPreview() {
-    OsricTheme {
+    OasisTheme {
         RoundIconButton("Button", icon = Res.drawable.star) {}
     }
 }
@@ -506,7 +506,7 @@ private fun RoundIconButtonPreview() {
 @Preview
 @Composable
 private fun RoundOutlineButtonPreview() {
-    OsricTheme {
+    OasisTheme {
         RoundOutlineButton("Button") {}
     }
 }
@@ -514,7 +514,7 @@ private fun RoundOutlineButtonPreview() {
 @Preview
 @Composable
 private fun RoundIconOutlineButtonPreview() {
-    OsricTheme {
+    OasisTheme {
         RoundIconOutlineButton("Button", icon = Res.drawable.star) {}
     }
 }
@@ -522,7 +522,7 @@ private fun RoundIconOutlineButtonPreview() {
 @Preview
 @Composable
 private fun SquareOutlineButtonPreview() {
-    OsricTheme {
+    OasisTheme {
         SquareOutlineButton("Button") {}
     }
 }
@@ -530,7 +530,7 @@ private fun SquareOutlineButtonPreview() {
 @Preview
 @Composable
 private fun SquareIconButtonPreview() {
-    OsricTheme {
+    OasisTheme {
         SquareIconButton("Button", icon = Res.drawable.star) {}
     }
 }
@@ -538,7 +538,7 @@ private fun SquareIconButtonPreview() {
 @Preview
 @Composable
 private fun SquareButtonPreview() {
-    OsricTheme {
+    OasisTheme {
         SquareButton("Button") {}
     }
 }
@@ -546,7 +546,7 @@ private fun SquareButtonPreview() {
 @Preview
 @Composable
 private fun SquareIconOutlineButtonPreview() {
-    OsricTheme {
+    OasisTheme {
         SquareIconOutlineButton("Button", icon = Res.drawable.star) {}
     }
 }
@@ -554,7 +554,7 @@ private fun SquareIconOutlineButtonPreview() {
 @Preview
 @Composable
 private fun CircleIconButtonPreview() {
-    OsricTheme {
+    OasisTheme {
         CircleIconButton(icon = Res.drawable.star) {}
     }
 }

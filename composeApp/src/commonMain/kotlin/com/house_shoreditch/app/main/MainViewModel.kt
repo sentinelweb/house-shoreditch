@@ -165,7 +165,7 @@ class MainViewModel(
     }
 
     fun onDownloadWebClick() {
-        linkLauncher.open("https://www.house-shoreditch.com/")
+        linkLauncher.open("https://oasis-shoreditch.com/")
     }
 
     fun onContactPhoneClick() {

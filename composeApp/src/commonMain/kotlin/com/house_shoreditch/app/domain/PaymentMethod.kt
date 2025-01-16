@@ -2,7 +2,7 @@ package com.house_shoreditch.app.domain
 
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.StringResource
-import osric.composeapp.generated.resources.*
+import oasis.composeapp.generated.resources.*
 
 enum class PaymentMethod(
     val drawable: DrawableResource,

@@ -11,7 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.house_shoreditch.app.theme.components.*
 import com.house_shoreditch.app.theme.components.TextComponents.Hr
-import osric.composeapp.generated.resources.*
+import oasis.composeapp.generated.resources.*
 
 object Test {
     @Composable

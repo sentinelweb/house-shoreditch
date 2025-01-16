@@ -2,18 +2,18 @@ package com.house_shoreditch.app
 
 import android.app.Application
 import com.house_shoreditch.app.di.AndroidModules
-import com.house_shoreditch.app.di.OsricModules
+import com.house_shoreditch.app.di.OasisModules
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 
-class OsricApp : Application() {
+class OasisApp : Application() {
 
     override fun onCreate() {
         super.onCreate()
         startKoin {
-            androidContext(this@OsricApp)
+            androidContext(this@OasisApp)
             modules(
-                OsricModules.allModules
+                OasisModules.allModules
                     .plus(AndroidModules.androidModule)
             )
         }

@@ -5,7 +5,7 @@ import com.house_shoreditch.app.domain.PaymentMethod.Pounds
 import com.house_shoreditch.app.main.MainContract.Model.Area
 import com.house_shoreditch.app.main.MainContract.Model.Review
 import org.jetbrains.compose.resources.DrawableResource
-import osric.composeapp.generated.resources.*
+import oasis.composeapp.generated.resources.*
 
 interface MainContract {
 

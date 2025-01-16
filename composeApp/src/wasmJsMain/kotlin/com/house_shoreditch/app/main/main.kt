@@ -7,19 +7,19 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.platform.Font
 import androidx.compose.ui.window.CanvasBasedWindow
-import com.house_shoreditch.app.di.OsricModules
+import com.house_shoreditch.app.di.OasisModules
 import com.house_shoreditch.app.ui.App
 import com.moonsift.app.ui.theme.GaramondFamily
 import com.moonsift.app.ui.theme.RobotoFamily
 import kotlinx.browser.document
+import oasis.composeapp.generated.resources.Res
+import oasis.composeapp.generated.resources.app_name
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.stringResource
-import osric.composeapp.generated.resources.Res
-import osric.composeapp.generated.resources.app_name
 
 @OptIn(ExperimentalComposeUiApi::class)
 fun main() {
-    OsricModules.initKoin()
+    OasisModules.initKoin()
 
     @OptIn(ExperimentalResourceApi::class)
     @Suppress("MaxLineLength")

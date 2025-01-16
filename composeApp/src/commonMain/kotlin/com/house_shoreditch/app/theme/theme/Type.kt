@@ -7,12 +7,12 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 import org.jetbrains.compose.resources.Font
-import osric.composeapp.generated.resources.*
+import oasis.composeapp.generated.resources.*
 
 
 lateinit var RobotoFamily: FontFamily
 lateinit var GaramondFamily: FontFamily
-lateinit var OsricTypography: Typography
+lateinit var OasisTypography: Typography
 
 @Composable
 fun initFont() {
@@ -37,7 +37,7 @@ fun initFont() {
         Font(Res.font.EBGaramond_ExtraBold, FontWeight.ExtraBold),
     )
 
-    OsricTypography = Typography(
+    OasisTypography = Typography(
         displayLarge = TextStyle(
             fontFamily = GaramondFamily,
             fontWeight = FontWeight.ExtraBold,

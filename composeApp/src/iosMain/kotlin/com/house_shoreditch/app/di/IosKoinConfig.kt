@@ -28,7 +28,7 @@ object IosKoinConfig {
         println("internal start")
         startKoin {
             modules(
-                OsricModules.allModules + iosModules
+                OasisModules.allModules + iosModules
             )
         }
         println("internal started")

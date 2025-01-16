@@ -1,4 +1,4 @@
-rootProject.name = "Osric"
+rootProject.name = "Oasis"
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
 pluginManagement {

@@ -18,9 +18,9 @@ import com.house_shoreditch.app.theme.components.RoundIconOutlineButton
 import com.house_shoreditch.app.theme.components.TextComponents.SectionTitle
 import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.painterResource
-import osric.composeapp.generated.resources.Res
-import osric.composeapp.generated.resources.arrow_forward
-import osric.composeapp.generated.resources.star
+import oasis.composeapp.generated.resources.Res
+import oasis.composeapp.generated.resources.arrow_forward
+import oasis.composeapp.generated.resources.star
 
 object Reviews {
 

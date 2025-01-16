@@ -8,7 +8,7 @@ import org.koin.core.module.dsl.viewModel
 import org.koin.dsl.module
 import uk.co.sentinelweb.cuer.hub.Secrets
 
-object OsricModules {
+object OasisModules {
 
     fun initKoin() {
         startKoin {

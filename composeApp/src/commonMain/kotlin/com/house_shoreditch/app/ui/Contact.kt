@@ -24,7 +24,7 @@ import com.house_shoreditch.app.theme.components.RoundIconOutlineButton
 import com.house_shoreditch.app.theme.components.TextComponents.SectionTitle
 import com.house_shoreditch.app.theme.components.TextComponents.SubSectionTitle
 import com.house_shoreditch.app.util.getPlatform
-import osric.composeapp.generated.resources.*
+import oasis.composeapp.generated.resources.*
 import kotlin.math.max
 
 object Contact {

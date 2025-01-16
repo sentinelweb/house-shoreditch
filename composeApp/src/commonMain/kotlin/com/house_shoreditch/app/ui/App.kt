@@ -23,18 +23,20 @@ import com.house_shoreditch.app.main.MainContract
 import com.house_shoreditch.app.main.MainViewModel
 import com.house_shoreditch.app.theme.components.Action
 import com.house_shoreditch.app.theme.components.CuerMenuItem
-import com.house_shoreditch.app.theme.components.OsricAppBarComposables
+import com.house_shoreditch.app.theme.components.OasisAppBarComposables
 import com.house_shoreditch.app.util.PlatformType.Android
 import com.house_shoreditch.app.util.PlatformType.Ios
 import com.house_shoreditch.app.util.getPlatform
-import com.moonsift.app.ui.theme.OsricTheme
+import com.moonsift.app.ui.theme.OasisTheme
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
+import oasis.composeapp.generated.resources.Res
+import oasis.composeapp.generated.resources.app_name
+import oasis.composeapp.generated.resources.arrow_downward
 import org.jetbrains.compose.resources.painterResource
+import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import org.koin.compose.viewmodel.koinViewModel
-import osric.composeapp.generated.resources.Res
-import osric.composeapp.generated.resources.arrow_downward
 import kotlin.math.min
 
 private val MAX_PAGES = 6
@@ -93,14 +95,14 @@ fun App(viewModel: MainViewModel = koinViewModel()) {
         null
     }
 
-    val pageJump = { page: Int ->
-        coroutineScope.scrollToPage(verticalScrollState, initialSize, density, page)
+    val pageJump = { p: Int ->
+        coroutineScope.scrollToPage(verticalScrollState, initialSize, density, p)
     }
-    OsricTheme {
+    OasisTheme {
         Scaffold(
             topBar = {
-                OsricAppBarComposables.OsricAppBar(
-                    title = "Oasis Shoreditch",
+                OasisAppBarComposables.OasisAppBar(
+                    title = stringResource(Res.string.app_name),
                     actions = actions,
                     overflowActions = overflowActiovs,
                     onUp = {

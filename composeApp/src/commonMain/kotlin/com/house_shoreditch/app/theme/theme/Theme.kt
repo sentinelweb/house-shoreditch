@@ -9,7 +9,7 @@ import com.house_shoreditch.app.theme.components.initButtonsColors
 import com.house_shoreditch.app.theme.theme.PlatformTheme
 
 @Composable
-fun OsricTheme(
+fun OasisTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
     content: @Composable () -> Unit
 ) {
@@ -21,7 +21,7 @@ fun OsricTheme(
 
     MaterialTheme(
         colorScheme = colorScheme,
-        typography = OsricTypography,
+        typography = OasisTypography,
         content = content
     )
 }

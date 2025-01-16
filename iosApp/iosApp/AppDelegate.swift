@@ -8,7 +8,7 @@
 
 import Foundation
 import UIKit
-import ComposeApp
+import OasisShoreditch
 
 class AppDelegate: NSObject, UIApplicationDelegate {
     
