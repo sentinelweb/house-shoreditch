@@ -98,15 +98,15 @@ kotlin {
 }
 
 android {
-    namespace = "com.house_shoreditch.app"
+    namespace = libs.versions.app.pkg.get()
     compileSdk = libs.versions.android.compileSdk.get().toInt()
 
     defaultConfig {
-        applicationId = "com.oasis_shoreditch.app"
+        applicationId = libs.versions.app.pkg.get()
         minSdk = libs.versions.android.minSdk.get().toInt()
         targetSdk = libs.versions.android.targetSdk.get().toInt()
         versionCode = libs.versions.version.code.get().toInt()
-        versionName =  libs.versions.version.name.get()
+        versionName = libs.versions.version.name.get()
     }
     packaging {
         resources {
@@ -134,12 +134,13 @@ compose.desktop {
         mainClass = "com.house_shoreditch.app.MainKt"
         nativeDistributions {
             targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
-            packageName = "Oasis shoreditch"
-            packageVersion = "1.0.0"
+            packageName = libs.versions.app.name.get()
+            packageVersion = libs.versions.version.name.get()
+            vendor = libs.versions.app.vendor.get()
+            description = libs.versions.app.description.get()
 
             macOS {
-                dockName = "Oasis Shoreditch"
-                setDockNameSameAsPackageName = true
+                dockName = libs.versions.app.name.get()
                 iconFile.set(project.file("../media/appicon/MacOsIcon.icns"))
             }
             windows {
