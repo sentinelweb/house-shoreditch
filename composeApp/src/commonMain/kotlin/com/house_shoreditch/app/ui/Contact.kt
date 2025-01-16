@@ -5,11 +5,14 @@ import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.ContentScale
@@ -23,8 +26,10 @@ import com.house_shoreditch.app.theme.components.CircleIconButton
 import com.house_shoreditch.app.theme.components.RoundIconOutlineButton
 import com.house_shoreditch.app.theme.components.TextComponents.SectionTitle
 import com.house_shoreditch.app.theme.components.TextComponents.SubSectionTitle
+import com.house_shoreditch.app.util.DateUtil
 import com.house_shoreditch.app.util.getPlatform
 import oasis.composeapp.generated.resources.*
+import uk.co.sentinelweb.cuer.hub.BuildProps
 import kotlin.math.max
 
 object Contact {
@@ -148,8 +153,13 @@ object Contact {
                     modifier = Modifier.padding(4.dp)
                 )
             }
+
+            Text(
+                text = "©Robert Munro ${DateUtil.year} - version: ${BuildProps.versionName} ",
+                style = MaterialTheme.typography.bodySmall,
+                color = Color.Gray,
+                modifier = Modifier.padding(top = 8.dp)
+            )
         }
     }
-
-
 }

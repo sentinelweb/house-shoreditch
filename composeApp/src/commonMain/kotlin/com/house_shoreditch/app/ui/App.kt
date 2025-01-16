@@ -46,7 +46,6 @@ private fun isMobile() = listOf(Android, Ios).contains(getPlatform().type)
 @Composable
 @Preview
 fun App(viewModel: MainViewModel = koinViewModel()) {
-//    val model = viewModel.model.collectAsState()
     val model = MainContract.ModelInitial
     var initialSize by remember { mutableStateOf(IntSize.Zero) }
     var page by remember { mutableStateOf(0) }

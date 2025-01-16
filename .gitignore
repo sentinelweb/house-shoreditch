@@ -17,5 +17,6 @@ captures
 !*.xcworkspace/contents.xcworkspacedata
 **/xcshareddata/WorkspaceSettings.xcsettings
 /composeApp/src/commonMain/kotlin/com/house_shoreditch/app/Secrets.kt
+/composeApp/src/commonMain/kotlin/com/house_shoreditch/app/BuildProps.kt
 /secrets.properties
 iosApp/Configuration/Secrets.xcconfig

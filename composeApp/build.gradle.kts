@@ -105,8 +105,8 @@ android {
         applicationId = "com.oasis_shoreditch.app"
         minSdk = libs.versions.android.minSdk.get().toInt()
         targetSdk = libs.versions.android.targetSdk.get().toInt()
-        versionCode = 1
-        versionName = "1.0"
+        versionCode = libs.versions.version.code.get().toInt()
+        versionName =  libs.versions.version.name.get()
     }
     packaging {
         resources {
@@ -180,8 +180,27 @@ tasks.register("generateSecretsClass") {
     }
 }
 
+tasks.register("generateBuildPropsClass") {
+    doLast {
+        val file = File("$projectDir/src/commonMain/kotlin/com/house_shoreditch/app/BuildProps.kt")
+        print(file.absolutePath)
+        file.parentFile.mkdirs()
+        file.writeText(
+            """
+            package uk.co.sentinelweb.cuer.hub
+            
+            object BuildProps {
+                val versionCode: Int = ${libs.versions.version.code.get().toInt()}
+                val versionName: String = "${libs.versions.version.name.get()}"
+            }
+        """.trimIndent()
+        )
+    }
+}
+
 tasks.named("generateComposeResClass") {
     dependsOn("generateSecretsClass")
+    dependsOn("generateBuildPropsClass")
 }
 
 fun getSecret(propertyName: String): String {
