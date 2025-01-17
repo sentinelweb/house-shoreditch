@@ -26,10 +26,6 @@ jobs:
         env:
           SECRETS_FILE: ${{ secrets.SECRETS_FILE }}
 
-        # Step 4: Run Gradle build for macOS (or your release build)
-      - name: Build macOS Release
-        run: ./gradlew linkReleaseExecutableMacosX64
-
         # Step 5: Build the DMG file using the custom Gradle task
       - name: Package DMG
         run: ./gradlew ciPackageReleaseDmg
