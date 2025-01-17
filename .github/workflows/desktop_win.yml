@@ -2,7 +2,7 @@ name: Desktop MSI artifact CI
 
 on:
   push:
-    branches: [ "main"]
+    branches: [ "main", "feature/*"]
 
 jobs:
     build-msi:
