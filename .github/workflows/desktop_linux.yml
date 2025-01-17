@@ -2,7 +2,7 @@ name: Desktop DEB artifact CI
 
 on:
   push:
-    branches: [ "main"]
+    branches: [ "main", "feature/*"]
 
 jobs:
     build-deb:
@@ -32,11 +32,11 @@ jobs:
           sudo apt-get install binutils
           sudo apt-get install fakeroot
 
-        # Step 5: Build the DEB file using the custom Gradle task
+        # Build the DEB file using the custom Gradle task
       - name: Package DEB
         run: ./gradlew packageReleaseDeb
 
-        # Step 6: Upload DEB as an artifact
+        # Upload DEB as an artifact
       - name: Upload DEB as artifact
         uses: actions/upload-artifact@v3
         with:
