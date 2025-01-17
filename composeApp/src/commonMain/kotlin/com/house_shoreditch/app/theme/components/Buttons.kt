@@ -52,16 +52,12 @@ private val disabledContentColor = Color.DarkGray
 @Composable
 fun initButtonsColors() {
     themeButtonColors = ButtonDefaults.buttonColors(
-//        containerColor = MaterialTheme.colorScheme.onSurface,
-//        contentColor = MaterialTheme.colorScheme.surface,
         contentColor = surfaceColor,
         containerColor = onSurfaceColor,
         disabledContainerColor = disabledContainerColor,
         disabledContentColor = disabledContentColor,
     )
     outlinedButtonColors = ButtonDefaults.buttonColors(
-//        containerColor = MaterialTheme.colorScheme.surface,
-//        contentColor = MaterialTheme.colorScheme.onSurface,
         contentColor = onSurfaceColor,
         containerColor = surfaceColor,
         disabledContainerColor = disabledContainerColor,
