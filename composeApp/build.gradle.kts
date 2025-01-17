@@ -145,6 +145,7 @@ compose.desktop {
             }
             windows {
                 iconFile.set(project.file("../media/appicon/icon_512.ico"))
+                msiPackageVersion = libs.versions.version.name.get()
             }
             linux {
                 iconFile.set(project.file("../media/appicon/icon_512.png"))
@@ -213,29 +214,23 @@ fun getSecret(propertyName: String): String {
         return property
     } else return "invalid"
 }
-//
-//tasks.register("ciPackageReleaseDmg") {
-//    doLast {
-//        val appName = libs.versions.app.name.get()
-//        val outputDir = buildDir.resolve("outputs/dmg")
-//        val dmgName = "$appName.dmg"
-//        val appFile = buildDir.resolve("compose/binaries/main-release/app/$appName.app") // Make sure the path matches your KMM output
-//
-//        // Create output directory
-//        outputDir.mkdirs()
-//
-//        // Create DMG using hdiutil
-//        exec {
-//            commandLine(
-//                "hdiutil", "create",
-//                "-volname", "$appName Installer",
-//                "-srcfolder", appFile,
-//                "-ov",    // Overwrite if exists
-//                "-format", "UDZO", // Compressed DMG
-//                outputDir.resolve(dmgName).absolutePath
-//            )
-//        }
-//
-//        println("DMG has been created: ${outputDir.resolve(dmgName).absolutePath}")
-//    }
-//}
+
+tasks.register("buildMsi") {
+    doLast {
+        exec {
+            commandLine(
+                "jpackage",
+                "--app-version", libs.versions.version.name.get(),
+                "--input", "./build/distributions",
+                "--name", libs.versions.app.name.get(),
+                "--main-class", "com.house_shoreditch.app.MainKt",
+                "--main-jar", libs.versions.app.name.get(),
+                "--type", "msi",
+//                "--win-console",
+                "--win-dir-chooser",
+                "--win-shortcut",
+                "--win-manifest", rootProject.file("win/win.app.manifest").absolutePath // Path to the manifest
+            )
+        }
+    }
+}

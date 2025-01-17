@@ -25,14 +25,11 @@ jobs:
           echo "$SECRETS_FILE" > $GITHUB_WORKSPACE/secrets.properties
         env:
           SECRETS_FILE: ${{ secrets.SECRETS_FILE }}
-#
-#      - name: install deps
-#        run: |
-#          choco install wixtoolset --yes
 
         # Build the MSI file using the custom Gradle task
       - name: Package MSI
-        run: ./gradlew packageReleaseMsi
+#        run: ./gradlew packageReleaseMsi
+        run: ./gradlew buildMsi
 
         # Upload MSI as an artifact
       - name: Upload MSI as artifact
