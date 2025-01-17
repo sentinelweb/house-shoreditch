@@ -28,7 +28,7 @@ jobs:
 
         # Step 5: Build the DMG file using the custom Gradle task
       - name: Package DMG
-        run: ./gradlew ciPackageReleaseDmg
+        run: ./gradlew packageReleaseDmg
 
         # Step 6: Upload DMG as an artifact
       - name: Upload DMG as artifact
