@@ -2,7 +2,7 @@ name: Desktop DEB artifact CI
 
 on:
   push:
-    branches: [ "main", "feature/*"]
+    branches: [ "main"]
 
 jobs:
     build-deb:
