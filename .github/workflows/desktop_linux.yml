@@ -1,11 +1,11 @@
-name: Desktop artifact CI
+name: Desktop DEB artifact CI
 
 on:
   push:
     branches: [ "main", "feature/*"]
 
 jobs:
-    build-dmg:
+    build-deb:
       runs-on: ubuntu-latest
 
       steps:
@@ -32,14 +32,14 @@ jobs:
           sudo apt-get install binutils
           sudo apt-get install fakeroot
 
-        # Step 5: Build the DMG file using the custom Gradle task
+        # Step 5: Build the DEB file using the custom Gradle task
       - name: Package DEB
         run: ./gradlew packageReleaseDeb
 
-        # Step 6: Upload DMG as an artifact
-      - name: Upload DMG as artifact
+        # Step 6: Upload DEB as an artifact
+      - name: Upload DEB as artifact
         uses: actions/upload-artifact@v3
         with:
           name: Oasis_Shoreditch.deb
-          path: composeApp/build/compose/binaries/main-release/deb/*.dmg
+          path: composeApp/build/compose/binaries/main-release/deb/*.deb
 

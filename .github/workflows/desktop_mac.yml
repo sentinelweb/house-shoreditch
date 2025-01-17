@@ -1,4 +1,4 @@
-name: Desktop artifact CI
+name: Desktop DMG artifact CI
 
 on:
   push:
