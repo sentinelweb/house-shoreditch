@@ -35,5 +35,5 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: Oasis_Shoreditch.dmg
-          path: build/outputs/dmg/*.dmg
+          path: build/compose/binaries/main-release/dmg/*.dmg
 
