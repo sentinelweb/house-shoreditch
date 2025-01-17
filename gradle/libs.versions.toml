@@ -2,7 +2,7 @@
 version-code = "1"
 version-name = "1.0.0"
 app-pkg = "com.oasis_shoreditch.app"
-app-name = "Oasis shoreditch"
+app-name = "Oasis_shoreditch"
 app-vendor = "Sentinel Web Technologies Ltd"
 app-description = "Come stay with us in London"
 agp = "8.5.2"
