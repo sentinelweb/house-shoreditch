@@ -2,7 +2,7 @@ name: Android Release CI
 
 on:
   push:
-    branches: [ "main", "feature/*" ]
+    branches: [ "main" ]
 
 jobs:
   build-release-android:
