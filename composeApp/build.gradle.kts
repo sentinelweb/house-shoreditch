@@ -129,7 +129,6 @@ dependencies {
 }
 
 compose.desktop {
-
     application {
         mainClass = "com.house_shoreditch.app.MainKt"
         nativeDistributions {
@@ -143,6 +142,7 @@ compose.desktop {
                 dockName = libs.versions.app.name.get()
                 iconFile.set(project.file("../media/appicon/MacOsIcon.icns"))
             }
+
             windows {
                 iconFile.set(project.file("../media/appicon/icon_512.ico"))
                 msiPackageVersion = libs.versions.version.name.get()
@@ -151,6 +151,7 @@ compose.desktop {
                 menu = true
                 menuGroup = libs.versions.app.menugroup.get()
             }
+
             linux {
                 iconFile.set(project.file("../media/appicon/icon_512.png"))
                 debMaintainer = libs.versions.app.vendor.get()
@@ -158,6 +159,7 @@ compose.desktop {
                 shortcut = true
             }
         }
+
         buildTypes.release.proguard {
             version.set("7.4.0")
             obfuscate.set(false)
@@ -221,34 +223,3 @@ fun getSecret(propertyName: String): String {
         return property
     } else return "invalid"
 }
-
-//tasks.named("packageReleaseMsi") {
-//    doLast {
-//        val customOptions = listOf(
-//            "--win-per-user-install",
-//            "--win-post-install-script=${project.file("win/firewall-rules.bat").absolutePath}"
-//        )
-//        println("Adding custom jpackage options: $customOptions")
-//        // Inject options into jpackage command
-//    }
-//}
-
-//tasks.register("buildMsi") {
-//    doLast {
-//        exec {
-//            commandLine(
-//                "jpackage",
-//                "--app-version", libs.versions.version.name.get(),
-//                "--input", "./build/distributions",
-//                "--name", libs.versions.app.name.get(),
-//                "--main-class", "com.house_shoreditch.app.MainKt",
-//                "--main-jar", libs.versions.app.name.get(),
-//                "--type", "msi",
-//                "--win-dir-chooser",
-//                "--win-shortcut",
-//                // deosnt work
-//                //"--win-manifest", rootProject.file("win/win.app.manifest").absolutePath // Path to the manifest
-//            )
-//        }
-//    }
-//}
