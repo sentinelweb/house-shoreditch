@@ -146,9 +146,16 @@ compose.desktop {
             windows {
                 iconFile.set(project.file("../media/appicon/icon_512.ico"))
                 msiPackageVersion = libs.versions.version.name.get()
+                shortcut = true
+                dirChooser = true
+                menu = true
+                menuGroup = libs.versions.app.menugroup.get()
             }
             linux {
                 iconFile.set(project.file("../media/appicon/icon_512.png"))
+                debMaintainer = libs.versions.app.vendor.get()
+                menuGroup = libs.versions.app.menugroup.get()
+                shortcut = true
             }
         }
         buildTypes.release.proguard {
@@ -226,10 +233,10 @@ tasks.register("buildMsi") {
                 "--main-class", "com.house_shoreditch.app.MainKt",
                 "--main-jar", libs.versions.app.name.get(),
                 "--type", "msi",
-//                "--win-console",
                 "--win-dir-chooser",
                 "--win-shortcut",
-                "--win-manifest", rootProject.file("win/win.app.manifest").absolutePath // Path to the manifest
+                // deosnt work
+                //"--win-manifest", rootProject.file("win/win.app.manifest").absolutePath // Path to the manifest
             )
         }
     }
