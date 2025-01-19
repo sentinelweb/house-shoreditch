@@ -33,7 +33,7 @@ jobs:
           SECRETS_FILE: ${{ secrets.SECRETS_FILE }}
 
       - name: Build with Gradle
-        run: ./gradlew :android:assembleRelease :android:bundleRelease
+        run: ./gradlew :composeApp:assembleRelease :composeApp:bundleRelease
 
       - name: Upload Binaries
         uses: actions/upload-artifact@v4
