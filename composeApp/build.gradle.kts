@@ -222,16 +222,16 @@ fun getSecret(propertyName: String): String {
     } else return "invalid"
 }
 
-tasks.named("packageReleaseMsi") {
-    doLast {
-        val customOptions = listOf(
-            "--win-per-user-install",
-            "--win-post-install-script=${project.file("win/firewall-rules.bat").absolutePath}"
-        )
-        println("Adding custom jpackage options: $customOptions")
-        // Inject options into jpackage command
-    }
-}
+//tasks.named("packageReleaseMsi") {
+//    doLast {
+//        val customOptions = listOf(
+//            "--win-per-user-install",
+//            "--win-post-install-script=${project.file("win/firewall-rules.bat").absolutePath}"
+//        )
+//        println("Adding custom jpackage options: $customOptions")
+//        // Inject options into jpackage command
+//    }
+//}
 
 //tasks.register("buildMsi") {
 //    doLast {
