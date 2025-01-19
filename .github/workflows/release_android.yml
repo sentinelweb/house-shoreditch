@@ -5,7 +5,7 @@ on:
     branches: [ "main", "feature/*" ]
 
 jobs:
-  build:
+  build-release-android:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
