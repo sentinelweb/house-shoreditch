@@ -129,7 +129,6 @@ dependencies {
 }
 
 compose.desktop {
-
     application {
         mainClass = "com.house_shoreditch.app.MainKt"
         nativeDistributions {
@@ -143,13 +142,24 @@ compose.desktop {
                 dockName = libs.versions.app.name.get()
                 iconFile.set(project.file("../media/appicon/MacOsIcon.icns"))
             }
+
             windows {
                 iconFile.set(project.file("../media/appicon/icon_512.ico"))
+                msiPackageVersion = libs.versions.version.name.get()
+                shortcut = true
+                dirChooser = true
+                menu = true
+                menuGroup = libs.versions.app.menugroup.get()
             }
+
             linux {
                 iconFile.set(project.file("../media/appicon/icon_512.png"))
+                debMaintainer = libs.versions.app.vendor.get()
+                menuGroup = libs.versions.app.menugroup.get()
+                shortcut = true
             }
         }
+
         buildTypes.release.proguard {
             version.set("7.4.0")
             obfuscate.set(false)
@@ -213,29 +223,3 @@ fun getSecret(propertyName: String): String {
         return property
     } else return "invalid"
 }
-//
-//tasks.register("ciPackageReleaseDmg") {
-//    doLast {
-//        val appName = libs.versions.app.name.get()
-//        val outputDir = buildDir.resolve("outputs/dmg")
-//        val dmgName = "$appName.dmg"
-//        val appFile = buildDir.resolve("compose/binaries/main-release/app/$appName.app") // Make sure the path matches your KMM output
-//
-//        // Create output directory
-//        outputDir.mkdirs()
-//
-//        // Create DMG using hdiutil
-//        exec {
-//            commandLine(
-//                "hdiutil", "create",
-//                "-volname", "$appName Installer",
-//                "-srcfolder", appFile,
-//                "-ov",    // Overwrite if exists
-//                "-format", "UDZO", // Compressed DMG
-//                outputDir.resolve(dmgName).absolutePath
-//            )
-//        }
-//
-//        println("DMG has been created: ${outputDir.resolve(dmgName).absolutePath}")
-//    }
-//}
