@@ -27,12 +27,10 @@ jobs:
       - name: Decode secrets and keystore
         run: |
           echo "$KEYSTORE_BASE64" | base64 --decode > $GITHUB_WORKSPACE/oasis-release-upload-keystore.jks
-          echo "$SECRETS_PROPERTIES" > $GITHUB_WORKSPACE/secrets.properties
-          echo $GITHUB_WORKSPACE/oasis-release-upload-keystore.jks
-          echo $GITHUB_WORKSPACE/secrets.properties
+          echo "SECRETS_FILE" > $GITHUB_WORKSPACE/secrets.properties
         env:
           KEYSTORE_BASE64: ${{ secrets.KEYSTORE_BASE64 }}
-          SECRETS_PROPERTIES: ${{ secrets.SECRETS_PROPERTIES }}
+          SECRETS_FILE: ${{ secrets.SECRETS_FILE }}
 
       - name: Build with Gradle
         run: ./gradlew :android:assembleRelease :android:bundleRelease

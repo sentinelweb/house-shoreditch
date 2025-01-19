@@ -278,13 +278,10 @@ tasks.named("generateComposeResClass") {
 }
 
 fun getSecret(propertyName: String): String {
-    println("getSecret($propertyName)")
     val secretsFile = rootProject.file("secrets.properties")
-    println("secretsFile: ${secretsFile.exists()} ${secretsFile.absolutePath} ")
     if (secretsFile.exists()) {
         val properties = Properties()
         secretsFile.inputStream().use { properties.load(it) }
-        println("properties: ${properties.keys().toList()}")
         val property = properties.getProperty(propertyName)
         return property
     } else return "invalid"
