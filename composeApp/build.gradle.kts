@@ -177,7 +177,6 @@ android {
                     if (bundleFile != null) {
                         val newFile = File(bundleFile.parentFile, newFileName)
                         bundleFile.copyTo(newFile)
-                        println("Renamed bundle output to '${newFile.name}'")
                     } else {
                         println("AAB file not found for variant '${variant}'")
                     }
