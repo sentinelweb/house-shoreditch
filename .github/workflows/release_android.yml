@@ -30,7 +30,7 @@ jobs:
           echo "$SECRETS_PROPERTIES" > $GITHUB_WORKSPACE/secrets.properties
         env:
           KEYSTORE_BASE64: ${{ secrets.KEYSTORE_BASE64 }}
-          SECRETS_PROPERTIES_BASE64: ${{ secrets.SECRETS_PROPERTIES }}
+          SECRETS_PROPERTIES: ${{ secrets.SECRETS_PROPERTIES }}
 
       - name: Build with Gradle
         run: ./gradlew :android:assembleRelease :android:bundleRelease
