@@ -278,6 +278,7 @@ tasks.named("generateComposeResClass") {
 }
 
 fun getSecret(propertyName: String): String {
+    println("getSecret($propertyName)")
     val secretsFile = rootProject.file("secrets.properties")
     if (secretsFile.exists()) {
         val properties = Properties()
