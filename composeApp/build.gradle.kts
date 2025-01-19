@@ -3,6 +3,7 @@ import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpackConfig
+import java.text.SimpleDateFormat
 import java.util.*
 
 plugins {
@@ -113,14 +114,75 @@ android {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
     }
-    buildTypes {
-        getByName("release") {
-            isMinifyEnabled = false
+
+    signingConfigs {
+        getByName("debug") {
+            storeFile = file("src/androidMain/oasis-debug-keystore.jks")
+            storePassword = "0as1s1"
+            keyAlias = "oasis"
+            keyPassword = "0as1s1"
+        }
+        create("release") {
+            storeFile = rootProject.file(getSecret("ANDROID_KEYSTORE_FILENAME"))
+            storePassword = getSecret("ANDROID_PASSWORD")
+            keyAlias = getSecret("ANDROID_ALIAS")
+            keyPassword = getSecret("ANDROID_PASSWORD")
         }
     }
+
+    buildTypes {
+        getByName("debug") {
+            signingConfig = signingConfigs.getByName("debug")
+            applicationIdSuffix = ".debug"
+            versionNameSuffix = "-debug"
+        }
+        release {
+            signingConfig = signingConfigs.getByName("release")
+            isMinifyEnabled = false
+            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+        }
+    }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_21
         targetCompatibility = JavaVersion.VERSION_21
+    }
+
+    applicationVariants.all {
+        val sdf = SimpleDateFormat("ddMMyyyy_HHmmss")
+        val currentDateAndTime = sdf.format(Date())
+        val appName = libs.versions.app.pkg.get()
+        val versionName = libs.versions.version.name.get()
+        val versionCode = libs.versions.version.code.get().toInt()
+        this.outputs
+            .map { it as com.android.build.gradle.internal.api.ApkVariantOutputImpl }
+            .forEach { output ->
+                val variant = this.buildType.name
+                val fileExtension = output.outputFileName.substringAfterLast('.', "")
+                val apkName =
+                    "${appName}-${variant}-${versionName}-${versionCode}-${currentDateAndTime}.${fileExtension}"
+                output.outputFileName = apkName
+            }
+
+        this.outputs.forEach { _ ->
+            val variant = this.buildType.name
+            val bundleTaskName = "bundle${variant.replaceFirstChar { it.uppercase() }}"
+            tasks.named(bundleTaskName).configure {
+                doLast {
+                    val newFileName = "${appName}-${variant}-${versionName}-${versionCode}-${currentDateAndTime}.aab"
+
+                    val bundleOutputDir = file("build/outputs/bundle/${variant}")
+                    val bundleFile = bundleOutputDir.listFiles()?.firstOrNull { it.extension == "aab" }
+
+                    if (bundleFile != null) {
+                        val newFile = File(bundleFile.parentFile, newFileName)
+                        bundleFile.copyTo(newFile)
+                    } else {
+                        println("AAB file not found for variant '${variant}'")
+                    }
+                }
+            }
+        }
     }
 }
 
