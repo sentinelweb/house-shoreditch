@@ -20,3 +20,4 @@ captures
 /composeApp/src/commonMain/kotlin/com/house_shoreditch/app/BuildProps.kt
 /secrets.properties
 iosApp/Configuration/Secrets.xcconfig
+/oasis-release-upload-keystore.jks

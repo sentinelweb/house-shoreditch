@@ -1,13 +1,11 @@
 name: Desktop MSI artifact CI
-
 on:
   push:
     branches: [ "main" ]
-
 jobs:
   build-msi:
     runs-on: windows-latest
-
+    # fixmw: try java 23
     steps:
       - uses: actions/checkout@v4
       - name: set up JDK 21

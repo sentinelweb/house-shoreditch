@@ -48,13 +48,11 @@ object Contact {
                 .padding(16.dp)
         ) {
             SectionTitle("Contact")
-
             var offset by remember { mutableStateOf(Offset(200f, 400f)) }
             var scale by remember { mutableStateOf(1f) }
             var imageSize by remember { mutableStateOf(IntSize.Zero) }
             var boxSize by remember { mutableStateOf(IntSize.Zero) }
             Box(
-
                 modifier = Modifier
                     .align(Alignment.CenterHorizontally)
                     .widthIn(max = 600.dp)
@@ -79,12 +77,9 @@ object Contact {
                             detectTransformGestures { _, pan, zoom, _ ->
                                 val scaledImageWidth = imageSize.width * scale
                                 val scaledImageHeight = imageSize.height * scale
-
                                 val oscale = scale
-
                                 scale *= zoom
                                 scale = max(1f, scale)
-
                                 offset = Offset(
                                     x = (offset.x + pan.x * oscale)
                                         .coerceIn(
