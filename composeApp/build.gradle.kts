@@ -222,22 +222,33 @@ fun getSecret(propertyName: String): String {
     } else return "invalid"
 }
 
-tasks.register("buildMsi") {
+tasks.named("packageReleaseMsi") {
     doLast {
-        exec {
-            commandLine(
-                "jpackage",
-                "--app-version", libs.versions.version.name.get(),
-                "--input", "./build/distributions",
-                "--name", libs.versions.app.name.get(),
-                "--main-class", "com.house_shoreditch.app.MainKt",
-                "--main-jar", libs.versions.app.name.get(),
-                "--type", "msi",
-                "--win-dir-chooser",
-                "--win-shortcut",
-                // deosnt work
-                //"--win-manifest", rootProject.file("win/win.app.manifest").absolutePath // Path to the manifest
-            )
-        }
+        val customOptions = listOf(
+            "--win-per-user-install",
+            "--win-post-install-script=${project.file("win/firewall-rules.bat").absolutePath}"
+        )
+        println("Adding custom jpackage options: $customOptions")
+        // Inject options into jpackage command
     }
 }
+
+//tasks.register("buildMsi") {
+//    doLast {
+//        exec {
+//            commandLine(
+//                "jpackage",
+//                "--app-version", libs.versions.version.name.get(),
+//                "--input", "./build/distributions",
+//                "--name", libs.versions.app.name.get(),
+//                "--main-class", "com.house_shoreditch.app.MainKt",
+//                "--main-jar", libs.versions.app.name.get(),
+//                "--type", "msi",
+//                "--win-dir-chooser",
+//                "--win-shortcut",
+//                // deosnt work
+//                //"--win-manifest", rootProject.file("win/win.app.manifest").absolutePath // Path to the manifest
+//            )
+//        }
+//    }
+//}
