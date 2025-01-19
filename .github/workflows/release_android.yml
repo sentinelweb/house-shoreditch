@@ -28,6 +28,8 @@ jobs:
         run: |
           echo "$KEYSTORE_BASE64" | base64 --decode > $GITHUB_WORKSPACE/oasis-release-upload-keystore.jks
           echo "$SECRETS_PROPERTIES" > $GITHUB_WORKSPACE/secrets.properties
+          echo $GITHUB_WORKSPACE/oasis-release-upload-keystore.jks
+          echo $GITHUB_WORKSPACE/secrets.properties
         env:
           KEYSTORE_BASE64: ${{ secrets.KEYSTORE_BASE64 }}
           SECRETS_PROPERTIES: ${{ secrets.SECRETS_PROPERTIES }}
