@@ -39,4 +39,5 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: binaries
-          path: 'composeApp/build/outputs/*/release/com.oasis_shoreditch.app.*'
+          if-no-files-found: error
+          path: 'composeApp/build/outputs/*/release/com.oasis_shoreditch.app-release-*'
