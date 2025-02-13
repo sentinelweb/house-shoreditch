@@ -10,16 +10,22 @@ jobs:
     runs-on: macos-latest
 
     steps:
-      # Step 1: Checkout Code
+      # Step : Checkout Code
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      # Step 2: Set Up JDK for Gradle
+      # Step : Set Up JDK for Gradle
       - name: Set up JDK
         uses: actions/setup-java@v3
         with:
           java-version: '17'
           distribution: 'zulu'
+
+      # Step : Set up Xcode
+      - name: Set up Xcode
+        uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: "16.2"  # Update this to match your Xcode version
 
       # Decode Keystore and secrets.properties
       - name: Decode secrets and keystore
@@ -30,18 +36,12 @@ jobs:
           KEYSTORE_BASE64: ${{ secrets.KEYSTORE_BASE64 }}
           SECRETS_FILE: ${{ secrets.SECRETS_FILE }}
 
-        # Step 3: Build the KMM Framework
+        # Step : Build the KMM Framework
       - name: Build KMM Framework
         run: |
           ./gradlew :composeApp:embedAndSignAppleFrameworkForXcode
 
-      # Step 3: Set up Xcode
-      - name: Set up Xcode
-        uses: maxim-lobanov/setup-xcode@v1
-        with:
-          xcode-version: "16.2"  # Update this to match your Xcode version
-
-      # Step 4: Build the App
+      # Step : Build the App
       - name: Build the iOS app
         run: |
           xcodebuild clean build \
@@ -59,7 +59,7 @@ jobs:
             -exportOptionsPlist exportOptions.plist \   # generate exportOptions.plist using Product>Archive in xcode
             -exportPath $GITHUB_WORKSPACE/build
 
-      # Step 6: Upload the IPA as an artifact
+      # Step : Upload the IPA as an artifact
       - name: Upload IPA Artifact
         uses: actions/upload-artifact@v4
         with:
