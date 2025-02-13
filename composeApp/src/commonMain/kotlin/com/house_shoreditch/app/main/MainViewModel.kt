@@ -9,6 +9,7 @@ import com.house_shoreditch.app.main.MainContract.Companion.BookingInitial
 import com.house_shoreditch.app.main.MainContract.Companion.ContactInitial
 import com.house_shoreditch.app.main.MainContract.ContactModel
 import com.house_shoreditch.app.util.LinkLauncher
+import com.house_shoreditch.app.util.getPlatform
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
@@ -180,7 +181,11 @@ class MainViewModel(
             subject = "Oasis website enquiry",
             message = ""
         ).let {
-            linkLauncher.mail(it)
+            if (getPlatform().isEmailAvailable) {
+                linkLauncher.mail(it)
+            } else {
+                linkLauncher.gmail(it)
+            }
         }
         _contactModel.update { contactModel.value.copy(email = secrets.email) }
     }
