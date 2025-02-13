@@ -1,4 +1,4 @@
-name: Android Release CI
+name: iOS Release CI
 
 on:
   push:
@@ -24,7 +24,7 @@ jobs:
       - name: Build the iOS app
         run: |
           xcodebuild clean build \
-            -workspace house-shoreditch/iosApp/iosApp.xcodeproj\  # Change to your app workspace
+            -project house-shoreditch/iosApp/iosApp.xcodeproj\  # Change to your app workspace
             -scheme iosApp \          # Change to your app scheme
             -sdk iphoneos                   \
             -configuration Release \
