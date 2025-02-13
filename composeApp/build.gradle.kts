@@ -190,42 +190,44 @@ dependencies {
     debugImplementation(compose.uiTooling)
 }
 
-compose.desktop {
-    application {
-        mainClass = "com.house_shoreditch.app.MainKt"
-        nativeDistributions {
-            targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
-            packageName = libs.versions.app.name.get()
-            packageVersion = libs.versions.version.name.get()
-            vendor = libs.versions.app.vendor.get()
-            description = libs.versions.app.description.get()
+compose {
+    desktop {
+        application {
+            mainClass = "com.house_shoreditch.app.MainKt"
+            nativeDistributions {
+                targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
+                packageName = libs.versions.app.name.get()
+                packageVersion = libs.versions.version.name.get()
+                vendor = libs.versions.app.vendor.get()
+                description = libs.versions.app.description.get()
 
-            macOS {
-                dockName = libs.versions.app.name.get()
-                iconFile.set(project.file("../media/appicon/MacOsIcon.icns"))
+                macOS {
+                    dockName = libs.versions.app.name.get()
+                    iconFile.set(project.file("../media/appicon/MacOsIcon.icns"))
+                }
+
+                windows {
+                    iconFile.set(project.file("../media/appicon/icon_512.ico"))
+                    msiPackageVersion = libs.versions.version.name.get()
+                    shortcut = true
+                    dirChooser = true
+                    menu = true
+                    menuGroup = libs.versions.app.menugroup.get()
+                }
+
+                linux {
+                    iconFile.set(project.file("../media/appicon/icon_512.png"))
+                    debMaintainer = libs.versions.app.vendor.get()
+                    menuGroup = libs.versions.app.menugroup.get()
+                    shortcut = true
+                }
             }
 
-            windows {
-                iconFile.set(project.file("../media/appicon/icon_512.ico"))
-                msiPackageVersion = libs.versions.version.name.get()
-                shortcut = true
-                dirChooser = true
-                menu = true
-                menuGroup = libs.versions.app.menugroup.get()
+            buildTypes.release.proguard {
+                version.set("7.4.0")
+                obfuscate.set(false)
+                isEnabled = false
             }
-
-            linux {
-                iconFile.set(project.file("../media/appicon/icon_512.png"))
-                debMaintainer = libs.versions.app.vendor.get()
-                menuGroup = libs.versions.app.menugroup.get()
-                shortcut = true
-            }
-        }
-
-        buildTypes.release.proguard {
-            version.set("7.4.0")
-            obfuscate.set(false)
-            isEnabled = false
         }
     }
 }
