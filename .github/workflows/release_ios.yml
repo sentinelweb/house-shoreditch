@@ -40,7 +40,7 @@ jobs:
 
       # Step 6: Upload the IPA as an artifact
       - name: Upload IPA Artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: iOS-App
           path: build/*.ipa
