@@ -14,6 +14,27 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
+      # Step 2: Set Up JDK for Gradle
+      - name: Set up JDK
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'zulu'
+
+      # Decode Keystore and secrets.properties
+      - name: Decode secrets and keystore
+        run: |
+          echo "$KEYSTORE_BASE64" | base64 --decode > $GITHUB_WORKSPACE/oasis-release-upload-keystore.jks
+          echo "$SECRETS_FILE" > $GITHUB_WORKSPACE/secrets.properties
+        env:
+          KEYSTORE_BASE64: ${{ secrets.KEYSTORE_BASE64 }}
+          SECRETS_FILE: ${{ secrets.SECRETS_FILE }}
+
+        # Step 3: Build the KMM Framework
+      - name: Build KMM Framework
+        run: |
+          ./gradlew :composeApp:embedAndSignAppleFrameworkForXcode
+
       # Step 3: Set up Xcode
       - name: Set up Xcode
         uses: maxim-lobanov/setup-xcode@v1
@@ -24,7 +45,7 @@ jobs:
       - name: Build the iOS app
         run: |
           xcodebuild clean build \
-            -project $GITHUB_WORKSPACE/iosApp/iosApp.xcodeproj\  # Change to your app workspace
+            -project $GITHUB_WORKSPACE/iosApp/iosApp.xcodeproj \  # Change to your app workspace
             -scheme iosApp \          # Change to your app scheme
             -sdk iphoneos                   \
             -configuration Release \
