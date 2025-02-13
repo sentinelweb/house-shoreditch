@@ -36,7 +36,12 @@ jobs:
           KEYSTORE_BASE64: ${{ secrets.KEYSTORE_BASE64 }}
           SECRETS_FILE: ${{ secrets.SECRETS_FILE }}
 
-        # Step : Build the KMM Framework
+      # Step : testing assembleIosX64MainResources
+      - name: Build KMM Framework
+        run: |
+          ./gradlew :composeApp:assembleIosX64MainResources -PxcodeConfiguration=Release -Pkotlin.native.cocoapods.generateWrapper=false -PxcodeTargetArchs=arm64 -Pkotlin.native.targets=iosArm64,iosSimulatorArm64 --info
+
+      # Step : Build the KMM Framework
       - name: Build KMM Framework
         run: |
           ./gradlew :composeApp:assembleIosX64MainResources :composeApp:embedAndSignAppleFrameworkForXcode -PxcodeConfiguration=Release -Pkotlin.native.cocoapods.generateWrapper=false -PxcodeTargetArchs=arm64 -Pkotlin.native.targets=iosArm64,iosSimulatorArm64 --info
