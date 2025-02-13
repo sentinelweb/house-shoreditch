@@ -39,11 +39,7 @@ jobs:
         # Step : Build the KMM Framework
       - name: Build KMM Framework
         run: |
-          ./gradlew :composeApp:embedAndSignAppleFrameworkForXcode \
-            -PxcodeConfiguration=Release \
-            -Pkotlin.native.cocoapods.generateWrapper=false \
-            -PxcodeTargetArchs=arm64 \ 
-            -Pkotlin.native.targets=iosArm64,iosSimulatorArm64
+          ./gradlew :composeApp:embedAndSignAppleFrameworkForXcode -PxcodeConfiguration=Release -Pkotlin.native.cocoapods.generateWrapper=false -PxcodeTargetArchs=arm64 -Pkotlin.native.targets=iosArm64,iosSimulatorArm64
 
       # Step : Build the App
       - name: Build the iOS app
