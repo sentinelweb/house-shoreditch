@@ -30,7 +30,7 @@ jobs:
 
         # Upload MSI as an artifact
       - name: Upload MSI as artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: Oasis_Shoreditch.msi
           path: composeApp/build/compose/binaries/main-release/msi/*.msi
