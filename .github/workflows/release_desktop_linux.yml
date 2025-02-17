@@ -38,7 +38,7 @@ jobs:
 
         # Upload DEB as an artifact
       - name: Upload DEB as artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: Oasis_Shoreditch.deb
           path: composeApp/build/compose/binaries/main-release/deb/*.deb
