@@ -145,7 +145,7 @@ class MainViewModel(
     }
 
     fun onDownloadPlayClick() {
-        linkLauncher.open("https://play.google.com") // todo update
+        linkLauncher.open("https://play.google.com/store/apps/details?id=com.oasis_shoreditch.app")
     }
 
     fun onDownloadAppleStoreClick() {
