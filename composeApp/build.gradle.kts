@@ -204,29 +204,29 @@ compose {
                 macOS {
                     dockName = libs.versions.app.name.get()
                     iconFile.set(project.file("../media/appicon/MacOsIcon.icns"))
-                    infoPlist {
-                        extraKeysRawXml = """
-        <?xml version="1.0" encoding="UTF-8"?>
-        <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-        <plist version="1.0">
-        <dict>
-            <key>CFBundleName</key>
-            <string>${libs.versions.app.name.get()}</string>
-            <key>CFBundleIdentifier</key>
-            <string>${libs.versions.app.pkg.get()}.${libs.versions.app.name.get()}</string>
-            <key>CFBundleVersion</key>
-            <string>${libs.versions.version.name.get().substringBeforeLast(".").toFloat()}</string>
-            <key>CFBundleShortVersionString</key>
-            <string>${libs.versions.version.name.get()}</string>
-            <key>NSAppTransportSecurity</key>
-            <dict>
-                <key>NSAllowsArbitraryLoads</key>
-                <true/>
-            </dict>
-        </dict>
-        </plist>
-        """.trimIndent()
-                    }
+//                    infoPlist {
+//                        extraKeysRawXml = """
+//        <?xml version="1.0" encoding="UTF-8"?>
+//        <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+//        <plist version="1.0">
+//        <dict>
+//            <key>CFBundleName</key>
+//            <string>${libs.versions.app.name.get()}</string>
+//            <key>CFBundleIdentifier</key>
+//            <string>${libs.versions.app.pkg.get()}.${libs.versions.app.name.get()}</string>
+//            <key>CFBundleVersion</key>
+//            <string>${libs.versions.version.name.get().substringBeforeLast(".").toFloat()}</string>
+//            <key>CFBundleShortVersionString</key>
+//            <string>${libs.versions.version.name.get()}</string>
+//            <key>NSAppTransportSecurity</key>
+//            <dict>
+//                <key>NSAllowsArbitraryLoads</key>
+//                <true/>
+//            </dict>
+//        </dict>
+//        </plist>
+//        """.trimIndent()
+//                    }
                 }
 
                 windows {
