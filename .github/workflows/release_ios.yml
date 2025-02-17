@@ -2,7 +2,7 @@ name: iOS Release CI
 
 on:
   push:
-    branches: [ "main", "feature/*" ]
+    branches: [ ]
 
 jobs:
   build:
