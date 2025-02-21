@@ -76,7 +76,7 @@ kotlin {
             implementation(libs.androidx.lifecycle.runtime.compose)
             implementation(libs.coil)
             implementation(libs.coil.ktor3)
-//            implementation(libs.ktor.cio)
+            implementation(libs.ktor.cio)
             implementation(project.dependencies.enforcedPlatform(libs.koin.bom.get()))
             implementation(libs.koin.core)
             implementation(libs.koin.composeVM)
