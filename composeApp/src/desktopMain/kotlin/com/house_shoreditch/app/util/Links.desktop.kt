@@ -16,6 +16,7 @@ actual class LinkLauncher : KoinComponent {
             val desktop = Desktop.getDesktop()
             if (desktop.isSupported(Desktop.Action.BROWSE)) {
                 try {
+                    println("BROWSE $url")
                     desktop.browse(URI(url))
                 } catch (e: Exception) {
                     e.printStackTrace()

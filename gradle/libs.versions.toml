@@ -1,15 +1,15 @@
 [versions]
-version-code = "1"
-version-name = "1.0.0"
+version-code = "2"
+version-name = "1.0.1"
 app-pkg = "com.oasis_shoreditch.app"
 app-name = "Oasis_shoreditch"
 app-vendor = "Sentinel Web Technologies Ltd"
 app-description = "Come stay with us in London"
 app-menugroup = "Other"
 agp = "8.5.2"
-android-compileSdk = "34"
+android-compileSdk = "35"
 android-minSdk = "24"
-android-targetSdk = "34"
+android-targetSdk = "35"
 androidx-activityCompose = "1.9.3"
 androidx-appcompat = "1.7.0"
 androidx-constraintlayout = "2.1.4"
@@ -20,10 +20,10 @@ androidx-material = "1.12.0"
 androidx-test-junit = "1.2.1"
 compose-multiplatform = "1.7.0"
 junit = "4.13.2"
-kotlin = "2.0.21"
-kotlinx-coroutines = "1.9.0"
+kotlin = "2.1.10"
+kotlinx-coroutines = "1.10.1"
 coil = "3.0.4"
-ktor = "3.0.2"
+ktor = "3.1.0"
 koin-bom = "4.0.1"
 kotlinx-datetime = "0.6.1"
 
@@ -47,6 +47,7 @@ coil-ktor3-android = { group = "io.ktor", name = "ktor-client-android", version.
 coil-ktor3-desktop = { group = "io.ktor", name = "ktor-client-java", version.ref = "ktor" }
 coil-ktor3-ios = { group = "io.ktor", name = "ktor-client-darwin", version.ref = "ktor" }
 coil-ktor3-wasmjs = { group = "io.ktor", name = "ktor-client-core-wasm-js", version.ref = "ktor" }
+ktor-cio = { group = "io.ktor", name = "ktor-client-cio", version.ref = "ktor" }
 koin-bom = { module = "io.insert-koin:koin-bom", version.ref = "koin-bom" }
 koin-core = { module = "io.insert-koin:koin-core" }
 koin-android = { module = "io.insert-koin:koin-android" }

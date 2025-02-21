@@ -76,6 +76,7 @@ kotlin {
             implementation(libs.androidx.lifecycle.runtime.compose)
             implementation(libs.coil)
             implementation(libs.coil.ktor3)
+            implementation(libs.ktor.cio)
             implementation(project.dependencies.enforcedPlatform(libs.koin.bom.get()))
             implementation(libs.koin.core)
             implementation(libs.koin.composeVM)
@@ -204,29 +205,31 @@ compose {
                 macOS {
                     dockName = libs.versions.app.name.get()
                     iconFile.set(project.file("../media/appicon/MacOsIcon.icns"))
-//                    infoPlist {
-//                        extraKeysRawXml = """
-//        <?xml version="1.0" encoding="UTF-8"?>
-//        <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-//        <plist version="1.0">
-//        <dict>
-//            <key>CFBundleName</key>
-//            <string>${libs.versions.app.name.get()}</string>
-//            <key>CFBundleIdentifier</key>
-//            <string>${libs.versions.app.pkg.get()}.${libs.versions.app.name.get()}</string>
-//            <key>CFBundleVersion</key>
-//            <string>${libs.versions.version.name.get().substringBeforeLast(".").toFloat()}</string>
-//            <key>CFBundleShortVersionString</key>
-//            <string>${libs.versions.version.name.get()}</string>
-//            <key>NSAppTransportSecurity</key>
-//            <dict>
-//                <key>NSAllowsArbitraryLoads</key>
-//                <true/>
-//            </dict>
-//        </dict>
-//        </plist>
-//        """.trimIndent()
-//                    }
+                    infoPlist {
+                        extraKeysRawXml = """
+            <key>NSOutgoingConnectionsUsageDescription</key>
+            <string>This app requires internet access to load content.</string>
+            <key>NSAppTransportSecurity</key>
+            <dict>
+                <key>NSAllowsArbitraryLoads</key>
+                <true/>
+                <key>NSAllowsArbitraryLoadsInWebContent</key>
+                <true/>
+                <key>NSExceptionDomains</key>
+                <dict>
+                    <key>raw.githubusercontent.com</key>
+                    <dict>
+                        <key>NSIncludesSubdomains</key>
+                        <true/>
+                        <key>NSTemporaryExceptionAllowsInsecureHTTPLoads</key>
+                        <true/>
+                        <key>NSTemporaryExceptionMinimumTLSVersion</key>
+                        <string>TLSv1.2</string>
+                    </dict>
+                </dict>
+            </dict>
+        """.trimIndent()
+                    }
                 }
 
                 windows {
