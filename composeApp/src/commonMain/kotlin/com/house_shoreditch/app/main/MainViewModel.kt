@@ -8,6 +8,7 @@ import com.house_shoreditch.app.main.MainContract.BookingModel
 import com.house_shoreditch.app.main.MainContract.Companion.BookingInitial
 import com.house_shoreditch.app.main.MainContract.Companion.ContactInitial
 import com.house_shoreditch.app.main.MainContract.ContactModel
+import com.house_shoreditch.app.util.DebugUtils
 import com.house_shoreditch.app.util.LinkLauncher
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -32,6 +33,11 @@ class MainViewModel(
 
     fun openAirbnb() {
         linkLauncher.open("https://www.airbnb.com/rooms/945464635020318901")
+    }
+
+    fun test() {
+        println("Test output message")
+        DebugUtils.printErr("Test erorr message", Exception("Test Exception"))
     }
 
     fun onClickPayemntMethod(method: PaymentMethod) {

@@ -53,6 +53,11 @@ fun App(viewModel: MainViewModel = koinViewModel()) {
     val verticalScrollState = rememberScrollState()
     val coroutineScope = rememberCoroutineScope()
     val primaryActions = listOf(
+
+        Action(CuerMenuItem.Contact, {
+            viewModel.test()
+        }),
+
         Action(CuerMenuItem.Images, {
             page = 1
             coroutineScope.scrollToPage(verticalScrollState, initialSize, density, page)
