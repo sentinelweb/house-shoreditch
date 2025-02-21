@@ -37,13 +37,13 @@ class MainViewModel(
         linkLauncher.open("https://www.airbnb.com/rooms/945464635020318901")
     }
 
-    fun test() {
-        println("Test output message")
-        DebugUtils.printErr("Test erorr message", Exception("Test Exception"))
-        viewModelScope.launch {
-            TestUrl().get("https://raw.githubusercontent.com/sentinelweb/house-shoreditch/refs/heads/main/build.gradle.kts")
-        }
-    }
+//    fun test() {
+//        println("Test output message")
+//        DebugUtils.printErr("Test erorr message", Exception("Test Exception"))
+//        viewModelScope.launch {
+//            TestUrl().get("https://raw.githubusercontent.com/sentinelweb/house-shoreditch/refs/heads/main/build.gradle.kts")
+//        }
+//    }
 
     fun onClickPayemntMethod(method: PaymentMethod) {
         _bookingModel.update {
