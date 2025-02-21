@@ -1,7 +1,7 @@
 name: Desktop MSI artifact CI
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "main", "bugfix/*" ]
 jobs:
   build-msi:
     runs-on: windows-latest
