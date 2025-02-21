@@ -32,7 +32,7 @@ jobs:
           SECRETS_FILE: ${{ secrets.SECRETS_FILE }}
 
       - name: Build with Gradle
-        run: ./gradlew build composeApp:assembleDebug compileDebugAndroidTestKotlin testDebugUnitTest linkDebugFrameworkIosX64
+        run: ./gradlew kotlinUpgradeYarnLock build composeApp:assembleDebug compileDebugAndroidTestKotlin testDebugUnitTest linkDebugFrameworkIosX64
 
       - name: Check
         run: ./gradlew check

@@ -35,7 +35,7 @@ jobs:
           SECRETS_FILE: ${{ secrets.SECRETS_FILE }}
 
       - name: Build WASM distribution
-        run: ./gradlew wasmJsBrowserDistribution
+        run: ./gradlew kotlinUpgradeYarnLock wasmJsBrowserDistribution
 
       - name: Upload static files as artifact
         id: deployment
