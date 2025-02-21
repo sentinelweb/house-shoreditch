@@ -2,10 +2,7 @@ name: Desktop DMG artifact CI
 
 on:
   push:
-    branches: [ "main"]
-  pull_request:
-    branches:
-      - "bugfix/*"
+    branches: [ "main", "bugfix/*"]
 
 jobs:
     build-dmg:
