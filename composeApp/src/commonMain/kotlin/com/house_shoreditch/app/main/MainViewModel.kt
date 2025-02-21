@@ -1,6 +1,7 @@
 package com.house_shoreditch.app.main
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.house_shoreditch.app.domain.BookingEnquiryDomain
 import com.house_shoreditch.app.domain.EnquiryMessageDomain
 import com.house_shoreditch.app.domain.PaymentMethod
@@ -13,6 +14,7 @@ import com.house_shoreditch.app.util.LinkLauncher
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 import kotlinx.datetime.*
 import uk.co.sentinelweb.cuer.hub.Secrets
 
@@ -38,6 +40,9 @@ class MainViewModel(
     fun test() {
         println("Test output message")
         DebugUtils.printErr("Test erorr message", Exception("Test Exception"))
+        viewModelScope.launch {
+            TestUrl().get("https://raw.githubusercontent.com/sentinelweb/house-shoreditch/refs/heads/main/build.gradle.kts")
+        }
     }
 
     fun onClickPayemntMethod(method: PaymentMethod) {
