@@ -42,7 +42,7 @@ class MessageMapper() : KoinComponent {
     fun mapWhatsappUri(message: EnquiryMessageDomain) =
         EnquiryMessageDomain.WHATSAPP_URI
             .replace(TO_PLACEHOLDER, message.to)
-            .replace(BODY_PLACEHOLDER, linkLauncher.encode(message.message))
+            .replace(BODY_PLACEHOLDER, message.message)
 
     fun mapPhoneUri(phone:String) = "tel:$phone"
 }

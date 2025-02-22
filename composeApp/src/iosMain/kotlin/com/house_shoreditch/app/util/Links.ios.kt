@@ -15,9 +15,20 @@ actual class LinkLauncher : KoinComponent {
     private val emailLauncher: EmailLauncher by inject()
 
     actual fun open(url: String) {
+        internalOpen(url)
+    }
+
+    private fun internalOpen(url: String, fallback:(() -> Unit)? = null) {
         val nsUrl = NSURL(string = url)
         if (UIApplication.sharedApplication.canOpenURL(nsUrl)) {
-            UIApplication.sharedApplication.openURL(nsUrl)
+            UIApplication.sharedApplication.openURL(nsUrl, options = emptyMap<Any?, Any>()) { success ->
+                if (success) {
+                    println("successfully opened: $url")
+                } else {
+                    fallback?.invoke()
+                    println("Failed to open: $url")
+                }
+            }
         } else {
             println("Invalid URL or cannot open the URL.")
         }
@@ -38,8 +49,11 @@ actual class LinkLauncher : KoinComponent {
     }
 
     actual fun gmail(message: EnquiryMessageDomain) {
-        messageMapper.mapGmailUrlUnencoded(message)
-            .apply { open(this) }
+        val url = "googlegmail:///co?to=${message.to}&subject=${message.subject}&body=${message.message}"
+        internalOpen(url) {
+            // fallback
+            internalOpen(messageMapper.mapGmailUrlUnencoded(message))
+        }
     }
 
     actual fun sms(message: EnquiryMessageDomain) {
@@ -47,15 +61,14 @@ actual class LinkLauncher : KoinComponent {
     }
 
     actual fun whatsapp(message: EnquiryMessageDomain) {
-        val nsUrl = NSURL(string = messageMapper.mapWhatsappUri(message))
-        if (UIApplication.sharedApplication.canOpenURL(nsUrl)) {
-            UIApplication.sharedApplication.openURL(nsUrl)
-        } else {
-            println("Cannot open Whatsapp URL.")
+        val url = messageMapper.mapWhatsappUri(message)
+        internalOpen(url) {
+            // fallback
+            internalOpen(messageMapper.mapWhatsappClickChatUrl(message))
         }
     }
 
     actual fun call(phone: String) {
-        open(messageMapper.mapPhoneUri(phone))
+        internalOpen(messageMapper.mapPhoneUri(phone))
     }
 }
