@@ -47,8 +47,8 @@ jobs:
         run: |
           mkdir -p ~/.appstoreconnect/private_keys
           echo "~/.appstoreconnect/private_keys/AuthKey_$APPLE_KEY_ID.p8"
-          echo "$APPLE_API_KEY_BASE64" | base64 --decode > "~/.appstoreconnect/private_keys/AuthKey_$APPLE_KEY_ID.p8"
-          ls
+          echo "$APPLE_API_KEY_BASE64" | base64 --decode
+          echo "$APPLE_API_KEY_BASE64" | base64 --decode > "$HOME/.appstoreconnect/private_keys/AuthKey_$APPLE_KEY_ID.p8"
         env:
           APPLE_API_KEY_BASE64: ${{ secrets.APPLE_API_KEY_BASE64 }}
           APPLE_KEY_ID: ${{ secrets.APPLE_KEY_ID }}
