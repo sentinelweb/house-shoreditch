@@ -45,12 +45,14 @@ jobs:
       - name: Authenticate with Apple API Key
         run: |
           echo "${APPLE_API_KEY_BASE64}" | base64 --decode > AuthKey.p8
+          echo $APPLE_KEY_ID
+          echo $APPLE_ISSUER_ID
           xcrun altool --list-providers \
             --apiKey $APPLE_KEY_ID \
             --apiIssuer $APPLE_ISSUER_ID
         env:
           APPLE_API_KEY_BASE64: ${{ secrets.APPLE_API_KEY_BASE64 }}
-          $APPLE_KEY_ID: ${{ secrets.APPLE_KEY_ID }}
+          APPLE_KEY_ID: ${{ secrets.APPLE_KEY_ID }}
           APPLE_ISSUER_ID: ${{ secrets.APPLE_ISSUER_ID }}
 
       # Step : Build the App
