@@ -142,7 +142,7 @@ class MainViewModel(
                 From: ${it.dateRange.first}
                 To: ${it.dateRange.second}
                 PaymentMethods: ${it.paymentMethods}
-                # People: ${it.numPeople}
+                Number of People: ${it.numPeople}
             """.trimIndent()
     }
 
