@@ -48,7 +48,7 @@ jobs:
         run: |
           xcodebuild clean build \
             -project $GITHUB_WORKSPACE/iosApp/iosApp.xcodeproj \
-            -scheme iosApp \ 
+            -scheme iosApp \
             -sdk iphoneos \
             -configuration Release \
             -archivePath $GITHUB_WORKSPACE/build/Oasis.xcarchive
@@ -59,7 +59,7 @@ jobs:
         run: |
           xcodebuild -exportArchive \
             -archivePath $GITHUB_WORKSPACE/build/Oasis.xcarchive \
-            -exportOptionsPlist exportOptions.plist \   # generate exportOptions.plist using Product>Archive in xcode
+            -exportOptionsPlist exportOptions.plist \
             -exportPath $GITHUB_WORKSPACE/build
 
       # Step : Upload the IPA as an artifact
