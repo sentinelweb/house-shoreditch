@@ -40,8 +40,9 @@ jobs:
 
       - name: Build KMM Framework
         run: |
-          ./gradlew :composeApp:linkReleaseFrameworkIosArm64
+#          ./gradlew :composeApp:linkReleaseFrameworkIosArm64
 #          ./gradlew :composeApp:linkReleaseFrameworkIosSimulatorArm64
+
       - name: Authenticate with Apple API Key
         run: |
           echo "${APPLE_API_KEY_BASE64}" | base64 --decode > AuthKey.p8
