@@ -73,6 +73,8 @@ jobs:
             -configuration Release \
             -archivePath $GITHUB_WORKSPACE/build/Oasis.xcarchive \
             -allowProvisioningUpdates
+            -destination 'generic/platform=iOS' \
+            CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO
 
       # Step 5: Export the IPA (App Bundle)
       # create provisioning profile https://developer.apple.com/account/resources/profiles/add
