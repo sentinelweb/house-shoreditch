@@ -47,9 +47,9 @@ jobs:
       - name: Build the iOS app
         run: |
           xcodebuild clean build \
-            -project $GITHUB_WORKSPACE/iosApp/iosApp.xcodeproj \  # Change to your app workspace
-            -scheme iosApp \          # Change to your app scheme
-            -sdk iphoneos                   \
+            -project $GITHUB_WORKSPACE/iosApp/iosApp.xcodeproj \
+            -scheme iosApp \ 
+            -sdk iphoneos \
             -configuration Release \
             -archivePath $GITHUB_WORKSPACE/build/Oasis.xcarchive
 
