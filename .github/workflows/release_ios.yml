@@ -2,7 +2,7 @@ name: iOS Release CI
 
 on:
   push:
-    branches: [ none ]
+    branches: [ "feature/*" ]
 
 jobs:
   build:
@@ -32,14 +32,12 @@ jobs:
         run: |
           echo "$KEYSTORE_BASE64" | base64 --decode > $GITHUB_WORKSPACE/oasis-release-upload-keystore.jks
           echo "$SECRETS_FILE" > $GITHUB_WORKSPACE/secrets.properties
+          echo "SECRETS_XCCONFIG" > $GITHUB_WORKSPACE/iosApp/Configuration/Secrets.xcconfig
         env:
           KEYSTORE_BASE64: ${{ secrets.KEYSTORE_BASE64 }}
           SECRETS_FILE: ${{ secrets.SECRETS_FILE }}
+          SECRETS_XCCONFIG: ${{ secrets.SECRETS_XCCONFIG }}
 
-#      # Step : Build the KMM Framework
-#      - name: Build KMM Framework
-#        run: |
-#          ./gradlew :composeApp:embedAndSignAppleFrameworkForXcode -PxcodeConfiguration=Release -Pkotlin.native.cocoapods.generateWrapper=false -PxcodeTargetArchs=arm64 -Pkotlin.native.targets=iosArm64,iosSimulatorArm64 --info
       - name: Build KMM Framework
         run: |
           ./gradlew :composeApp:linkReleaseFrameworkIosArm64
