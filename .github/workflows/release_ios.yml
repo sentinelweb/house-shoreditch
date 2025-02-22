@@ -46,16 +46,16 @@ jobs:
       - name: Set up App Store Connect API Key
         run: |
           mkdir -p ~/.appstoreconnect/private_keys
-          echo "$APPLE_API_KEY_BASE64" > ~/.appstoreconnect/private_keys/AuthKey_$APPLE_KEY_ID.p8
+          echo "~/.appstoreconnect/private_keys/AuthKey_$APPLE_KEY_ID.p8"
+          FILENAME = "~/.appstoreconnect/private_keys/AuthKey_$APPLE_KEY_ID.p8"
+          echo "$APPLE_API_KEY_BASE64" | base64 --decode > $FILENAME
+          ls
         env:
           APPLE_API_KEY_BASE64: ${{ secrets.APPLE_API_KEY_BASE64 }}
           APPLE_KEY_ID: ${{ secrets.APPLE_KEY_ID }}
 
       - name: Authenticate with Apple API Key
         run: |
-          echo "${APPLE_API_KEY_BASE64}" | base64 --decode > AuthKey.p8
-          echo $APPLE_KEY_ID
-          echo $APPLE_ISSUER_ID
           xcrun altool --list-providers \
             --apiKey ${{ secrets.APPLE_KEY_ID }} \
             --apiIssuer ${{ secrets.APPLE_ISSUER_ID }}
