@@ -33,15 +33,16 @@ jobs:
           echo "$KEYSTORE_BASE64" | base64 --decode > $GITHUB_WORKSPACE/oasis-release-upload-keystore.jks
           echo "$SECRETS_FILE" > $GITHUB_WORKSPACE/secrets.properties
           echo "SECRETS_XCCONFIG" > $GITHUB_WORKSPACE/iosApp/Configuration/Secrets.xcconfig
+          echo $GITHUB_WORKSPACE/iosApp/Configuration/Secrets.xcconfig
         env:
           KEYSTORE_BASE64: ${{ secrets.KEYSTORE_BASE64 }}
           SECRETS_FILE: ${{ secrets.SECRETS_FILE }}
           SECRETS_XCCONFIG: ${{ secrets.SECRETS_XCCONFIG }}
 
-      - name: Build KMM Framework
-        run: |
-          ./gradlew :composeApp:linkReleaseFrameworkIosArm64
-          ./gradlew :composeApp:linkReleaseFrameworkIosSimulatorArm64
+#      - name: Build KMM Framework
+#        run: |
+#          ./gradlew :composeApp:linkReleaseFrameworkIosArm64
+#          ./gradlew :composeApp:linkReleaseFrameworkIosSimulatorArm64
 
       # Step : Build the App
       - name: Build the iOS app
