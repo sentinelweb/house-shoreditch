@@ -51,7 +51,8 @@ jobs:
             -scheme iosApp \
             -sdk iphoneos \
             -configuration Release \
-            -archivePath $GITHUB_WORKSPACE/build/Oasis.xcarchive
+            -archivePath $GITHUB_WORKSPACE/build/Oasis.xcarchive \
+            -allowProvisioningUpdates
 
       # Step 5: Export the IPA (App Bundle)
       # create provisioning profile https://developer.apple.com/account/resources/profiles/add
