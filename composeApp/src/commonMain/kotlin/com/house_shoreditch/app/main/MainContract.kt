@@ -48,6 +48,7 @@ interface MainContract {
     )
 
     companion object {
+        val DesktopDownloadUrl = "https://github.com/sentinelweb/house-shoreditch/releases/latest"
         val ImageBasePath =
             "https://raw.githubusercontent.com/sentinelweb/house-shoreditch/refs/heads/main/media/"
         val ImageList = listOf(

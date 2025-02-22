@@ -1,20 +1,18 @@
 package com.house_shoreditch.app.main
 
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.house_shoreditch.app.domain.BookingEnquiryDomain
 import com.house_shoreditch.app.domain.EnquiryMessageDomain
 import com.house_shoreditch.app.domain.PaymentMethod
 import com.house_shoreditch.app.main.MainContract.BookingModel
 import com.house_shoreditch.app.main.MainContract.Companion.BookingInitial
 import com.house_shoreditch.app.main.MainContract.Companion.ContactInitial
+import com.house_shoreditch.app.main.MainContract.Companion.DesktopDownloadUrl
 import com.house_shoreditch.app.main.MainContract.ContactModel
-import com.house_shoreditch.app.util.DebugUtils
 import com.house_shoreditch.app.util.LinkLauncher
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
-import kotlinx.coroutines.launch
 import kotlinx.datetime.*
 import uk.co.sentinelweb.cuer.hub.Secrets
 
@@ -156,15 +154,15 @@ class MainViewModel(
     }
 
     fun onDownloadMacClick() {
-        linkLauncher.open("https://github.com/sentinelweb/house-shoreditch/releases")
+        linkLauncher.open(DesktopDownloadUrl)
     }
 
     fun onDownloadWinClick() {
-        linkLauncher.open("https://github.com/sentinelweb/house-shoreditch/releases")
+        linkLauncher.open(DesktopDownloadUrl)
     }
 
     fun onDownloadLinuxClick() {
-        linkLauncher.open("https://github.com/sentinelweb/house-shoreditch/releases")
+        linkLauncher.open(DesktopDownloadUrl)
     }
 
     fun onDownloadWebClick() {
