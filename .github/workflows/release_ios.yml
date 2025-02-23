@@ -12,7 +12,7 @@ jobs:
     steps:
       # Step : Checkout Code
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       # Step : Set Up JDK for Gradle
       - name: Set up JDK
@@ -32,7 +32,6 @@ jobs:
         run: |
           echo "$SECRETS_FILE" > $GITHUB_WORKSPACE/secrets.properties
           echo "$SECRETS_XCCONFIG" > $GITHUB_WORKSPACE/iosApp/Configuration/Secrets.xcconfig
-          cat $GITHUB_WORKSPACE/iosApp/Configuration/Secrets.xcconfig
         env:
           KEYSTORE_BASE64: ${{ secrets.KEYSTORE_BASE64 }}
           SECRETS_FILE: ${{ secrets.SECRETS_FILE }}
@@ -67,9 +66,6 @@ jobs:
           # apply provisioning profile
           mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
           cp $PP_PATH ~/Library/MobileDevice/Provisioning\ Profiles
-          
-          xcrun simctl list runtimes
-          xcodebuild -showsdks
 
       # create provisioning profile https://developer.apple.com/account/resources/profiles/add
       - name: Create exportOptions.plist
@@ -99,9 +95,7 @@ jobs:
           </dict>
           </plist>
           EOF
-          cat exportOptions.plist
 
-      # Step : Build the App
       - name: Build the iOS app
         run: |
           xcodebuild clean archive \
