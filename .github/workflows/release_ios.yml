@@ -33,6 +33,7 @@ jobs:
           echo "$KEYSTORE_BASE64" | base64 --decode > $GITHUB_WORKSPACE/oasis-release-upload-keystore.jks
           echo "$SECRETS_FILE" > $GITHUB_WORKSPACE/secrets.properties
           echo "$SECRETS_XCCONFIG" > $GITHUB_WORKSPACE/iosApp/Configuration/Secrets.xcconfig
+          cat $GITHUB_WORKSPACE/iosApp/Configuration/Secrets.xcconfig
         env:
           KEYSTORE_BASE64: ${{ secrets.KEYSTORE_BASE64 }}
           SECRETS_FILE: ${{ secrets.SECRETS_FILE }}
@@ -46,8 +47,6 @@ jobs:
       - name: Set up App Store Connect API Key
         run: |
           mkdir -p ~/.appstoreconnect/private_keys
-          echo "~/.appstoreconnect/private_keys/AuthKey_$APPLE_KEY_ID.p8"
-          echo "$APPLE_API_KEY_BASE64" | base64 --decode
           echo "$APPLE_API_KEY_BASE64" | base64 --decode > "$HOME/.appstoreconnect/private_keys/AuthKey_$APPLE_KEY_ID.p8"
         env:
           APPLE_API_KEY_BASE64: ${{ secrets.APPLE_API_KEY_BASE64 }}
@@ -71,7 +70,7 @@ jobs:
             -scheme iosApp \
             -sdk iphoneos \
             -configuration Release \
-            -archivePath $GITHUB_WORKSPACE/build/Oasis.xcarchive \
+            -archivePath $GITHUB_WORKSPACE/build/OasisShoreditch.xcarchive \
             -allowProvisioningUpdates
             -destination 'generic/platform=iOS' \
             CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO
@@ -81,7 +80,7 @@ jobs:
       - name: Export IPA
         run: |
           xcodebuild -exportArchive \
-            -archivePath $GITHUB_WORKSPACE/build/Oasis.xcarchive \
+            -archivePath $GITHUB_WORKSPACE/build/OasisShoreditch.xcarchive \
             -exportOptionsPlist exportOptions.plist \
             -exportPath $GITHUB_WORKSPACE/build
 
