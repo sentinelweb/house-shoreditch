@@ -30,7 +30,6 @@ jobs:
       # Decode Keystore and secrets.properties
       - name: Decode secrets and keystore
         run: |
-          echo "$KEYSTORE_BASE64" | base64 --decode > $GITHUB_WORKSPACE/oasis-release-upload-keystore.jks
           echo "$SECRETS_FILE" > $GITHUB_WORKSPACE/secrets.properties
           echo "$SECRETS_XCCONFIG" > $GITHUB_WORKSPACE/iosApp/Configuration/Secrets.xcconfig
           cat $GITHUB_WORKSPACE/iosApp/Configuration/Secrets.xcconfig
@@ -74,7 +73,8 @@ jobs:
             -allowProvisioningUpdates
             -destination 'generic/platform=iOS' \
             CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO
-
+        env:
+          API_KEY_PATH: "~/.appstoreconnect/private_keys/AuthKey_${{ secrets.APPLE_KEY_ID }}.p8"
       # Step 5: Export the IPA (App Bundle)
       # create provisioning profile https://developer.apple.com/account/resources/profiles/add
       - name: Export IPA
