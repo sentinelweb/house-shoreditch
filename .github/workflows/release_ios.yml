@@ -80,7 +80,6 @@ jobs:
             -configuration Release \
             -archivePath $GITHUB_WORKSPACE/build/OasisShoreditch.xcarchive \
             -destination 'generic/platform=iOS' \
-#            -destination "platform=iOS Simulator,OS=18.2,name=iPhone 14" \
             -verbose
         env:
           API_KEY_PATH: "~/.appstoreconnect/private_keys/AuthKey_${{ secrets.APPLE_KEY_ID }}.p8"
