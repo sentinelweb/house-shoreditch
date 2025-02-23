@@ -79,7 +79,7 @@ jobs:
             -sdk iphoneos18.1 \
             -configuration Release \
             -archivePath $GITHUB_WORKSPACE/build/OasisShoreditch.xcarchive \
-            -destination "platform=iOS Simulator,OS=18.1,name=iPhone 14" \
+            -destination "platform:iOS Simulator, id:2CCF4D8C-F054-43EC-8738-C8C5FA67B92D, OS:18.1, name:iPhone 15 Plus" \
             -verbose
         env:
           API_KEY_PATH: "~/.appstoreconnect/private_keys/AuthKey_${{ secrets.APPLE_KEY_ID }}.p8"
