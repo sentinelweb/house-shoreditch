@@ -38,10 +38,10 @@ jobs:
           SECRETS_FILE: ${{ secrets.SECRETS_FILE }}
           SECRETS_XCCONFIG: ${{ secrets.SECRETS_XCCONFIG }}
 
-      - name: Build KMM Framework
-        run: |
-          ./gradlew :composeApp:linkReleaseFrameworkIosArm64
-          ./gradlew :composeApp:linkReleaseFrameworkIosSimulatorArm64
+#      - name: Build KMM Framework
+#        run: |
+#          ./gradlew :composeApp:linkReleaseFrameworkIosArm64
+#          ./gradlew :composeApp:linkReleaseFrameworkIosSimulatorArm64
 #
 #      - name: Set up App Store Connect API Key
 #        run: |
