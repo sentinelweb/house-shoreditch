@@ -69,6 +69,7 @@ jobs:
           cp $PP_PATH ~/Library/MobileDevice/Provisioning\ Profiles
           
           xcrun simctl list runtimes
+          xcodebuild -showsdks
       # Step : Build the App
       - name: Build the iOS app
         run: |
