@@ -104,7 +104,7 @@ jobs:
       # Step : Build the App
       - name: Build the iOS app
         run: |
-          xcodebuild clean build \
+          xcodebuild clean archive \
             -project $GITHUB_WORKSPACE/iosApp/iosApp.xcodeproj \
             -scheme iosApp \
             -sdk iphoneos \
