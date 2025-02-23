@@ -100,10 +100,8 @@ jobs:
             -sdk iphoneos \
             -configuration Release \
             -archivePath $GITHUB_WORKSPACE/build/OasisShoreditch.xcarchive \
-            -allowProvisioningUpdates
             -destination 'generic/platform=iOS' \
-            -verbose \
-            CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO
+            -verbose
         env:
           API_KEY_PATH: "~/.appstoreconnect/private_keys/AuthKey_${{ secrets.APPLE_KEY_ID }}.p8"
       # Step 5: Export the IPA (App Bundle)
