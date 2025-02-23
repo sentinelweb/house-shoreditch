@@ -105,8 +105,6 @@ jobs:
             -configuration Release \
             -archivePath $GITHUB_WORKSPACE/build/OasisShoreditch.xcarchive \
             -verbose
-        env:
-          API_KEY_PATH: "~/.appstoreconnect/private_keys/AuthKey_${{ secrets.APPLE_KEY_ID }}.p8"
 
       # Export the IPA (App Bundle)
       - name: Export IPA
