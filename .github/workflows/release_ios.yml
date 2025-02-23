@@ -75,7 +75,7 @@ jobs:
           xcodebuild clean build \
             -project $GITHUB_WORKSPACE/iosApp/iosApp.xcodeproj \
             -scheme iosApp \
-            -sdk iphoneos \
+            -sdk iphoneos18.1 \
             -configuration Release \
             -archivePath $GITHUB_WORKSPACE/build/OasisShoreditch.xcarchive \
             -destination 'generic/platform=iOS' \
