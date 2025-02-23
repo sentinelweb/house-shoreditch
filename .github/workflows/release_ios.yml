@@ -38,29 +38,6 @@ jobs:
           SECRETS_FILE: ${{ secrets.SECRETS_FILE }}
           SECRETS_XCCONFIG: ${{ secrets.SECRETS_XCCONFIG }}
 
-#      - name: Build KMM Framework
-#        run: |
-#          ./gradlew :composeApp:linkReleaseFrameworkIosArm64
-#          ./gradlew :composeApp:linkReleaseFrameworkIosSimulatorArm64
-#
-#      - name: Set up App Store Connect API Key
-#        run: |
-#          mkdir -p ~/.appstoreconnect/private_keys
-#          echo "$APPLE_API_KEY_BASE64" | base64 --decode > "$HOME/.appstoreconnect/private_keys/AuthKey_$APPLE_KEY_ID.p8"
-#        env:
-#          APPLE_API_KEY_BASE64: ${{ secrets.APPLE_API_KEY_BASE64 }}
-#          APPLE_KEY_ID: ${{ secrets.APPLE_KEY_ID }}
-#
-#      - name: Authenticate with Apple API Key
-#        run: |
-#          xcrun altool --list-providers \
-#            --apiKey ${{ secrets.APPLE_KEY_ID }} \
-#            --apiIssuer ${{ secrets.APPLE_ISSUER_ID }}
-#        env:
-#          APPLE_API_KEY_BASE64: ${{ secrets.APPLE_API_KEY_BASE64 }}
-#          APPLE_KEY_ID: ${{ secrets.APPLE_KEY_ID }}
-#          APPLE_ISSUER_ID: ${{ secrets.APPLE_ISSUER_ID }}
-
       - name: Install the Apple certificate and provisioning profile
         env:
           BUILD_CERTIFICATE_BASE64: ${{ secrets.APPLE_BUILD_CERTIFICATE_BASE64 }}
@@ -90,7 +67,8 @@ jobs:
           # apply provisioning profile
           mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
           cp $PP_PATH ~/Library/MobileDevice/Provisioning\ Profiles
-
+          
+          xcrun simctl list runtimes
       # Step : Build the App
       - name: Build the iOS app
         run: |
