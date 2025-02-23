@@ -70,6 +70,37 @@ jobs:
           
           xcrun simctl list runtimes
           xcodebuild -showsdks
+
+      # create provisioning profile https://developer.apple.com/account/resources/profiles/add
+      - name: Create exportOptions.plist
+        env:
+          TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
+        run: |
+          cat << EOF > exportOptions.plist
+          <?xml version="1.0" encoding="UTF-8"?>
+          <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+          <plist version="1.0">
+          <dict>
+              <key>method</key>
+              <string>ad-hoc</string>
+              <key>teamID</key>
+              <string>$TEAM_ID</string>
+              <key>uploadSymbols</key>
+              <false/>
+              <key>uploadBitcode</key>
+              <true/>
+              <key>compileBitcode</key>
+              <true/>
+              <key>provisioningProfiles</key>
+              <dict>
+                  <key>com.house-shoreditch.app.OasisShoreditch</key>
+                  <string>robs_dev</string>
+              </dict>
+          </dict>
+          </plist>
+          EOF
+          cat exportOptions.plist
+
       # Step : Build the App
       - name: Build the iOS app
         run: |
@@ -82,8 +113,8 @@ jobs:
             -verbose
         env:
           API_KEY_PATH: "~/.appstoreconnect/private_keys/AuthKey_${{ secrets.APPLE_KEY_ID }}.p8"
-      # Step 5: Export the IPA (App Bundle)
-      # create provisioning profile https://developer.apple.com/account/resources/profiles/add
+
+      # Export the IPA (App Bundle)
       - name: Export IPA
         run: |
           xcodebuild -exportArchive \
