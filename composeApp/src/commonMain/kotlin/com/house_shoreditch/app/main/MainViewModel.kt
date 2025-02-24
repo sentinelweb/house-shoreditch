@@ -151,7 +151,7 @@ class MainViewModel(
     }
 
     fun onDownloadAppleStoreClick() {
-        linkLauncher.open("https://www.apple.com/app-store/") // todo update
+        linkLauncher.open("https://www.apple.com/app-store/") // todo update when released
     }
 
     fun onDownloadMacClick() {

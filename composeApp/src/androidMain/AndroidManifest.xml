@@ -3,6 +3,7 @@
     <uses-permission android:name="android.permission.INTERNET"/>
     <queries>
     <package android:name="com.google.android.gm"/>
+    <package android:name="com.whatsapp"/>
     </queries>
     <application
         android:allowBackup="false"
