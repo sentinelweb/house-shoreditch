@@ -1,6 +1,7 @@
 package com.house_shoreditch.app.main
 
 import androidx.lifecycle.ViewModel
+import com.house_shoreditch.app.Secrets
 import com.house_shoreditch.app.domain.BookingEnquiryDomain
 import com.house_shoreditch.app.domain.EnquiryMessageDomain
 import com.house_shoreditch.app.domain.PaymentMethod
@@ -15,7 +16,6 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.datetime.*
-import uk.co.sentinelweb.cuer.hub.Secrets
 
 class MainViewModel(
     private val linkLauncher: LinkLauncher,

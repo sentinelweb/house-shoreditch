@@ -270,7 +270,7 @@ tasks.register("generateSecretsClass") {
         file.parentFile.mkdirs()
         file.writeText(
             """
-            package uk.co.sentinelweb.cuer.hub
+            package com.house_shoreditch.app
             
             object Secrets {
                 val email: String = "${getSecret("EMAIL")}"
@@ -288,7 +288,7 @@ tasks.register("generateBuildPropsClass") {
         file.parentFile.mkdirs()
         file.writeText(
             """
-            package uk.co.sentinelweb.cuer.hub
+            package com.house_shoreditch.app
             
             object BuildProps {
                 val versionCode: Int = ${libs.versions.version.code.get().toInt()}

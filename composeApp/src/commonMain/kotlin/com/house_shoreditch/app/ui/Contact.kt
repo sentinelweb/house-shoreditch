@@ -20,6 +20,7 @@ import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
+import com.house_shoreditch.app.BuildProps
 import com.house_shoreditch.app.main.MainContract
 import com.house_shoreditch.app.main.MainViewModel
 import com.house_shoreditch.app.theme.components.CircleIconButton
@@ -29,7 +30,6 @@ import com.house_shoreditch.app.theme.components.TextComponents.SubSectionTitle
 import com.house_shoreditch.app.util.DateUtil
 import com.house_shoreditch.app.util.getPlatform
 import oasis.composeapp.generated.resources.*
-import uk.co.sentinelweb.cuer.hub.BuildProps
 import kotlin.math.max
 
 object Contact {
@@ -150,7 +150,7 @@ object Contact {
             }
 
             Text(
-                text = "©Robert Munro ${DateUtil.year} - version: ${BuildProps.versionName} ",
+                text = "©Robert Munro ${DateUtil.year} - version: ${BuildProps.versionName}",
                 style = MaterialTheme.typography.bodySmall,
                 color = Color.Gray,
                 modifier = Modifier.padding(top = 8.dp)
