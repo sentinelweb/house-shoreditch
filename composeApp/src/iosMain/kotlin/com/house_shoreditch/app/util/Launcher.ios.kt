@@ -8,7 +8,7 @@ import org.koin.core.component.inject
 import platform.Foundation.NSURL
 import platform.UIKit.UIApplication
 
-actual class LinkLauncher : KoinComponent {
+actual class Launcher : KoinComponent {
 
     private val messageMapper: MessageMapper by inject()
     private val smsLauncher: SMSLauncher by inject()

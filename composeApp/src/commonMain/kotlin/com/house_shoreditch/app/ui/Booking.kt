@@ -209,11 +209,13 @@ object Booking {
                 .padding(vertical = 8.dp)
                 .horizontalScroll(rememberScrollState())
         ) {
-            CircleIconButton(
-                icon = Res.drawable.google,
-                onClick = { viewModel.onSendEnquiryGmail() },
-                modifier = Modifier.padding(4.dp)
-            )
+            if (getPlatform().isGmailAvailable) {
+                CircleIconButton(
+                    icon = Res.drawable.google,
+                    onClick = { viewModel.onSendEnquiryGmail() },
+                    modifier = Modifier.padding(4.dp)
+                )
+            }
             if (getPlatform().isEmailAvailable) {
                 CircleIconButton(
                     icon = Res.drawable.email,

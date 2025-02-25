@@ -20,6 +20,7 @@ import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
+import com.house_shoreditch.app.BuildProps
 import com.house_shoreditch.app.main.MainContract
 import com.house_shoreditch.app.main.MainViewModel
 import com.house_shoreditch.app.theme.components.CircleIconButton
@@ -27,9 +28,9 @@ import com.house_shoreditch.app.theme.components.RoundIconOutlineButton
 import com.house_shoreditch.app.theme.components.TextComponents.SectionTitle
 import com.house_shoreditch.app.theme.components.TextComponents.SubSectionTitle
 import com.house_shoreditch.app.util.DateUtil
+import com.house_shoreditch.app.util.PlatformType
 import com.house_shoreditch.app.util.getPlatform
 import oasis.composeapp.generated.resources.*
-import uk.co.sentinelweb.cuer.hub.BuildProps
 import kotlin.math.max
 
 object Contact {
@@ -117,40 +118,52 @@ object Contact {
 
             SubSectionTitle("Other platforms", modifier = Modifier.padding(vertical = 8.dp))
             Row(modifier = Modifier.horizontalScroll(rememberScrollState(0))) {
-                CircleIconButton(
-                    icon = Res.drawable.os_play_store,
-                    onClick = { viewModel.onDownloadPlayClick() },
-                    modifier = Modifier.padding(4.dp)
-                )
-                CircleIconButton(
-                    icon = Res.drawable.os_apple_store,
-                    onClick = { viewModel.onDownloadAppleStoreClick() },
-                    modifier = Modifier.padding(4.dp)
-                )
-                CircleIconButton(
-                    icon = Res.drawable.os_mac,
-                    onClick = { viewModel.onDownloadMacClick() },
-                    modifier = Modifier.padding(4.dp)
-                )
-                CircleIconButton(
-                    icon = Res.drawable.os_windows,
-                    onClick = { viewModel.onDownloadWinClick() },
-                    modifier = Modifier.padding(4.dp)
-                )
-                CircleIconButton(
-                    icon = Res.drawable.os_linux,
-                    onClick = { viewModel.onDownloadLinuxClick() },
-                    modifier = Modifier.padding(4.dp)
-                )
-                CircleIconButton(
-                    icon = Res.drawable.os_html,
-                    onClick = { viewModel.onDownloadWebClick() },
-                    modifier = Modifier.padding(4.dp)
-                )
+                if (getPlatform().type != PlatformType.Android) {
+                    CircleIconButton(
+                        icon = Res.drawable.os_play_store,
+                        onClick = { viewModel.onDownloadPlayClick() },
+                        modifier = Modifier.padding(4.dp)
+                    )
+                }
+                if (getPlatform().type != PlatformType.Ios && false) {
+                    CircleIconButton(
+                        icon = Res.drawable.os_apple_store,
+                        onClick = { viewModel.onDownloadAppleStoreClick() },
+                        modifier = Modifier.padding(4.dp)
+                    )
+                }
+                if (getPlatform().type != PlatformType.Desktop) {
+                    CircleIconButton(
+                        icon = Res.drawable.os_mac,
+                        onClick = { viewModel.onDownloadMacClick() },
+                        modifier = Modifier.padding(4.dp)
+                    )
+                }
+                if (getPlatform().type != PlatformType.Desktop) {
+                    CircleIconButton(
+                        icon = Res.drawable.os_windows,
+                        onClick = { viewModel.onDownloadWinClick() },
+                        modifier = Modifier.padding(4.dp)
+                    )
+                }
+                if (getPlatform().type != PlatformType.Desktop) {
+                    CircleIconButton(
+                        icon = Res.drawable.os_linux,
+                        onClick = { viewModel.onDownloadLinuxClick() },
+                        modifier = Modifier.padding(4.dp)
+                    )
+                }
+                if (getPlatform().type != PlatformType.Web) {
+                    CircleIconButton(
+                        icon = Res.drawable.os_html,
+                        onClick = { viewModel.onDownloadWebClick() },
+                        modifier = Modifier.padding(4.dp)
+                    )
+                }
             }
 
             Text(
-                text = "©Robert Munro ${DateUtil.year} - version: ${BuildProps.versionName} ",
+                text = "©Robert Munro ${DateUtil.year} - version: ${BuildProps.versionName}",
                 style = MaterialTheme.typography.bodySmall,
                 color = Color.Gray,
                 modifier = Modifier.padding(top = 8.dp)

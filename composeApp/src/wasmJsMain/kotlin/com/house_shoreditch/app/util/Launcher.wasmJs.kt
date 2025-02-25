@@ -7,7 +7,7 @@ import org.koin.core.component.inject
 
 external fun encodeURIComponent(text: String): String
 
-actual class LinkLauncher : KoinComponent {
+actual class Launcher : KoinComponent {
     private val messageMapper: MessageMapper by inject()
 
     actual fun open(url: String) {

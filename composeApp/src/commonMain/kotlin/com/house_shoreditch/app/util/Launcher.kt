@@ -2,7 +2,7 @@ package com.house_shoreditch.app.util
 
 import com.house_shoreditch.app.domain.EnquiryMessageDomain
 
-expect class LinkLauncher() {
+expect class Launcher() {
     fun open(url: String)
     fun encode(text: String): String
     fun mail(message: EnquiryMessageDomain)

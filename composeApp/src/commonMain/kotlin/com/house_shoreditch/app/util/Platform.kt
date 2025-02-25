@@ -7,6 +7,7 @@ interface Platform {
     val isSmsAvailable: Boolean
     val isEmailAvailable: Boolean
     val isWhatsappAvailable: Boolean
+    val isGmailAvailable: Boolean
 }
 
 enum class PlatformType {

@@ -7,7 +7,7 @@ import java.awt.Desktop
 import java.net.URI
 import java.net.URLEncoder
 
-actual class LinkLauncher : KoinComponent {
+actual class Launcher : KoinComponent {
 
     private val messageMapper: MessageMapper by inject()
 

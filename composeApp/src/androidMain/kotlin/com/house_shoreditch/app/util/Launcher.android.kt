@@ -9,7 +9,9 @@ import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
 
-actual class LinkLauncher : KoinComponent {
+private const val s = "sms_body"
+
+actual class Launcher : KoinComponent {
 
     val context: Context by inject()
     private val messageMapper: MessageMapper by inject()

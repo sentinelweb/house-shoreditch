@@ -9,13 +9,13 @@ import org.koin.core.component.inject
 
 class MessageMapper() : KoinComponent {
 
-    private val linkLauncher: LinkLauncher by inject()
+    private val launcher: Launcher by inject()
 
     fun mapGmailUrl(message: EnquiryMessageDomain) =
         EnquiryMessageDomain.GMAIL_URL
-            .replace(TO_PLACEHOLDER, linkLauncher.encode(message.to))
-            .replace(SUBJECT_PLACEHOLDER, linkLauncher.encode(message.subject))
-            .replace(BODY_PLACEHOLDER, linkLauncher.encode(message.message))
+            .replace(TO_PLACEHOLDER, launcher.encode(message.to))
+            .replace(SUBJECT_PLACEHOLDER, launcher.encode(message.subject))
+            .replace(BODY_PLACEHOLDER, launcher.encode(message.message))
 
     fun mapGmailUrlUnencoded(message: EnquiryMessageDomain) =
         EnquiryMessageDomain.GMAIL_URL
@@ -25,19 +25,19 @@ class MessageMapper() : KoinComponent {
 
     fun mapMailUrl(message: EnquiryMessageDomain) =
         EnquiryMessageDomain.MAIL_URI
-            .replace(TO_PLACEHOLDER, linkLauncher.encode(message.to))
-            .replace(SUBJECT_PLACEHOLDER, linkLauncher.encode(message.subject))
-            .replace(BODY_PLACEHOLDER, linkLauncher.encode(message.message))
+            .replace(TO_PLACEHOLDER, launcher.encode(message.to))
+            .replace(SUBJECT_PLACEHOLDER, launcher.encode(message.subject))
+            .replace(BODY_PLACEHOLDER, launcher.encode(message.message))
 
     fun mapSmsUrl(message: EnquiryMessageDomain) =
         EnquiryMessageDomain.SMS_URI
-            .replace(TO_PLACEHOLDER, linkLauncher.encode(message.to))
-            .replace(BODY_PLACEHOLDER, linkLauncher.encode(message.message))
+            .replace(TO_PLACEHOLDER, launcher.encode(message.to))
+            .replace(BODY_PLACEHOLDER, launcher.encode(message.message))
 
     fun mapWhatsappClickChatUrl(message: EnquiryMessageDomain) =
         EnquiryMessageDomain.WHATSAPP_CLICK_CHAT_URI
             .replace(TO_PLACEHOLDER, message.to.substringAfter("+"))
-            .replace(BODY_PLACEHOLDER, linkLauncher.encode(message.message))
+            .replace(BODY_PLACEHOLDER, launcher.encode(message.message))
 
     fun mapWhatsappUri(message: EnquiryMessageDomain) =
         EnquiryMessageDomain.WHATSAPP_URI

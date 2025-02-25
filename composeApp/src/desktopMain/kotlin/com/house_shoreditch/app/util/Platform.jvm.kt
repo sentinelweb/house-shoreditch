@@ -6,6 +6,7 @@ class JVMPlatform : Platform {
     override val isSmsAvailable: Boolean = false
     override val isEmailAvailable: Boolean = true
     override val isWhatsappAvailable: Boolean = true
+    override val isGmailAvailable: Boolean = true
 }
 
 actual fun getPlatform(): Platform = JVMPlatform()
