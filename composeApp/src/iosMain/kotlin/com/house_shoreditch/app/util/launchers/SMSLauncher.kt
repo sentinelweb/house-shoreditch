@@ -1,13 +1,13 @@
 package com.house_shoreditch.app.util.launchers
 
-import com.house_shoreditch.app.di.UIViewControllerWrapper
+import com.house_shoreditch.app.di.UIViewControllerHolder
 import platform.MessageUI.MFMessageComposeViewController
 import platform.MessageUI.MFMessageComposeViewControllerDelegateProtocol
 import platform.MessageUI.MessageComposeResult
 import platform.MessageUI.MessageComposeResult.*
 import platform.darwin.NSObject
 
-class SMSLauncher(private val rootViewControllerWrapper: UIViewControllerWrapper) {
+class SMSLauncher(private val rootViewControllerWrapper: UIViewControllerHolder) {
 
     private val messageComposeDelegate = object : NSObject(), MFMessageComposeViewControllerDelegateProtocol {
         override fun messageComposeViewController(
@@ -51,9 +51,10 @@ class SMSLauncher(private val rootViewControllerWrapper: UIViewControllerWrapper
             messageComposeDelegate = this@SMSLauncher.messageComposeDelegate
         }
 
-        rootViewControllerWrapper.viewController.presentViewController(
+        rootViewControllerWrapper.viewController?.presentViewController(
             smsComposer,
             animated = true,
-            completion = { println("SMS process completion") })
+            completion = { println("SMS process completion") }
+        )?:error("Cannot present SMS composer: viewController is cleaned up")
     }
 }

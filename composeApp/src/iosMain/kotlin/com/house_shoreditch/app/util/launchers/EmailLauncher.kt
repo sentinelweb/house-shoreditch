@@ -1,12 +1,13 @@
 package com.house_shoreditch.app.util.launchers
 
-import com.house_shoreditch.app.di.UIViewControllerWrapper
+import com.house_shoreditch.app.di.UIViewControllerHolder
 import platform.Foundation.NSError
-import platform.MessageUI.*
-import platform.MessageUI.MessageComposeResult.*
+import platform.MessageUI.MFMailComposeResult
+import platform.MessageUI.MFMailComposeViewController
+import platform.MessageUI.MFMailComposeViewControllerDelegateProtocol
 import platform.darwin.NSObject
 
-class EmailLauncher(private val rootViewControllerWarpper: UIViewControllerWrapper) {
+class EmailLauncher(private val rootViewControllerWarpper: UIViewControllerHolder) {
 
     private val mailComposeDelegate = object : NSObject(), MFMailComposeViewControllerDelegateProtocol {
         override fun mailComposeController(
@@ -18,15 +19,19 @@ class EmailLauncher(private val rootViewControllerWarpper: UIViewControllerWrapp
                 MFMailComposeResult.MFMailComposeResultCancelled -> {
                     println("Mail cancelled")
                 }
+
                 MFMailComposeResult.MFMailComposeResultSaved -> {
                     println("Mail saved as draft")
                 }
+
                 MFMailComposeResult.MFMailComposeResultSent -> {
                     println("Mail successfully sent")
                 }
+
                 MFMailComposeResult.MFMailComposeResultFailed -> {
                     println("Mail failed to send: ${error?.localizedDescription}")
                 }
+
                 else -> {
                     println("Unknown result")
                 }
@@ -49,10 +54,10 @@ class EmailLauncher(private val rootViewControllerWarpper: UIViewControllerWrapp
             mailComposeDelegate = this@EmailLauncher.mailComposeDelegate
         }
 
-        rootViewControllerWarpper.viewController.presentViewController(
+        rootViewControllerWarpper.viewController?.presentViewController(
             mailComposeViewController,
             animated = true,
-            completion = {  }
-        )
+            completion = { }
+        ) ?: error("Cannot present Email composer: viewController is cleaned up")
     }
 }

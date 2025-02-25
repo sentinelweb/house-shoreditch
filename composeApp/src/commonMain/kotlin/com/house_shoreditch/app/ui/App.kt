@@ -35,7 +35,6 @@ import oasis.composeapp.generated.resources.app_name
 import oasis.composeapp.generated.resources.arrow_downward
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
-import org.jetbrains.compose.ui.tooling.preview.Preview
 import org.koin.compose.viewmodel.koinViewModel
 import kotlin.math.min
 
@@ -44,9 +43,8 @@ private val MAX_PAGES = 6
 private fun isMobile() = listOf(Android, Ios).contains(getPlatform().type)
 
 @Composable
-@Preview
 fun App(viewModel: MainViewModel = koinViewModel()) {
-    val model = MainContract.ModelInitial
+    val staticModel = MainContract.ModelInitial
     var initialSize by remember { mutableStateOf(IntSize.Zero) }
     var page by remember { mutableStateOf(0) }
     val density = LocalDensity.current.density
@@ -143,12 +141,12 @@ fun App(viewModel: MainViewModel = koinViewModel()) {
                     }
             ) {
                 if (initialSize != IntSize.Zero) {
-                    Intro.IntroScreen(size = initialSize, model = model, pageJump = pageJump)
-                    Photos.PhotosView(size = initialSize, model = model)
-                    Facilities.FacilitiesScreen(size = initialSize, model = model)
-                    Reviews.ReviewsSection(size = initialSize, model = model)
+                    Intro.IntroScreen(size = initialSize, model = staticModel, pageJump = pageJump)
+                    Photos.PhotosView(size = initialSize, model = staticModel)
+                    Facilities.FacilitiesScreen(size = initialSize, model = staticModel)
+                    Reviews.ReviewsSection(size = initialSize, model = staticModel)
                     Booking.BookingSection(size = initialSize, viewModel = viewModel)
-                    Contact.ContactSection(size = initialSize, model = model, viewModel = viewModel)
+                    Contact.ContactSection(size = initialSize, model = staticModel, viewModel = viewModel)
 //                    TestContent()
                 }
             }

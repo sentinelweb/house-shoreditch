@@ -472,7 +472,12 @@ fun Modifier.bounceClick(enabled: Boolean) = composed {
             if (enabled) {
                 awaitPointerEventScope {
                     buttonState = if (buttonState == ButtonState.Pressed) {
-                        waitForUpOrCancellation()
+                        val event = awaitPointerEvent()
+                        if (event.changes.any { it.pressed == false }) {
+                            ButtonState.Idle
+                        } else {
+                            ButtonState.Pressed
+                        }
                         ButtonState.Idle
                     } else {
                         awaitFirstDown(false)
