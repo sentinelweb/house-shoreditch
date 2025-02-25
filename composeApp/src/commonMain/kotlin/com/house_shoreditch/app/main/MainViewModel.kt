@@ -10,7 +10,7 @@ import com.house_shoreditch.app.main.MainContract.Companion.BookingInitial
 import com.house_shoreditch.app.main.MainContract.Companion.ContactInitial
 import com.house_shoreditch.app.main.MainContract.Companion.DesktopDownloadUrl
 import com.house_shoreditch.app.main.MainContract.ContactModel
-import com.house_shoreditch.app.util.LinkLauncher
+import com.house_shoreditch.app.util.Launcher
 import com.house_shoreditch.app.util.getPlatform
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -18,7 +18,7 @@ import kotlinx.coroutines.flow.update
 import kotlinx.datetime.*
 
 class MainViewModel(
-    private val linkLauncher: LinkLauncher,
+    private val launcher: Launcher,
     private val secrets: Secrets
 ) : ViewModel() {
 
@@ -29,11 +29,11 @@ class MainViewModel(
     val contactModel: StateFlow<ContactModel> = _contactModel
 
     fun openBooking() {
-        linkLauncher.open("https://www.booking.com/hotel/gb/inviting-3-bedroom-house-and-garden-in-shoreditch.en-gb.html")
+        launcher.open("https://www.booking.com/hotel/gb/inviting-3-bedroom-house-and-garden-in-shoreditch.en-gb.html")
     }
 
     fun openAirbnb() {
-        linkLauncher.open("https://www.airbnb.com/rooms/945464635020318901")
+        launcher.open("https://www.airbnb.com/rooms/945464635020318901")
     }
 
     fun onClickPayemntMethod(method: PaymentMethod) {
@@ -84,7 +84,7 @@ class MainViewModel(
             subject = "Oasis website enquiry: ${bookingModel.value.dateRange?.first ?: "No date"}",
             message = generateEnquiryBody()
         ).let {
-            linkLauncher.mail(it)
+            launcher.mail(it)
         }
     }
 
@@ -96,7 +96,7 @@ class MainViewModel(
             subject = "Oasis website enquiry: ${bookingModel.value.dateRange?.first ?: "No date"}",
             message = generateEnquiryBody()
         ).let {
-            linkLauncher.gmail(it)
+            launcher.gmail(it)
         }
     }
 
@@ -108,7 +108,7 @@ class MainViewModel(
             subject = "",
             message = generateEnquiryBody()
         ).let {
-            linkLauncher.sms(it)
+            launcher.sms(it)
         }
     }
 
@@ -120,7 +120,7 @@ class MainViewModel(
             subject = "",
             message = generateEnquiryBody()
         ).let {
-            linkLauncher.whatsapp(it)
+            launcher.whatsapp(it)
         }
     }
 
@@ -147,31 +147,31 @@ class MainViewModel(
     }
 
     fun onDownloadPlayClick() {
-        linkLauncher.open("https://play.google.com/store/apps/details?id=com.oasis_shoreditch.app")
+        launcher.open("https://play.google.com/store/apps/details?id=com.oasis_shoreditch.app")
     }
 
     fun onDownloadAppleStoreClick() {
-        linkLauncher.open("https://www.apple.com/app-store/") // todo update when released
+        launcher.open("https://www.apple.com/app-store/") // todo update when released
     }
 
     fun onDownloadMacClick() {
-        linkLauncher.open(DesktopDownloadUrl)
+        launcher.open(DesktopDownloadUrl)
     }
 
     fun onDownloadWinClick() {
-        linkLauncher.open(DesktopDownloadUrl)
+        launcher.open(DesktopDownloadUrl)
     }
 
     fun onDownloadLinuxClick() {
-        linkLauncher.open(DesktopDownloadUrl)
+        launcher.open(DesktopDownloadUrl)
     }
 
     fun onDownloadWebClick() {
-        linkLauncher.open("https://oasis-shoreditch.com/")
+        launcher.open("https://oasis-shoreditch.com/")
     }
 
     fun onContactPhoneClick() {
-        linkLauncher.call(secrets.phone)
+        launcher.call(secrets.phone)
         _contactModel.update { contactModel.value.copy(phone = secrets.phone) }
     }
 
@@ -183,9 +183,9 @@ class MainViewModel(
             message = ""
         ).let {
             if (getPlatform().isEmailAvailable) {
-                linkLauncher.mail(it)
+                launcher.mail(it)
             } else {
-                linkLauncher.gmail(it)
+                launcher.gmail(it)
             }
         }
         _contactModel.update { contactModel.value.copy(email = secrets.email) }
@@ -198,7 +198,7 @@ class MainViewModel(
             subject = "",
             message = ""
         ).let {
-            linkLauncher.whatsapp(it)
+            launcher.whatsapp(it)
         }
     }
 }

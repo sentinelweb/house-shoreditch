@@ -2,7 +2,7 @@ package com.house_shoreditch.app.di
 
 import com.house_shoreditch.app.Secrets
 import com.house_shoreditch.app.main.MainViewModel
-import com.house_shoreditch.app.util.LinkLauncher
+import com.house_shoreditch.app.util.Launcher
 import com.house_shoreditch.app.util.MessageMapper
 import org.koin.core.context.startKoin
 import org.koin.core.module.dsl.viewModel
@@ -19,7 +19,7 @@ object OasisModules {
     private val mainModule = module {
         viewModel {
             MainViewModel(
-                linkLauncher = get(),
+                launcher = get(),
                 secrets = Secrets
             )
         }
@@ -27,7 +27,7 @@ object OasisModules {
 
     private val utilModule = module {
         factory { MessageMapper() }
-        factory { LinkLauncher() }
+        factory { Launcher() }
     }
 
     val allModules = listOf(mainModule, utilModule)
