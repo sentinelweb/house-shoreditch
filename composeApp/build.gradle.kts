@@ -131,7 +131,7 @@ android {
             keyPassword = "0as1s1"
         }
         create("release") {
-            storeFile = rootProject.file(getSecret("ANDROID_KEYSTORE_FILENAME"))
+            storeFile = rootProject.file("oasis-release-upload-keystore.jks")
             storePassword = getSecret("ANDROID_PASSWORD")
             keyAlias = getSecret("ANDROID_ALIAS")
             keyPassword = getSecret("ANDROID_PASSWORD")
