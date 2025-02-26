@@ -490,7 +490,7 @@ We were a family of 5 adults and 1 child, and Robert’s place was very spacious
                 review = """Great stay, Robert's communication is excellent and the house is really well equipped (cooking equipment, technology etc all exceptional)."""
             )
         )
-        val ModelInitial: Model = Model(
+        val ModelStatic: Model = Model(
             homeBackgroundUris = listOf(
                 "garden_7_DSC_0291.JPG",
                 "living_1_abb.jpg",
