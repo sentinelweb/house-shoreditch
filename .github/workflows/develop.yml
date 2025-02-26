@@ -31,8 +31,19 @@ jobs:
           KEYSTORE_BASE64: ${{ secrets.KEYSTORE_BASE64 }}
           SECRETS_FILE: ${{ secrets.SECRETS_FILE }}
 
+      - name: Check
+        run: ./gradlew detekt
+
       - name: Build with Gradle
         run: ./gradlew kotlinUpgradeYarnLock build composeApp:assembleDebug compileDebugAndroidTestKotlin testDebugUnitTest linkDebugFrameworkIosX64
 
       - name: Check
         run: ./gradlew check
+
+      # Upload test reports as an artifact
+      - name: Upload Test Report
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-report
+          path: '**/build/reports/tests/**'

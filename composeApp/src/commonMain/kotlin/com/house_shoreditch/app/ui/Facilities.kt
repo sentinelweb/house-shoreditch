@@ -15,6 +15,8 @@ import com.house_shoreditch.app.main.MainContract
 import com.house_shoreditch.app.theme.components.TextComponents.SectionTitle
 import org.jetbrains.compose.resources.painterResource
 
+private const val FEATURE_CHUNK = 11
+
 object Facilities {
 
     @Composable
@@ -61,7 +63,7 @@ object Facilities {
                     style = MaterialTheme.typography.displaySmall,
                 )
             }
-            val splitFeatures = area.features.chunked(11)
+            val splitFeatures = area.features.chunked(FEATURE_CHUNK)
             Row {
                 splitFeatures.forEach { features ->
                     Column { features.forEach { feature -> AreaFeature(feature) } }
@@ -71,6 +73,7 @@ object Facilities {
     }
 
     @Composable
+    @Suppress("MagicNumber")
     private fun AreaFeature(feature: MainContract.Model.Area.Feature) {
         Row(
             verticalAlignment = Alignment.CenterVertically,

@@ -47,9 +47,10 @@ interface MainContract {
         val email: String?,
     )
 
+    @Suppress("MaxLineLength")
     companion object {
-        val DesktopDownloadUrl = "https://github.com/sentinelweb/house-shoreditch/releases/latest"
-        val ImageBasePath =
+        const val DesktopDownloadUrl = "https://github.com/sentinelweb/house-shoreditch/releases/latest"
+        const val ImageBasePath =
             "https://raw.githubusercontent.com/sentinelweb/house-shoreditch/refs/heads/main/media/"
         val ImageList = listOf(
             "living_1_abb.jpg",
@@ -502,7 +503,7 @@ We were a family of 5 adults and 1 child, and Robert’s place was very spacious
             reviews = Reviews,
             mapImageUri = "$ImageBasePath/other/map.png",
         )
-        val NumberOfPeopleInitial: Int = 4
+        const val NumberOfPeopleInitial: Int = 4
         val BookingInitial = BookingModel(
             dateRange = null,
             paymentMethods = setOf(Pounds),

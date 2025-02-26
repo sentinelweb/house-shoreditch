@@ -1,0 +1,37 @@
+# config/detekt/detekt.yml
+
+build:
+  maxIssues: 0
+  weights:
+    complex: 2
+    LongParameterList: 1
+    style: 1
+
+comments:
+  UndocumentedPublicClass:
+    active: false
+
+complexity:
+  CyclomaticComplexMethod:
+    threshold: 15
+    active: true
+  LongParameterList:
+    active: true
+    functionThreshold: 20
+    constructorThreshold: 20
+  TooManyFunctions:
+    active: true
+    thresholdInFiles: 20
+    thresholdInClasses: 20
+
+style:
+  WildcardImport:
+    active: false
+
+naming:
+  PackageNaming:
+    active: false
+  FunctionNaming:
+    active: false
+  MatchingDeclarationName:
+    active: false

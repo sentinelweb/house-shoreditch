@@ -4,6 +4,7 @@ import com.house_shoreditch.app.domain.EnquiryMessageDomain
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 import java.awt.Desktop
+import java.io.IOException
 import java.net.URI
 import java.net.URLEncoder
 
@@ -17,7 +18,8 @@ actual class Launcher : KoinComponent {
             if (desktop.isSupported(Desktop.Action.BROWSE)) {
                 try {
                     desktop.browse(URI(url))
-                } catch (e: Exception) {
+                } catch (e: IOException) {
+                    @Suppress("PrintStackTrace")
                     e.printStackTrace()
                 }
             } else {
@@ -37,7 +39,8 @@ actual class Launcher : KoinComponent {
             if (desktop.isSupported(Desktop.Action.MAIL)) {
                 try {
                     desktop.mail(URI(mailToUri))
-                } catch (e: Exception) {
+                } catch (e: IOException) {
+                    @Suppress("PrintStackTrace")
                     e.printStackTrace()
                 }
             } else {

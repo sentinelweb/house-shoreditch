@@ -17,6 +17,9 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.datetime.*
 
+private const val MAX_PEOPLE = 7
+
+@Suppress("TooManyFunctions")
 class MainViewModel(
     private val launcher: Launcher,
     private val secrets: Secrets
@@ -69,7 +72,7 @@ class MainViewModel(
     }
 
     fun onChangeNumPeople(numPeople: Int) {
-        if (numPeople in 0..7) {
+        if (numPeople in 0..MAX_PEOPLE) {
             _bookingModel.update {
                 bookingModel.value.copy(numPeople = numPeople)
             }

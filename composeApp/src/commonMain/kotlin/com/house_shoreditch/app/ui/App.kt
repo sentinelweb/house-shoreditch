@@ -27,7 +27,7 @@ import com.house_shoreditch.app.theme.components.OasisAppBarComposables
 import com.house_shoreditch.app.util.PlatformType.Android
 import com.house_shoreditch.app.util.PlatformType.Ios
 import com.house_shoreditch.app.util.getPlatform
-import com.moonsift.app.ui.theme.OasisTheme
+import com.house_shoreditch.app.theme.theme.OasisTheme
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import oasis.composeapp.generated.resources.Res
@@ -38,13 +38,13 @@ import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.viewmodel.koinViewModel
 import kotlin.math.min
 
-private val MAX_PAGES = 6
+private const val MAX_PAGES = 6
 
 private fun isMobile() = listOf(Android, Ios).contains(getPlatform().type)
 
 @Composable
+@Suppress("LongMethod", "MagicNumber")
 fun App(viewModel: MainViewModel = koinViewModel()) {
-    val staticModel = MainContract.ModelInitial
     var initialSize by remember { mutableStateOf(IntSize.Zero) }
     var page by remember { mutableStateOf(0) }
     val density = LocalDensity.current.density
@@ -86,7 +86,7 @@ fun App(viewModel: MainViewModel = koinViewModel()) {
             .toList()
     }
 
-    val overflowActiovs = if (isMobile()) {
+    val overflowActions = if (isMobile()) {
         secondaryActions
     } else {
         null
@@ -95,13 +95,14 @@ fun App(viewModel: MainViewModel = koinViewModel()) {
     val pageJump = { p: Int ->
         coroutineScope.scrollToPage(verticalScrollState, initialSize, density, p)
     }
+
     OasisTheme {
         Scaffold(
             topBar = {
                 OasisAppBarComposables.OasisAppBar(
                     title = stringResource(Res.string.app_name),
                     actions = actions,
-                    overflowActions = overflowActiovs,
+                    overflowActions = overflowActions,
                     onUp = {
                         page = 0
                         coroutineScope.scrollToPage(verticalScrollState, initialSize, density, page)
@@ -141,13 +142,12 @@ fun App(viewModel: MainViewModel = koinViewModel()) {
                     }
             ) {
                 if (initialSize != IntSize.Zero) {
-                    Intro.IntroScreen(size = initialSize, model = staticModel, pageJump = pageJump)
-                    Photos.PhotosView(size = initialSize, model = staticModel)
-                    Facilities.FacilitiesScreen(size = initialSize, model = staticModel)
-                    Reviews.ReviewsSection(size = initialSize, model = staticModel)
+                    Intro.IntroScreen(size = initialSize, model = MainContract.ModelInitial, pageJump = pageJump)
+                    Photos.PhotosView(size = initialSize, model = MainContract.ModelInitial)
+                    Facilities.FacilitiesScreen(size = initialSize, model = MainContract.ModelInitial)
+                    Reviews.ReviewsSection(size = initialSize, model = MainContract.ModelInitial)
                     Booking.BookingSection(size = initialSize, viewModel = viewModel)
-                    Contact.ContactSection(size = initialSize, model = staticModel, viewModel = viewModel)
-//                    TestContent()
+                    Contact.ContactSection(size = initialSize, model = MainContract.ModelInitial, viewModel = viewModel)
                 }
             }
         }

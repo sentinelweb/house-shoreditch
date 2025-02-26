@@ -79,7 +79,8 @@ object Reviews {
                     verticalAlignment = Alignment.CenterVertically,
                     modifier = Modifier.padding(bottom = 16.dp)
                 ) {
-                    (1..review.rating).forEach { _ ->
+                    @Suppress("UnusedPrivateProperty")
+                    for (i in 1..review.rating) {
                         Icon(
                             painterResource(Res.drawable.star),
                             contentDescription = null,

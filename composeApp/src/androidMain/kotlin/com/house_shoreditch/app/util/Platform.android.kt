@@ -18,6 +18,7 @@ class AndroidPlatform(val context: Context) : Platform {
 
 actual fun getPlatform(): Platform = getKoin().get<AndroidPlatform>()
 
+@Suppress("SwallowedException")
 fun isPackageInstalled(context: Context, packageName: String): Boolean {
     return try {
         context.packageManager.getPackageInfo(packageName, 0)

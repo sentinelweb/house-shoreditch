@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 package com.house_shoreditch.app.di
 
 import com.house_shoreditch.app.main.MainViewController
@@ -31,7 +32,7 @@ object IosKoinConfig {
 
 // https://github.com/InsertKoinIO/koin/issues/1492
 @OptIn(ExperimentalNativeApi::class)
-class UIViewControllerHolder() {
+class UIViewControllerHolder {
     private var viewControllerRef: WeakReference<UIViewController>? = null
     val viewController: UIViewController? get() = viewControllerRef?.get()
 
