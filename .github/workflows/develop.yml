@@ -38,13 +38,7 @@ jobs:
         run: |
           ./gradlew \
             kotlinUpgradeYarnLock \
-            build \
-            composeApp:assembleDebug \
-            compileDebugAndroidTestKotlin \
-            testDebugUnitTest \
-            linkDebugFrameworkIosX64 \
-            package \
-            wasmJsBrowserWebpack
+            build
 
       - name: Check
         run: ./gradlew check
