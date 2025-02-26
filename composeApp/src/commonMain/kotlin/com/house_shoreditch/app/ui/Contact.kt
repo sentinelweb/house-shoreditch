@@ -35,6 +35,7 @@ import kotlin.math.max
 
 object Contact {
     @Composable
+    @Suppress("MagicNumber","LongMethod")
     fun ContactSection(
         size: IntSize,
         model: MainContract.Model,
@@ -98,76 +99,92 @@ object Contact {
                         .onSizeChanged { imageSize = it }
                 )
             }
+            ContactSection(contactModel, viewModel)
+            SubSectionTitle("Other platforms", modifier = Modifier.padding(vertical = 8.dp))
+            PlatformsList(viewModel)
+            Footer()
+        }
+    }
+
+    @Composable
+    private fun Footer() {
+        Text(
+            text = "©Robert Munro ${DateUtil.year} - version: ${BuildProps.versionName}",
+            style = MaterialTheme.typography.bodySmall,
+            color = Color.Gray,
+            modifier = Modifier.padding(top = 8.dp)
+        )
+    }
+
+    @Composable
+    private fun ContactSection(
+        contactModel: State<MainContract.ContactModel>,
+        viewModel: MainViewModel
+    ) {
+        RoundIconOutlineButton(
+            contactModel.value.phone ?: "Phone",
+            icon = Res.drawable.phone,
+            onClick = { viewModel.onContactPhoneClick() }
+        )
+        RoundIconOutlineButton(
+            contactModel.value.email ?: "Email",
+            icon = Res.drawable.email,
+            onClick = { viewModel.onContactEmailClick() }
+        )
+        if (getPlatform().isWhatsappAvailable) {
             RoundIconOutlineButton(
-                contactModel.value.phone ?: "Phone",
-                icon = Res.drawable.phone,
-                onClick = { viewModel.onContactPhoneClick() }
+                "WhatsApp",
+                icon = Res.drawable.whatsapp,
+                onClick = { viewModel.onContactWhatsAppClick() }
             )
-            RoundIconOutlineButton(
-                contactModel.value.email ?: "Email",
-                icon = Res.drawable.email,
-                onClick = { viewModel.onContactEmailClick() }
-            )
-            if (getPlatform().isWhatsappAvailable) {
-                RoundIconOutlineButton(
-                    "WhatsApp",
-                    icon = Res.drawable.whatsapp,
-                    onClick = { viewModel.onContactWhatsAppClick() }
+        }
+    }
+
+    @Composable
+    private fun PlatformsList(viewModel: MainViewModel) {
+        Row(modifier = Modifier.horizontalScroll(rememberScrollState(0))) {
+            if (getPlatform().type != PlatformType.Android) {
+                CircleIconButton(
+                    icon = Res.drawable.os_play_store,
+                    onClick = { viewModel.onDownloadPlayClick() },
+                    modifier = Modifier.padding(4.dp)
                 )
             }
-
-            SubSectionTitle("Other platforms", modifier = Modifier.padding(vertical = 8.dp))
-            Row(modifier = Modifier.horizontalScroll(rememberScrollState(0))) {
-                if (getPlatform().type != PlatformType.Android) {
-                    CircleIconButton(
-                        icon = Res.drawable.os_play_store,
-                        onClick = { viewModel.onDownloadPlayClick() },
-                        modifier = Modifier.padding(4.dp)
-                    )
-                }
-                if (getPlatform().type != PlatformType.Ios && false) {
-                    CircleIconButton(
-                        icon = Res.drawable.os_apple_store,
-                        onClick = { viewModel.onDownloadAppleStoreClick() },
-                        modifier = Modifier.padding(4.dp)
-                    )
-                }
-                if (getPlatform().type != PlatformType.Desktop) {
-                    CircleIconButton(
-                        icon = Res.drawable.os_mac,
-                        onClick = { viewModel.onDownloadMacClick() },
-                        modifier = Modifier.padding(4.dp)
-                    )
-                }
-                if (getPlatform().type != PlatformType.Desktop) {
-                    CircleIconButton(
-                        icon = Res.drawable.os_windows,
-                        onClick = { viewModel.onDownloadWinClick() },
-                        modifier = Modifier.padding(4.dp)
-                    )
-                }
-                if (getPlatform().type != PlatformType.Desktop) {
-                    CircleIconButton(
-                        icon = Res.drawable.os_linux,
-                        onClick = { viewModel.onDownloadLinuxClick() },
-                        modifier = Modifier.padding(4.dp)
-                    )
-                }
-                if (getPlatform().type != PlatformType.Web) {
-                    CircleIconButton(
-                        icon = Res.drawable.os_html,
-                        onClick = { viewModel.onDownloadWebClick() },
-                        modifier = Modifier.padding(4.dp)
-                    )
-                }
+            if (getPlatform().type != PlatformType.Ios && false) {
+                CircleIconButton(
+                    icon = Res.drawable.os_apple_store,
+                    onClick = { viewModel.onDownloadAppleStoreClick() },
+                    modifier = Modifier.padding(4.dp)
+                )
             }
-
-            Text(
-                text = "©Robert Munro ${DateUtil.year} - version: ${BuildProps.versionName}",
-                style = MaterialTheme.typography.bodySmall,
-                color = Color.Gray,
-                modifier = Modifier.padding(top = 8.dp)
-            )
+            if (getPlatform().type != PlatformType.Desktop) {
+                CircleIconButton(
+                    icon = Res.drawable.os_mac,
+                    onClick = { viewModel.onDownloadMacClick() },
+                    modifier = Modifier.padding(4.dp)
+                )
+            }
+            if (getPlatform().type != PlatformType.Desktop) {
+                CircleIconButton(
+                    icon = Res.drawable.os_windows,
+                    onClick = { viewModel.onDownloadWinClick() },
+                    modifier = Modifier.padding(4.dp)
+                )
+            }
+            if (getPlatform().type != PlatformType.Desktop) {
+                CircleIconButton(
+                    icon = Res.drawable.os_linux,
+                    onClick = { viewModel.onDownloadLinuxClick() },
+                    modifier = Modifier.padding(4.dp)
+                )
+            }
+            if (getPlatform().type != PlatformType.Web) {
+                CircleIconButton(
+                    icon = Res.drawable.os_html,
+                    onClick = { viewModel.onDownloadWebClick() },
+                    modifier = Modifier.padding(4.dp)
+                )
+            }
         }
     }
 }

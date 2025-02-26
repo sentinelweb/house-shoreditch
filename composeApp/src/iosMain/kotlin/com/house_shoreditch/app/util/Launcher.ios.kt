@@ -35,6 +35,7 @@ actual class Launcher : KoinComponent {
     }
 
     // todo check for ios encoder function
+    @Suppress("MagicNumber")
     actual fun encode(text: String): String {
         return text.map { char ->
             when (char) {

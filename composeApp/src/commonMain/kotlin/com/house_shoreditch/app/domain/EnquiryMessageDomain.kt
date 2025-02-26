@@ -7,9 +7,9 @@ data class EnquiryMessageDomain (
     val message: String,
 ) {
     companion object {
-        val TO_PLACEHOLDER = "<TO>"
-        val SUBJECT_PLACEHOLDER = "<SUBJECT>"
-        val BODY_PLACEHOLDER = "<BODY>"
+        const val TO_PLACEHOLDER = "<TO>"
+        const val SUBJECT_PLACEHOLDER = "<SUBJECT>"
+        const val BODY_PLACEHOLDER = "<BODY>"
         val GMAIL_URL = "https://mail.google.com/mail/?view=cm&fs=1" +
                 "&to=$TO_PLACEHOLDER" +
                 "&su=$SUBJECT_PLACEHOLDER" +

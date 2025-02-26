@@ -4,7 +4,7 @@ import kotlinx.cinterop.ExperimentalForeignApi
 import platform.posix.fputs
 import platform.posix.stderr
 
-@Suppress("unused")
+@Suppress("unused", "MatchingDeclarationName")
 actual object DebugUtils {
     @OptIn(ExperimentalForeignApi::class)
     actual fun printErr(msg: String, err: Exception?) {

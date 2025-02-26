@@ -9,7 +9,9 @@ import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
 
-private const val s = "sms_body"
+private const val SMS_BODY = "sms_body"
+
+private const val EMAIL_MIME = "message/rfc822"
 
 actual class Launcher : KoinComponent {
 
@@ -38,7 +40,7 @@ actual class Launcher : KoinComponent {
     actual fun gmail(message: EnquiryMessageDomain) {
         kotlin.runCatching {
             Intent(Intent.ACTION_SEND).apply {
-                type = "message/rfc822"
+                type = EMAIL_MIME
                 putExtra(Intent.EXTRA_EMAIL, arrayOf(message.to))
                 putExtra(Intent.EXTRA_SUBJECT, message.subject)
                 putExtra(Intent.EXTRA_TEXT, message.message)
@@ -52,7 +54,7 @@ actual class Launcher : KoinComponent {
         kotlin.runCatching {
             Intent(Intent.ACTION_SENDTO).apply {
                 data = Uri.parse("smsto:${Uri.encode(message.to)}")
-                putExtra("sms_body", message.message)
+                putExtra(SMS_BODY, message.message)
             }
                 .apply { setFlags(Intent.FLAG_ACTIVITY_NEW_TASK) }
                 .apply { context.startActivity(this) }

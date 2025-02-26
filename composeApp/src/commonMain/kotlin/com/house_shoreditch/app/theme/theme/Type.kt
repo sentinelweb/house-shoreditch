@@ -1,4 +1,4 @@
-package com.moonsift.app.ui.theme
+package com.house_shoreditch.app.theme.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.runtime.Composable
@@ -37,6 +37,11 @@ fun initFont() {
         Font(Res.font.EBGaramond_ExtraBold, FontWeight.ExtraBold),
     )
 
+    setTypography()
+}
+
+@Suppress("LongMethod")
+private fun setTypography() {
     OasisTypography = Typography(
         displayLarge = TextStyle(
             fontFamily = GaramondFamily,

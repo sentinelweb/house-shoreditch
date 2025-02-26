@@ -38,7 +38,7 @@ import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
 import coil3.compose.AsyncImagePainter
 import com.house_shoreditch.app.main.MainContract
-import com.moonsift.app.ui.theme.BLACK_TSP
+import com.house_shoreditch.app.theme.theme.BLACK_TSP
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -48,6 +48,7 @@ import kotlin.math.min
 object Photos {
 
     @Composable
+    @Suppress("LongMethod","MagicNumber")
     fun PhotosView(
         size: IntSize,
         model: MainContract.Model
@@ -185,8 +186,6 @@ object Photos {
                             showControls = showControls,
                             selectedPhoto = selectedPhoto,
                             model = model,
-                            onNextPhoto = onNextPhoto,
-                            onPrevPhoto = onPrevPhoto,
                             onClosePhoto = onClosePhoto,
                         )
 
@@ -212,8 +211,6 @@ object Photos {
         selectedPhoto: Int,
         showControls: Boolean,
         model: MainContract.Model,
-        onNextPhoto: () -> Unit,
-        onPrevPhoto: () -> Unit,
         onClosePhoto: () -> Unit,
     ) {
         val fadeSpec: FiniteAnimationSpec<Float> = tween(durationMillis = 500, easing = FastOutSlowInEasing)
@@ -260,6 +257,7 @@ object Photos {
             .replaceFirstChar { it.uppercase() }
 
     @Composable
+    @Suppress( "MagicNumber")
     fun StaggeredPhotoGrid(
         size: IntSize,
         model: MainContract.Model,

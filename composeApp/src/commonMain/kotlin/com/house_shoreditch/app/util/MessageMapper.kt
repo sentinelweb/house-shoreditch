@@ -7,7 +7,7 @@ import com.house_shoreditch.app.domain.EnquiryMessageDomain.Companion.TO_PLACEHO
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
-class MessageMapper() : KoinComponent {
+class MessageMapper : KoinComponent {
 
     private val launcher: Launcher by inject()
 

@@ -1,6 +1,6 @@
 @file:Suppress("MagicNumber")
 
-package com.moonsift.app.ui.theme
+package com.house_shoreditch.app.theme.theme
 
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.lightColorScheme

@@ -11,6 +11,7 @@ plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.composeCompiler)
+    alias(libs.plugins.detekt)
 }
 
 kotlin {
@@ -52,6 +53,12 @@ kotlin {
             }
         }
         binaries.executable()
+    }
+
+    sourceSets.all {
+        compilerOptions {
+            freeCompilerArgs.add("-Xexpect-actual-classes")
+        }
     }
 
     sourceSets {
@@ -273,10 +280,10 @@ tasks.register("generateSecretsClass") {
             package com.house_shoreditch.app
             
             object Secrets {
-                val email: String = "${getSecret("EMAIL")}"
-                val phone: String = "${getSecret("PHONE")}"
+                const val email: String = "${getSecret("EMAIL")}"
+                const val phone: String = "${getSecret("PHONE")}"
             }
-        """.trimIndent()
+        """.trimIndent() + "\n" // detekt NewLineAtEndOfFile
         )
     }
 }
@@ -291,10 +298,11 @@ tasks.register("generateBuildPropsClass") {
             package com.house_shoreditch.app
             
             object BuildProps {
-                val versionCode: Int = ${libs.versions.version.code.get().toInt()}
-                val versionName: String = "${libs.versions.version.name.get()}"
+                const val versionCode: Int = ${libs.versions.version.code.get().toInt()}
+                const val versionName: String = "${libs.versions.version.name.get()}"
             }
-        """.trimIndent()
+            
+        """.trimIndent() + "\n" // detekt NewLineAtEndOfFile
         )
     }
 }
@@ -312,4 +320,30 @@ fun getSecret(propertyName: String): String {
         val property = properties.getProperty(propertyName)
         return property
     } else return "invalid"
+}
+
+detekt {
+    toolVersion = libs.versions.detekt.get()
+    config.setFrom(files("${rootDir.path}/config/detekt/detekt.yml"))
+    buildUponDefaultConfig = true
+
+    source.setFrom(
+        files(
+            "src/commonMain/kotlin",
+            "src/commonTest/kotlin",
+            "src/jvmMain/kotlin",
+            "src/jvmTest/kotlin",
+            "src/jsMain/kotlin",
+            "src/jsTest/kotlin",
+            "src/iosMain/kotlin",
+            "src/iosTest/kotlin",
+            "src/wasmJsMain/kotlin",
+            "src/wasmJsTest/kotlin",
+            "src/androidMain/kotlin",
+            "src/androidUnitTest/kotlin",
+            "src/androidInstrumentedTest/kotlin",
+            "src/desktopMain/kotlin",
+            "src/desktopTest/kotlin",
+        )
+    )
 }

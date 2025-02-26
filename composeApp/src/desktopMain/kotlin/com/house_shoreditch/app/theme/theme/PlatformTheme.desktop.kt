@@ -4,7 +4,6 @@ import androidx.compose.runtime.Composable
 
 actual object PlatformTheme {
     @Composable
-    actual fun sideEffects(isDark:Boolean) {
-    }
+    actual fun sideEffects(isDark:Boolean) = Unit
 
 }

@@ -9,8 +9,8 @@ import androidx.compose.ui.text.platform.Font
 import androidx.compose.ui.window.CanvasBasedWindow
 import com.house_shoreditch.app.di.OasisModules
 import com.house_shoreditch.app.ui.App
-import com.moonsift.app.ui.theme.GaramondFamily
-import com.moonsift.app.ui.theme.RobotoFamily
+import com.house_shoreditch.app.theme.theme.GaramondFamily
+import com.house_shoreditch.app.theme.theme.RobotoFamily
 import kotlinx.browser.document
 import oasis.composeapp.generated.resources.Res
 import oasis.composeapp.generated.resources.app_name

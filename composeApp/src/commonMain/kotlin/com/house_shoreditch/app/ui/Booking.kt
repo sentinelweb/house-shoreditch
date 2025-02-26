@@ -60,9 +60,9 @@ object Booking {
             BookOnSection(viewModel)
         }
     }
-
-    private @Composable
-    fun ErrorDisplay(error: String) {
+    @Composable
+    @Suppress("MagicNumber")
+    private fun ErrorDisplay(error: String) {
         Box(
             modifier = Modifier
                 .background(MaterialTheme.colorScheme.errorContainer, RoundedCornerShape(50))
@@ -242,6 +242,7 @@ object Booking {
 
     @OptIn(ExperimentalMaterial3Api::class)
     @Composable
+    @Suppress("LongMethod", "MagicNumber")
     fun DateRangePickerModal(
         onDateRangeSelected: (Pair<Long?, Long?>) -> Unit,
         onDismiss: () -> Unit

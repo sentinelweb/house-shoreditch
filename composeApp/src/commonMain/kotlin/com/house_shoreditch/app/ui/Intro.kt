@@ -27,7 +27,7 @@ import androidx.compose.ui.unit.sp
 import coil3.compose.AsyncImage
 import com.house_shoreditch.app.domain.PaymentMethod
 import com.house_shoreditch.app.main.MainContract
-import com.moonsift.app.ui.theme.BLACK_TSP
+import com.house_shoreditch.app.theme.theme.BLACK_TSP
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.painterResource
@@ -50,74 +50,87 @@ object Intro {
                 .background(BLACK_TSP)
         ) {
             ImageWithCustomFadeIn(model)
-            Column(
-                horizontalAlignment = Alignment.CenterHorizontally,
-                modifier = Modifier
-                    .align(Alignment.Center)
-                    .padding(16.dp)
-            ) {
-                Text(
-                    "Shoreditch Oasis",
-                    style = MaterialTheme.typography.displayLarge,
-                    color = Color.White,
-                    textAlign = TextAlign.Center,
-                )
-
-                Text(
-                    text = "A great place to stay in the heart of Shoreditch",
-                    style = MaterialTheme.typography.labelLarge,
-                    fontSize = 24.sp,
-                    color = Color.White,
-                    textAlign = TextAlign.Center,
-                    modifier = Modifier.padding(vertical = 16.dp)
-                )
-            }
-            Column(
-                horizontalAlignment = Alignment.CenterHorizontally,
-                modifier = Modifier.align(Alignment.BottomStart)
-                    .padding(8.dp)
-            ) {
-                val coroutineScope = rememberCoroutineScope()
-                val rotation = remember { Animatable(-90f) }
-                var paymentMethodIndex by remember { mutableStateOf(0) }
-                val drawable by remember { derivedStateOf { PaymentMethod.entries[paymentMethodIndex].drawable } }
-
-                LaunchedEffect(Unit) {
-                    coroutineScope.launch {
-                        while (true) {
-                            rotation.animateTo(
-                                targetValue = 90f,
-                                animationSpec = tween(durationMillis = 1000, easing = LinearEasing),
-                            )
-                            rotation.snapTo(-90f)
-                            paymentMethodIndex = (paymentMethodIndex + 1) % PaymentMethod.entries.size
-                        }
-                    }
-                }
-
-                Icon(
-                    painter = painterResource(drawable),
-                    contentDescription = null,
-                    tint = Color.White,
-                    modifier = Modifier.size(48.dp)
-                        .graphicsLayer {
-                            this.rotationY = rotation.value
-                        }
-                        .clickable { pageJump(4) }
-                )
-
-                Text(
-                    "We accept",
-                    color = Color.White,
-                    style = MaterialTheme.typography.displaySmall,
-                    fontSize = 18.sp,
-                    modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp)
-                )
-            }
+            Title()
+            PaymentDisplay(pageJump)
         }
     }
 
     @Composable
+    @Suppress("LongMethod", "MagicNumber")
+    private fun BoxScope.PaymentDisplay(pageJump: (Int) -> Unit) {
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            modifier = Modifier.Companion.align(Alignment.BottomStart)
+                .padding(8.dp)
+        ) {
+            val coroutineScope = rememberCoroutineScope()
+            val rotation = remember { Animatable(-90f) }
+            var paymentMethodIndex by remember { mutableStateOf(0) }
+            val drawable by remember { derivedStateOf { PaymentMethod.entries[paymentMethodIndex].drawable } }
+
+            LaunchedEffect(Unit) {
+                coroutineScope.launch {
+                    while (true) {
+                        rotation.animateTo(
+                            targetValue = 90f,
+                            animationSpec = tween(durationMillis = 1000, easing = LinearEasing),
+                        )
+                        rotation.snapTo(-90f)
+                        paymentMethodIndex = (paymentMethodIndex + 1) % PaymentMethod.entries.size
+                    }
+                }
+            }
+
+            Icon(
+                painter = painterResource(drawable),
+                contentDescription = null,
+                tint = Color.White,
+                modifier = Modifier.size(48.dp)
+                    .graphicsLayer {
+                        this.rotationY = rotation.value
+                    }
+                    .clickable { pageJump(4) }
+            )
+
+            Text(
+                "We accept",
+                color = Color.White,
+                style = MaterialTheme.typography.displaySmall,
+                fontSize = 18.sp,
+                modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp)
+            )
+        }
+    }
+
+    @Composable
+    @Suppress( "MagicNumber")
+    private fun BoxScope.Title() {
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            modifier = Modifier.Companion
+                .align(Alignment.Center)
+                .padding(16.dp)
+        ) {
+            Text(
+                "Shoreditch Oasis",
+                style = MaterialTheme.typography.displayLarge,
+                color = Color.White,
+                textAlign = TextAlign.Center,
+            )
+
+            Text(
+                text = "A great place to stay in the heart of Shoreditch",
+                style = MaterialTheme.typography.labelLarge,
+                fontSize = 24.sp,
+                color = Color.White,
+                textAlign = TextAlign.Center,
+                modifier = Modifier.padding(vertical = 16.dp)
+            )
+        }
+    }
+
+    @Composable
+    @Suppress( "MagicNumber")
     fun ImageWithCustomFadeIn(
         model: MainContract.Model
     ) {
