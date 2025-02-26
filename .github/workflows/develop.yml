@@ -25,15 +25,18 @@ jobs:
 
       - name: Decode secrets
         run: |
+          echo "$KEYSTORE_BASE64" | base64 --decode > $GITHUB_WORKSPACE/oasis-release-upload-keystore.jks
           echo "$SECRETS_FILE" > $GITHUB_WORKSPACE/secrets.properties
         env:
+          KEYSTORE_BASE64: ${{ secrets.KEYSTORE_BASE64 }}
           SECRETS_FILE: ${{ secrets.SECRETS_FILE }}
 
-      - name: Check
+      - name: Detekt
         run: ./gradlew detekt
 
       - name: Build with Gradle
-        run: ./gradlew kotlinUpgradeYarnLock build composeApp:assembleDebug compileDebugAndroidTestKotlin testDebugUnitTest linkDebugFrameworkIosX64
+        run: ./gradlew kotlinUpgradeYarnLock build composeApp:assembleDebug compileDebugAndroidTestKotlin \
+                testDebugUnitTest linkDebugFrameworkIosX64 package wasmJsBrowserWebpack
 
       - name: Check
         run: ./gradlew check
