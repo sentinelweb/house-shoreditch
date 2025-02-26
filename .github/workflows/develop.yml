@@ -35,8 +35,16 @@ jobs:
         run: ./gradlew detekt
 
       - name: Build with Gradle
-        run: ./gradlew kotlinUpgradeYarnLock build composeApp:assembleDebug compileDebugAndroidTestKotlin \
-                testDebugUnitTest linkDebugFrameworkIosX64 package wasmJsBrowserWebpack
+        run: |
+          ./gradlew \
+            kotlinUpgradeYarnLock \
+            build \
+            composeApp:assembleDebug \
+            compileDebugAndroidTestKotlin \
+            testDebugUnitTest \
+            linkDebugFrameworkIosX64 \
+            package \
+            wasmJsBrowserWebpack
 
       - name: Check
         run: ./gradlew check
