@@ -310,6 +310,7 @@ tasks.register("generateBuildPropsClass") {
 tasks.named("generateComposeResClass") {
     dependsOn("generateSecretsClass")
     dependsOn("generateBuildPropsClass")
+    dependsOn("updatePlistVersion")
 }
 
 fun getSecret(propertyName: String): String {
@@ -347,3 +348,39 @@ detekt {
         )
     )
 }
+
+tasks.register("updatePlistVersion") {
+    val plistFile = project.file("../iosApp/iosApp/Info.plist") // Path to your `Info.plist` file
+
+    doLast {
+        // Check if files exist
+        if (!plistFile.exists()) {
+            throw GradleException("Info.plist not found at ${plistFile.absolutePath}")
+        }
+
+        // Parse `libs.versions.toml` to extract app-version and build-version
+        val appVersion: String = libs.versions.version.name.get()
+        val buildVersion: String = libs.versions.version.code.get()
+
+        println("Updating Info.plist with App Version: $appVersion and Build Number: $buildVersion")
+
+        // Read the Info.plist file
+        var plistContent = plistFile.readText()
+
+        // Regex to replace version and build number in Info.plist
+        plistContent = plistContent.replace(
+            Regex("<key>CFBundleShortVersionString</key>\\s*<string>.*?</string>"),
+            "<key>CFBundleShortVersionString</key>\n    <string>$appVersion</string>"
+        )
+        plistContent = plistContent.replace(
+            Regex("<key>CFBundleVersion</key>\\s*<string>.*?</string>"),
+            "<key>CFBundleVersion</key>\n    <string>$buildVersion</string>"
+        )
+
+        // Write updated content back to Info.plist
+        plistFile.writeText(plistContent)
+
+        println("Info.plist updated successfully!")
+    }
+}
+
