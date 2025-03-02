@@ -34,9 +34,10 @@ import org.jetbrains.compose.resources.painterResource
 import oasis.composeapp.generated.resources.Res
 import oasis.composeapp.generated.resources.garden_7_DSC_0291
 
+private const val SLIDESHOW_INTERVAL_MS = 5000L
+
 object Intro {
 
-    @OptIn(ExperimentalLayoutApi::class)
     @Composable
     fun IntroScreen(
         size: IntSize,
@@ -89,7 +90,7 @@ object Intro {
                     .graphicsLayer {
                         this.rotationY = rotation.value
                     }
-                    .clickable { pageJump(4) }
+                    .clickable { pageJump(BOOKING_PAGE) }
             )
 
             Text(
@@ -145,7 +146,7 @@ object Intro {
 
         LaunchedEffect(Unit) {
             while (true) {
-                delay(5000)
+                delay(SLIDESHOW_INTERVAL_MS)
                 currentImageIndex = (currentImageIndex + 1) % model.homeBackgroundUris.size
                 currentImagePath = model.homeBackgroundUris.get(currentImageIndex)
             }

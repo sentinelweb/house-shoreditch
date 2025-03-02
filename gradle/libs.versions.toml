@@ -1,6 +1,6 @@
 [versions]
-version-code = "2"
-version-name = "1.0.1"
+version-code = "3"
+version-name = "1.0.3"
 app-pkg = "com.oasis_shoreditch.app"
 app-name = "Oasis_shoreditch"
 app-vendor = "Sentinel Web Technologies Ltd"

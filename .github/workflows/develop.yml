@@ -31,11 +31,14 @@ jobs:
           KEYSTORE_BASE64: ${{ secrets.KEYSTORE_BASE64 }}
           SECRETS_FILE: ${{ secrets.SECRETS_FILE }}
 
-      - name: Check
+      - name: Detekt
         run: ./gradlew detekt
 
       - name: Build with Gradle
-        run: ./gradlew kotlinUpgradeYarnLock build composeApp:assembleDebug compileDebugAndroidTestKotlin testDebugUnitTest linkDebugFrameworkIosX64
+        run: |
+          ./gradlew \
+            kotlinUpgradeYarnLock \
+            build
 
       - name: Check
         run: ./gradlew check
@@ -47,3 +50,4 @@ jobs:
         with:
           name: test-report
           path: '**/build/reports/tests/**'
+
