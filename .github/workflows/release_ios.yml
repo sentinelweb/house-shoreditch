@@ -2,7 +2,7 @@ name: iOS Release CI
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "main", "feature/*" ]
 
 jobs:
   build:
@@ -71,6 +71,7 @@ jobs:
       - name: Create exportOptions.plist
         env:
           TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
+          APPLE_PROVISION_PROFILE_NAME: ${{ secrets.APPLE_PROVISION_PROFILE_NAME }}
         run: |
           cat << EOF > exportOptions.plist
           <?xml version="1.0" encoding="UTF-8"?>
@@ -78,7 +79,7 @@ jobs:
           <plist version="1.0">
           <dict>
               <key>method</key>
-              <string>development</string>
+              <string>app-store</string>
               <key>teamID</key>
               <string>$TEAM_ID</string>
               <key>uploadSymbols</key>
@@ -90,7 +91,7 @@ jobs:
               <key>provisioningProfiles</key>
               <dict>
                   <key>com.house-shoreditch.app.OasisShoreditch</key>
-                  <string>robs_dev</string>
+                  <string>$APPLE_PROVISION_PROFILE_NAME</string>
               </dict>
           </dict>
           </plist>
