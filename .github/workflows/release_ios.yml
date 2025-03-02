@@ -67,10 +67,11 @@ jobs:
           mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
           cp $PP_PATH ~/Library/MobileDevice/Provisioning\ Profiles
 
-      # create provisioning profile https://developer.apple.com/account/resources/profiles/add
+      # Write exportOptions file
       - name: Create exportOptions.plist
         env:
           TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
+          APPLE_PROVISION_PROFILE_NAME: ${{ secrets.APPLE_PROVISION_PROFILE_NAME }}
         run: |
           cat << EOF > exportOptions.plist
           <?xml version="1.0" encoding="UTF-8"?>
@@ -78,7 +79,7 @@ jobs:
           <plist version="1.0">
           <dict>
               <key>method</key>
-              <string>development</string>
+              <string>app-store</string>
               <key>teamID</key>
               <string>$TEAM_ID</string>
               <key>uploadSymbols</key>
@@ -90,12 +91,13 @@ jobs:
               <key>provisioningProfiles</key>
               <dict>
                   <key>com.house-shoreditch.app.OasisShoreditch</key>
-                  <string>robs_dev</string>
+                  <string>$APPLE_PROVISION_PROFILE_NAME</string>
               </dict>
           </dict>
           </plist>
           EOF
 
+      # Build the archive
       - name: Build the iOS app
         run: |
           xcodebuild clean archive \
@@ -120,3 +122,22 @@ jobs:
         with:
           name: iOS-App
           path: build/*.ipa
+
+# TODO upload to testflight
+#      - name: Upload to TestFlight
+#        env:
+#          APPLE_ID: ${{ secrets.APPLE_APP_UPLOAD_USERID }}
+#          APP_SPECIFIC_PASSWORD: ${{ secrets.APPLE_APP_UPLOAD_PASSWORD }}
+#          IPA_PATH: build/OasisShoreditch.ipa  # Update this to your IPA path
+#        run: |
+#          xcrun altool --upload-app \
+#            --type ios \
+#            --file "$IPA_PATH" \
+#            --username "$APPLE_ID" \
+#            --password "$APP_SPECIFIC_PASSWORD" \
+#            --verbose  # Optional: for detailed logs
+#
+#      - name: Check Upload Status
+#        if: failure()
+#        run: |
+#          echo "Upload failed. Check the logs above for more details."
