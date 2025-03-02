@@ -34,4 +34,3 @@ jobs:
         with:
           name: Oasis_Shoreditch.msi
           path: composeApp/build/compose/binaries/main-release/msi/*.msi
-

@@ -2,7 +2,7 @@ name: iOS Release CI
 
 on:
   push:
-    branches: [ "main", "feature/*" ]
+    branches: [ "main" ]
 
 jobs:
   build:
@@ -67,7 +67,7 @@ jobs:
           mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
           cp $PP_PATH ~/Library/MobileDevice/Provisioning\ Profiles
 
-      # create provisioning profile https://developer.apple.com/account/resources/profiles/add
+      # Write exportOptions file
       - name: Create exportOptions.plist
         env:
           TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
@@ -97,6 +97,7 @@ jobs:
           </plist>
           EOF
 
+      # Build the archive
       - name: Build the iOS app
         run: |
           xcodebuild clean archive \
@@ -122,6 +123,7 @@ jobs:
           name: iOS-App
           path: build/*.ipa
 
+# TODO upload to testflight
 #      - name: Upload to TestFlight
 #        env:
 #          APPLE_ID: ${{ secrets.APPLE_APP_UPLOAD_USERID }}
